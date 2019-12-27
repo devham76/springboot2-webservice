@@ -3,6 +3,7 @@ package webservice.springboot2.test.domain.posts;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import webservice.springboot2.test.domain.BaseTimeEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,7 +17,7 @@ import javax.persistence.Id;
 
 // 테이블과 링크 될 클래스임을 알린다
 @Entity
-public class Posts {
+public class Posts extends BaseTimeEntity {
     @Id // pk필드
     @GeneratedValue(strategy = GenerationType.IDENTITY) // pk생성규칙, auto_increment
     private Long id;
@@ -31,10 +32,15 @@ public class Posts {
 
     // 해당 클래스의 빌더 패턴 클래스를 생성
     @Builder
-    public Posts(String title, String content, String author){
+    public Posts(String title, String content, String author) {
         this.title = title;
         this.content = content;
         this.author = author;
+    }
+
+    public void update(String title, String content) {
+        this.title = title;
+        this.content = content;
     }
 }
 

@@ -10,6 +10,7 @@ import webservice.springboot2.test.domain.posts.Posts;
 public class PostsSaveRequestDto {
     // Request, Response용 DTO는 VIEW를 위한 클래스이므로 자주 변경되기 때문에
     // Entity 클래스와 분리해서 사용해야 한다.
+    // 저장용 dto 객체
 
     private String title;
     private String content;

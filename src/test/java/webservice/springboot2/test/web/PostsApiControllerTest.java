@@ -1,5 +1,4 @@
 package webservice.springboot2.test.web;
-import javafx.geometry.Pos;
 import org.springframework.http.*;
 import webservice.springboot2.test.domain.posts.Posts;
 import webservice.springboot2.test.domain.posts.PostsRepository;

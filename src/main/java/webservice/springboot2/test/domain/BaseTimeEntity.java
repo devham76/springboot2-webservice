@@ -10,7 +10,7 @@ import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 
 @Getter
-@MappedSuperclass // JPA Entity 클래스들이 BaseTimeEntity를 상속할 경우 필드들(createdDate, modifiedDate)도 컬럼ㅇ로 인식하도록 한다
+@MappedSuperclass // JPA Entity 클래스들이 BaseTimeEntity를 상속할 경우 필드들(createdDate, modifiedDate)도 컬럼으로 인식하도록 한다
 @EntityListeners(AuditingEntityListener.class)  // BaseTimeEntity 클래스에 Auditing기능(감사)을 포함시킴
 public abstract class BaseTimeEntity {
     /*

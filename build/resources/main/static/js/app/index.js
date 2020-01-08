@@ -70,8 +70,3 @@ var index = {
 };
 index.init();
 
-// btn-update 버튼 클릭
-var main = {
-    init : function(){
-    }
-}

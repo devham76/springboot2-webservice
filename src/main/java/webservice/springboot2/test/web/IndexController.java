@@ -5,20 +5,34 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import webservice.springboot2.test.config.auth.LoginUser;
+import webservice.springboot2.test.config.auth.SessionUser;
+import webservice.springboot2.test.domain.user.User;
 import webservice.springboot2.test.service.posts.PostsService;
 import webservice.springboot2.test.web.dto.PostsResponseDto;
+
+import javax.servlet.http.HttpSession;
 
 @RequiredArgsConstructor
 @Controller
 public class IndexController {
 
     private final PostsService postsService;
+    private final HttpSession httpSession;
 
     @GetMapping("/")
-    public String index(Model model){
+    public String index(Model model, @LoginUser SessionUser user){
         // Model : 서버 템플릿 엔진에서 사용할 수 있는 객체를 저장할 수 있다
         // postsService.findAllDesc()의 결과를 posts로 index.mustache에 전달한다
         model.addAttribute("posts",postsService.findAllDesc());
+
+        // 로그인 성공시 CustomOAuth2UserService에서 SessionUser를 저장하도록 하였으므로
+        // 로그인 성공 시 httpSeesion.getAttribute("user")에서 값을 가져올수있다
+        // SessionUser user = (SessionUser) httpSession.getAttribute("user"); -> 파라미터 @LoginUser 로 처리함
+        if (user != null){
+            model.addAttribute("userName", user.getName());
+        }
+
         return "index";
     }
 

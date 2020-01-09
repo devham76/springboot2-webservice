@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-@EnableJpaAuditing // JAP Auditing 활성화 (BaseTimeEntity에서 사용)
+@EnableJpaAuditing // JPA Auditing 활성화 (BaseTimeEntity에서 사용)
 @SpringBootApplication
 public class Application {
     public static void main(String[] args) {

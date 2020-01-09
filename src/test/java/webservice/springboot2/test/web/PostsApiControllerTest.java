@@ -1,5 +1,6 @@
 package webservice.springboot2.test.web;
 import org.springframework.http.*;
+import org.springframework.security.test.context.support.WithMockUser;
 import webservice.springboot2.test.domain.posts.Posts;
 import webservice.springboot2.test.domain.posts.PostsRepository;
 import webservice.springboot2.test.web.dto.PostsSaveRequestDto;
@@ -39,6 +40,8 @@ public class PostsApiControllerTest {
     }
 
     @Test
+    @WithMockUser(roles="USER") // 인증된 가짜 사용자를 만들어 사용한다, roles에 권한을 준다
+    // 즉, 이것으로인해 ROLE_USER권한을 가진 사용자가 API를 요청하는 것과 같다
     public void Posts_등록된다() throws Exception {
         //=== given
         String title = "title";
@@ -66,6 +69,7 @@ public class PostsApiControllerTest {
     }
 
     @Test
+    @WithMockUser(roles="USER")
     public void Posts_수정된다() throws Exception {
         //given
         Posts savedPosts = postsRepository.save(Posts.builder()

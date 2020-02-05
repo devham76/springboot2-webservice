@@ -1,0 +1,78 @@
+{{>layout/header}}
+<script>
+        // Ignore this in your implementation
+        window.isMbscDemo = true;
+</script>
+<!-- Mobiscroll JS and CSS Includes -->
+<link rel="stylesheet" href="/js/app/mobiscroll.jquery.min.css">
+<script src="/js/app/mobiscroll.jquery.min.js"></script>
+<body>
+
+div class="container-fluid">
+<div class="row">
+    {{>layout/sidebar}}
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" style="padding-top:50px">
+        <h1>스프링부트로 시작하는 웹 서비스 Ver.2</h1>
+        <div mbsc-page class="demo-week-selection">
+
+            <div mbsc-form>
+                <div class="mbsc-grid">
+                    <div class="mbsc-row">
+                        <div class="mbsc-col-sm-12 mbsc-col-md-4">
+                            <div class="mbsc-form-group">
+                                <div class="mbsc-form-group-title">Mon-Sun</div>
+                                <div id="demo-mon-sun"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</div>
+
+<script>
+
+    mobiscroll.settings = {
+        lang: 'en',                      // Specify language like: lang: 'pl' or omit setting to use default
+        theme: 'ios',                    // Specify theme like: theme: 'ios' or omit setting to use default
+            themeVariant: 'light'        // More info about themeVariant: https://docs.mobiscroll.com/4-10-2/calendar#opt-themeVariant
+    };
+
+    $(function () {
+
+        var fromMonday = [],
+            i = 0,
+            j = 0;
+
+        for (i; i < 7; i++) {
+            fromMonday.push(new Date(2020, 0, 8 + i));
+        }
+
+        // Mobiscroll Calendar initialization
+        $('#demo-mon-sun').mobiscroll().calendar({
+            display: 'inline',           // Specify display mode like: display: 'bottom' or omit setting to use default
+            selectType: 'week',          // More info about selectType: https://docs.mobiscroll.com/4-10-2/calendar#opt-selectType
+            defaultValue: fromMonday,    // More info about defaultValue: https://docs.mobiscroll.com/4-10-2/calendar#opt-defaultValue
+            firstSelectDay: 1,           // More info about firstSelectDay: https://docs.mobiscroll.com/4-10-2/calendar#opt-firstSelectDay
+            firstDay: 1                  // More info about firstDay: https://docs.mobiscroll.com/4-10-2/calendar#localization-firstDay
+
+            // 버튼 클릭 시
+             ,onSetDate: function (event, inst) {
+                console.log("onSetDate");
+                console.log(event.date);
+                console.log(inst);
+             }
+
+        });
+
+    });
+
+
+
+
+
+</script>
+
+</body>

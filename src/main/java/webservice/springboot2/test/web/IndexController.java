@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import webservice.springboot2.test.config.auth.LoginUser;
 import webservice.springboot2.test.config.auth.SessionUser;
-import webservice.springboot2.test.domain.user.User;
 import webservice.springboot2.test.service.posts.PostsService;
+import webservice.springboot2.test.service.posts.UnderpinsService;
 import webservice.springboot2.test.web.dto.PostsResponseDto;
 
 import javax.servlet.http.HttpSession;
@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 public class IndexController {
 
     private final PostsService postsService;
+    private final UnderpinsService underpinsService;
     private final HttpSession httpSession;
 
     @GetMapping("/")
@@ -47,5 +48,18 @@ public class IndexController {
         PostsResponseDto dto = postsService.findById(id);
         model.addAttribute("post", dto);
         return "posts-update";
+    }
+
+    // 응원 글 관리화면
+    @GetMapping("/underpin")
+    public String underpin(Model model){
+        model.addAttribute("underpins",underpinsService.findAllDesc());
+        return "underpin";
+    }
+    // 응원 글 관리화면
+    @GetMapping("/weekly")
+    public String weekly(Model model){
+        //model.addAttribute("underpins",underpinsService.findAllDesc());
+        return "weekly";
     }
 }

@@ -8,10 +8,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import webservice.springboot2.test.config.auth.LoginUser;
 import webservice.springboot2.test.config.auth.SessionUser;
 import webservice.springboot2.test.service.posts.PostsService;
+import webservice.springboot2.test.service.posts.RecordsService;
 import webservice.springboot2.test.service.posts.UnderpinsService;
 import webservice.springboot2.test.web.dto.PostsResponseDto;
+import webservice.springboot2.test.web.dto.RecordsDto.RecordsListResponseDto;
 
 import javax.servlet.http.HttpSession;
+import java.util.Date;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Controller
@@ -19,6 +23,7 @@ public class IndexController {
 
     private final PostsService postsService;
     private final UnderpinsService underpinsService;
+    private final RecordsService recordsService;
     private final HttpSession httpSession;
 
     @GetMapping("/")
@@ -59,7 +64,19 @@ public class IndexController {
     // 응원 글 관리화면
     @GetMapping("/weekly")
     public String weekly(Model model){
-        //model.addAttribute("underpins",underpinsService.findAllDesc());
+        Date today = new Date(System.currentTimeMillis());
+        System.out.println("--today : "+today);
+        List<RecordsListResponseDto> recordsListResponseDtos = recordsService.findByRecordDateBetween(today);
+        model.addAttribute("records",recordsListResponseDtos);
+
+        for(RecordsListResponseDto data: recordsListResponseDtos)
+            System.out.println("!!!!!!------>>>"+data.getContent());
         return "weekly";
     }
+
+    @GetMapping("/jobCalendar")
+    public String jabCalendar(){
+        return "jobCalendar";
+    }
+
 }

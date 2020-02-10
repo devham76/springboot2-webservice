@@ -67,10 +67,9 @@ public class IndexController {
         Date today = new Date(System.currentTimeMillis());
         System.out.println("--today : "+today);
         List<RecordsListResponseDto> recordsListResponseDtos = recordsService.findByRecordDateBetween(today);
+
         model.addAttribute("records",recordsListResponseDtos);
 
-        for(RecordsListResponseDto data: recordsListResponseDtos)
-            System.out.println("!!!!!!------>>>"+data.getContent());
         return "weekly";
     }
 

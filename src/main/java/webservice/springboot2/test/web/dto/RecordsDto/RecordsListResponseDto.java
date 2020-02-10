@@ -3,7 +3,7 @@ package webservice.springboot2.test.web.dto.RecordsDto;
 import lombok.Getter;
 import webservice.springboot2.test.domain.records.Records;
 
-import java.sql.Date;
+import java.util.Date;
 
 @Getter
 public class RecordsListResponseDto {

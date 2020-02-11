@@ -5,18 +5,22 @@
         height:100%;
         background:lightgrey;
     }
-    .day_time{
+    .day_time {
         background:yellow;
+    }
+    .day_record {
+        width: 14%;
+        padding: 0.1em;
     }
 </style>
 <script>
         // Ignore this in your implementation
         window.isMbscDemo = true;
-
 </script>
 <!-- Mobiscroll JS and CSS Includes -->
 <link rel="stylesheet" href="/js/app/mobiscroll.jquery.min.css">
 <script src="/js/app/mobiscroll.jquery.min.js"></script>
+
 <body>
 
 <div class="container-fluid">
@@ -45,55 +49,145 @@
             <!--달력 끝-->
             <div class="col-8">
                 <table id="weekly_table" class="table table-bordered" style="height:100%">
-                    <tr>
-                        <td id="day_1">월</td>
-                        <td id="day_2">화</td>
-                        <td id="day_3">수</td>
-                        <td id="day_4">목</td>
-                        <td id="day_5">금</td>
-                        <td id="day_6">토</td>
-                        <td id="day_7">일</td>
-                    </tr>
-                    <tr style="height:100%">
-                        {{#records}}
-                            <td class="day_record" >
-                                <span class="day_time">{{hour}} 시간 {{minute}}분</span>
-                                <div class="day_content">{{content}}</div>
-                            </td>
-                        {{/records}}
-                    </tr>
+
                 </table>
             </div>
         </div>
     </main>
 </div>
 </div>
+
+<div class="modal" tabindex="-1" role="dialog" id="edit_modal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="edit_modal_title">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="edit_modal_body">
+                <div class="mb-3">
+
+                    <div class="col-md-5">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-default">시간</span>
+                            </div>
+                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                        </div>
+                    </div>
+                </div><div class="mb-3">
+
+                <div class="col-md-5">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-default">시간</span>
+                        </div>
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                </div>
+            </div>
+                <div class="mb-3">
+                    <label for="email">Email <span class="text-muted">(Optional)</span></label>
+                    <input type="email" class="form-control" id="email" placeholder="you@example.com">
+                    <div class="invalid-feedback">
+                        Please enter a valid email address for shipping updates.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+                <button type="button" class="btn btn-primary" id="daySave">저장하기</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/js/app/bootstrap.min.js"></script>
 <script>
 
     mobiscroll.settings = {
         lang: 'en',                      // Specify language like: lang: 'pl' or omit setting to use default
         theme: 'ios',                    // Specify theme like: theme: 'ios' or omit setting to use default
-            themeVariant: 'light'        // More info about themeVariant: https://docs.mobiscroll.com/4-10-2/calendar#opt-themeVariant
+        themeVariant: 'light'        // More info about themeVariant: https://docs.mobiscroll.com/4-10-2/calendar#opt-themeVariant
     };
+    // 수정 모달
+    function showModal(dayOfWeek){
+        console.log("showModal ="+dayOfWeek);
+
+        var recordDate = $("#content_"+dayOfWeek).children('[name=recordDate]').val();
+        var content = $("#content_"+dayOfWeek).children('[name=content]').val();
+        var hour = $("#content_"+dayOfWeek).children('[name=hour]').val();
+        var minute = $("#content_"+dayOfWeek).children('[name=minute]').val();
+        $("#edit_modal_title").html(recordDate);
+        $("#edit_modal_body").html("modal body");
+
+        $("#edit_modal").modal('show');
+    }
+    // 테이블에 선택한 데이터 뿌려주기
+    function appendWeeklyData(data){
+        console.log("weekly_data");
+        var array = Object.values(data);    // 배열로 변환
+
+        var head_html = "<tr style='height: fit-content;'>";
+        var table_html = "<tr>";
+        var dateOfWeekArr = ["월","화","수","목","금","토","일"];
+        for(i=0; i<7; i++){
+            var content = array[i]["content"];
+            var hour = array[i]["hour"];
+            var minute = array[i]["minute"];
+            var recordDate = array[i]["recordDate"].substring(0,10);
+            head_html += "<td>"+dateOfWeekArr[i]
+                        + "<span class='edit_icon' onclick='showModal(\""+i+"\")' style='float: right;cursor: pointer;' >"
+                        + "<i class='far fa-edit'></i></span>"
+                        + "</td>";
+
+            table_html += "<td class='day_record' id='content_"+i+"' style='width: 14%;padding: 0.1em;' >"
+                                +"<input type='hidden' name='recordDate' value='"+recordDate+"'>"
+                                +"<input type='hidden' name='hour'       value='"+hour+"'>"
+                                +"<input type='hidden' name='minute'     value='"+minute+"'>"
+                                +"<input type='hidden' name='content'    value='"+content+"'>"
+                                +"<span class='day_time'>" + hour + "시간 " + minute + "분</span>"
+                                +"<div class='day_content'>" + content + "</div>"
+                          +"</td>";
+
+        }
+        head_html += "</tr>";
+        table_html += "</tr>";
+
+        $("#weekly_table *").remove();
+        $("#weekly_table").append(head_html + table_html);
+
+    }
+    // 날짜 형식에 맞춰 만들기
+    function makeDate(year,month, day){
+        month = month+1;
+        month = month<10 ? "0"+month : month;
+        day   = day < 10 ? "0"+day   : day;
+        var date = year+"-"+month+"-"+day+" 00:00:00";
+        return date;
+    }
+
     // 날짜 클릭시
     function changeSelectedDate(selectedDate){
         console.log("selectedDate :"+selectedDate);
         var data = {
             selectedDate: selectedDate
         };
+
          $.ajax({
-            type: 'PUT',
+            type: 'POST',
             url: '/api/v1/records',
             dataType: 'json',
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(data)
-        }).done(function(data) {
-            console.log("selected success, data ->");
-            console.log(data);
-            //window.location.href = '/';
-        }).fail(function (error) {
-            alert(JSON.stringify(error));
-        });
+            }).done(function(data) {
+                appendWeeklyData(data); // 테이블에 추가
+            }).fail(function (error) {
+                alert(JSON.stringify(error));
+            });
+
     }
     $(function () {
 
@@ -101,8 +195,21 @@
             i = 0,
             j = 0;
 
-        for (i; i < 7; i++) {
-            fromMonday.push(new Date(2020, 0, 8 + i));
+        var today = new Date();
+        var dayWeek = today.getDay();	// 요일
+        var day = today.getDate();
+        var month = today.getMonth()
+        var year = today.getFullYear();
+
+        // 오늘날짜가 월요일이 아니라면 그주의 월요일을 찾는다
+		if(dayWeek != 1){
+          	if (dayWeek == 0)   // 일요일이면 저번주 월요일 찾는다
+              day = day - 6;
+        	else
+              day = day - dayWeek + 1;
+        }
+        for (i=0; i < 7; i++) {
+            fromMonday.push(new Date(year, month, day + i));
         }
 
         // Mobiscroll Calendar initialization
@@ -116,18 +223,16 @@
             // 버튼 클릭 시
              ,onSetDate: function (event, inst) {
                 var array = Object.values(inst);    // 배열로 변환
-                var day = array[95][0];
-                var month = array[95][1];
+                var month = array[95][0];
+                var day = array[95][1];
                 var year = array[95][2];
 
                 console.log(year+"/"+month+"/"+day);
-
-                //console.log(dateArray[2]+"/"+dateArray[1]+"/"dateArray[0]);
-                //changeSelectedDate(event.date);
+                var date = makeDate(year,month, day);
+                changeSelectedDate(date);
              }
 
         });
-
     });
 
 </script>

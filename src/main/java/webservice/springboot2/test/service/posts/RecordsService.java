@@ -20,6 +20,7 @@ public class RecordsService {
     // 트랜잭션 범위는 유지 / 조회속도개선 -> 등록,수정,삭제 없는 서비스메소드에서 사용 추천
     @Transactional(readOnly = true)
     public List<RecordsListResponseDto> findByRecordDateBetween(Date selectedDate){
+        System.out.println("[findByRecordDateBetween start]--selectedDate="+selectedDate);
         Date start, end;
         Calendar calendar = Calendar.getInstance() ;
         calendar.setTime(selectedDate);
@@ -56,7 +57,10 @@ public class RecordsService {
                 return date1.compareTo(date2);
             }
         });
-
+        System.out.println("RecordsListResponseDto  ==>");
+        for(RecordsListResponseDto r:recordsListResponseDtos){
+            System.out.println(r.getRecordDate());
+        }
         return recordsListResponseDtos;
     }
 
@@ -85,19 +89,19 @@ public class RecordsService {
                             .minute(0)
                             .build());
                 recordsListResponseDtos.add(newRecordsResponseDto);
+                // day+1
+                calendar.add(Calendar.DATE, 1);
+                start = (Date) calendar.getTime();
             }
-            // day+1
-            calendar.add(Calendar.DATE, 1);
-            start = (Date) calendar.getTime();
         }
         else {
             while (recordsListResponseDtos.size() < 7) {
 
                 String recordsDate = simpleDateFormat.format(recordsListResponseDtos.get(index).getRecordDate());
                 String startDate = simpleDateFormat.format(start);
-                System.out.println("[" + index + "]-------compare : " + recordsDate.compareTo(startDate));
-                System.out.println(recordsListResponseDtos.get(index).getRecordDate() + ", " + recordsDate);
-                System.out.println(start + ", " + startDate);
+                //System.out.println("[" + index + "]-------compare : " + recordsDate.compareTo(startDate));
+                //System.out.println(recordsListResponseDtos.get(index).getRecordDate() + ", " + recordsDate);
+                //System.out.println(start + ", " + startDate);
 
                 if (recordsDate.compareTo(startDate) == 0) {
                     index++;

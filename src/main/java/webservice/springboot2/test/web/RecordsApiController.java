@@ -2,34 +2,34 @@ package webservice.springboot2.test.web;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import webservice.springboot2.test.service.posts.RecordsService;
 import webservice.springboot2.test.web.dto.RecordsDto.RecordsListResponseDto;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
 public class RecordsApiController {
 
-    private RecordsService recordsService;
+    private final RecordsService recordsService;
 
-    @GetMapping("/api/v1/records")
-    public Model getWeeklyRecords(@RequestParam String selectedDate, Model model){
-        Date today = new Date(System.currentTimeMillis());
-        System.out.println("--selectedDate : "+today);
+    @PostMapping("/api/v1/records")
+    public @ResponseBody List<RecordsListResponseDto> getWeeklyRecords
+            (@RequestBody Map<String, String> json) throws ParseException {
+        System.out.println("---------getWeeklyRecords-------------------");
+        String selectedDate = json.get("selectedDate");
+        SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date today = transFormat.parse(selectedDate);
+
+        System.out.println("selectedDate="+today);
         List<RecordsListResponseDto> recordsListResponseDtos = recordsService.findByRecordDateBetween(today);
 
-        model.addAttribute("records",recordsListResponseDtos);
-
-        for(RecordsListResponseDto data: recordsListResponseDtos)
-            System.out.println("!!!!!!------>>>"+data.getContent());
-
-        return model;
+        return recordsListResponseDtos;
     }
 
 }

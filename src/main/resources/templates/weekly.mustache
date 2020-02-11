@@ -59,7 +59,6 @@
                             <td class="day_record" >
                                 <span class="day_time">{{hour}} 시간 {{minute}}분</span>
                                 <div class="day_content">{{content}}</div>
-
                             </td>
                         {{/records}}
                     </tr>
@@ -68,7 +67,7 @@
         </div>
     </main>
 </div>
-
+</div>
 <script>
 
     mobiscroll.settings = {
@@ -116,11 +115,14 @@
 
             // 버튼 클릭 시
              ,onSetDate: function (event, inst) {
-                console.log("onSetDate");
-                console.log(event.date);
-                console.log(inst);
-                console.log(inst.getVal());
-                console.log(inst._value);
+                var array = Object.values(inst);    // 배열로 변환
+                var day = array[95][0];
+                var month = array[95][1];
+                var year = array[95][2];
+
+                console.log(year+"/"+month+"/"+day);
+
+                //console.log(dateArray[2]+"/"+dateArray[1]+"/"dateArray[0]);
                 //changeSelectedDate(event.date);
              }
 

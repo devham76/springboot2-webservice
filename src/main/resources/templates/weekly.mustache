@@ -18,8 +18,7 @@
         window.isMbscDemo = true;
 </script>
 <!-- Mobiscroll JS and CSS Includes -->
-<link rel="stylesheet" href="/js/app/mobiscroll.jquery.min.css">
-<script src="/js/app/mobiscroll.jquery.min.js"></script>
+<link rel="stylesheet" href="/css/mobiscroll.jquery.min.css">
 
 <body>
 
@@ -96,7 +95,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
                 <button type="button" class="btn btn-primary" id="daySave">저장하기</button>
@@ -104,7 +103,8 @@
         </div>
     </div>
 </div>
-<script src="/js/app/bootstrap.min.js"></script>
+{{>layout/footer}}
+
 <script>
 
     mobiscroll.settings = {
@@ -220,6 +220,12 @@
             firstSelectDay: 1,           // More info about firstSelectDay: https://docs.mobiscroll.com/4-10-2/calendar#opt-firstSelectDay
             firstDay: 1                  // More info about firstDay: https://docs.mobiscroll.com/4-10-2/calendar#localization-firstDay
 
+            , colors: [
+                 { d: new Date(2020,1,1), background: 'pink' }
+                ,{ d: new Date(2020,1,2), background: 'pink' }
+                ,{ d: new Date(2020,2,5), background: 'pink' }
+                ,{ d: new Date(2020,2,6), background: 'pink' }
+            ]
             // 버튼 클릭 시
              ,onSetDate: function (event, inst) {
                 var array = Object.values(inst);    // 배열로 변환
@@ -230,6 +236,17 @@
                 console.log(year+"/"+month+"/"+day);
                 var date = makeDate(year,month, day);
                 changeSelectedDate(date);
+             }
+             // 페이지 변경시
+             , onPageChange: function (event, inst) {
+                console.log("[onPageChange]...");
+                // ajax로 호출해서 색바꾸기
+                inst.settings.colors = [
+                        { d: new Date(2020,2,10), background: 'red' }
+                        ,{ d: new Date(2020,2,11), background: 'red' }
+                ];
+
+
              }
 
         });

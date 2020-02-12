@@ -18,6 +18,7 @@ public class RecordsApiController {
 
     private final RecordsService recordsService;
 
+    // 해당 날짜를 포함한 주의 기록을 가져온다
     @PostMapping("/api/v1/records")
     public @ResponseBody List<RecordsListResponseDto> getWeeklyRecords
             (@RequestBody Map<String, String> json) throws ParseException {

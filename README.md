@@ -4,4 +4,4 @@
 ### 취업준비생 사이트 
 - 실습이 완료된 사이트에 기능을 추가하여 취업준비생을 위한 사이트를 구현하고있습니다
 
-[사이트 가기](https://ap-northeast-2.console.aws.amazon.com/rds/home?region=ap-northeast-2#databases:)
+[사이트 가기](http://ec2-15-165-155-30.ap-northeast-2.compute.amazonaws.com:8080/)

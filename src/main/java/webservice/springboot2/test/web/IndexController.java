@@ -22,12 +22,11 @@ import java.util.List;
 public class IndexController {
 
     private final PostsService postsService;
-    private final UnderpinsService underpinsService;
     private final RecordsService recordsService;
     private final HttpSession httpSession;
 
     @GetMapping("/")
-    public String index(Model model, @LoginUser SessionUser user){
+        public String index(Model model, @LoginUser SessionUser user){
         // Model : 서버 템플릿 엔진에서 사용할 수 있는 객체를 저장할 수 있다
         // postsService.findAllDesc()의 결과를 posts로 index.mustache에 전달한다
         model.addAttribute("posts",postsService.findAllDesc());
@@ -47,7 +46,7 @@ public class IndexController {
         return "posts-save";
     }
 
-    // 수정
+    // 수정 화면
     @GetMapping("/posts/update/{id}")
     public  String postsUpdate(@PathVariable Long id, Model model){
         PostsResponseDto dto = postsService.findById(id);
@@ -55,13 +54,7 @@ public class IndexController {
         return "posts-update";
     }
 
-    // 응원 글 관리화면
-    @GetMapping("/underpin")
-    public String underpin(Model model){
-        model.addAttribute("underpins",underpinsService.findAllDesc());
-        return "underpin";
-    }
-    // 응원 글 관리화면
+    // 주간관리 화면
     @GetMapping("/weekly")
     public String weekly(Model model){
         Date today = new Date(System.currentTimeMillis());

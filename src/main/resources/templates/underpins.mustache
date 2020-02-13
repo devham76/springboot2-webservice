@@ -8,7 +8,7 @@
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-6">
-                        <a href="/posts/save" role="button" class="btn btn-primary">글 등록</a>
+                        <a href="/underpins/save" role="button" class="btn btn-primary">글 등록</a>
                     </div>
                 </div>
                 <br>
@@ -16,15 +16,17 @@
                 <table class="table table-horizontal table-bordered">
                     <thead class="thead-strong">
                     <tr>
-                        <th width="20%">게시글 번호</th>
-                        <th>내용</th>
+                        <th width="5%">번호</th>
+                        <th width="5%">적용</th>
+                        <th align="center">내용</th>
                     </tr>
                     </thead>
-                    <tbody id="tbody">
+                    <tbody id="underpinsList_table">
                     {{#underpins}}
                         <tr>
                             <td>{{id}}</td>
-                            <td><a href="/posts/update/{{id}}">{{content}}</a></td>
+                            <td>{{isAppend}}</td>
+                            <td align="center"><a href="/underpins/update/{{id}}">{{content}}</a></td>
                         </tr>
                     {{/underpins}}
                     </tbody>
@@ -32,3 +34,4 @@
             </div>
         </main>
 {{>layout/footer}}
+<script src="/js/app/underpins.js"></script>

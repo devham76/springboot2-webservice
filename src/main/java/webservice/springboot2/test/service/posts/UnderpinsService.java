@@ -3,9 +3,12 @@ package webservice.springboot2.test.service.posts;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import webservice.springboot2.test.domain.posts.Underpins;
-import webservice.springboot2.test.domain.posts.UnderpinsRepository;
-import webservice.springboot2.test.web.dto.*;
+import webservice.springboot2.test.domain.underpins.Underpins;
+import webservice.springboot2.test.domain.underpins.UnderpinsRepository;
+import webservice.springboot2.test.web.dto.UnderpinsDto.UnderpinsListResponseDto;
+import webservice.springboot2.test.web.dto.UnderpinsDto.UnderpinsResponseDto;
+import webservice.springboot2.test.web.dto.UnderpinsDto.UnderpinsSaveRequestDto;
+import webservice.springboot2.test.web.dto.UnderpinsDto.UnderpinsUpdateRequestDto;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,10 +16,12 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service    // controller는 DAO(Repository)에 직접 접근하지 않고 service를 이용하여 요청을 처리한다
 public class UnderpinsService {
+
     private final UnderpinsRepository underpinsRepository;
 
     @Transactional
     public Long save(UnderpinsSaveRequestDto requestDto) {
+        //System.out.println("save underpins.... isappend = "+requestDto.getIsAppend());
         return underpinsRepository.save(requestDto.toEntity()).getId();
     }
 
@@ -24,7 +29,7 @@ public class UnderpinsService {
     public Long update(Long id, UnderpinsUpdateRequestDto requestDto){
         Underpins underpins = underpinsRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 응원글이 없습니다. id="+id));
-        underpins.update(requestDto.getContent());
+        underpins.update(requestDto.getContent(), requestDto.getIsAppend());
 
         return id;
     }
@@ -35,7 +40,7 @@ public class UnderpinsService {
         Underpins underpins = underpinsRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 응원글이 없습니다. id="+id));
         // 삭제
-        underpins.delete();
+        underpinsRepository.delete(underpins);
         return id;
     }
 

@@ -16,20 +16,28 @@
 <body>
 
 <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/">공부계획</a>
+    <a class="navbar-brand col-sm-3 col-md-1 mr-0" href="/">공부계획</a>
 
-    <!--input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
-    <ul class="navbar-nav px-3">
-        <li class="nav-item text-nowrap">
-            <a class="nav-link" href="/logout">로그아웃</a>
-        </li>
-    </ul-->
-    <span style="margin-right: 10px;color: white;">
-        <h8 class="tlt">
+    <div style="margin-left: 10px;color: white;width: 70%;">
+        <h8 class="tlt" style="float: left;">
             <ul class="texts" id="underpins_ul">
                 <li>힘내자</li>
                 <li>화이팅아자아자</li>
             </ul>
         </h8>
-    </span>
+    </div>
+
+    {{#user}} <!-- if(userName) -->
+        <div>
+        <span id="user" style="color: white;">
+            <i class="far fa-user" aria-hidden="true"></i>&nbsp;&nbsp; {{user.name}}</span>
+            <a href="/logout" class="btn btn-dark" role="button" style="margin: 0px 10px 0px 5px;">Logout</a>
+        </div>
+    {{/user}}
+    {{^user}} <!-- if(!userName) -->
+        <a href="oauth2/authorization/google" class="btn btn-success" role="button">Google
+            Login</a>
+        <a href="/oauth2/authorization/naver" class="btn btn-secondary" role="button">Naver
+            Login</a>
+    {{/user}}
 </nav>

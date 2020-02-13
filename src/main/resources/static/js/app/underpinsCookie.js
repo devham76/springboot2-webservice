@@ -11,7 +11,11 @@ function setCookie(cookieName, expireDay, value) {
     console.log("[set cookie]... ");
 
     console.log("type of value : "+ typeof(value));
-    //if(typeof(value) == array)
+    // 값이 없으면 종료
+    if(!value)
+        return;
+
+    if(typeof(value) == "object")
         value = JSON.stringify(value);    // array to string(json)
 
     var day = new Date();
@@ -19,19 +23,18 @@ function setCookie(cookieName, expireDay, value) {
     var expires = "expires="+day.toUTCString();
     document.cookie = cookieName + "=" + value + "; " + expires;
 }
+//
 function underpinsCookieInit() {
     var underpinsList = getCookie("underpinsList");
 
     // 쿠키가 없다면
     if (!underpinsList) {
-        // ajax에 요청해서 쿠키를 설정해준다
-        // 쿠키생성
         console.log("[cookie does not exists]... ");
-        console.log("before getUnderpinsList()...");
-        getUnderpinsList(); // 데이터 검색해서 쿠키세팅하기
+        getUnderpinsList(); // 데이터 검색후 세팅
     }
     else {
     // 쿠키 생성후 헤더 변경
+    /*
         console.log("[cookie]... ");
         console.log(typeof(underpinsList));
         console.log(underpinsList);
@@ -43,7 +46,9 @@ function underpinsCookieInit() {
         }
         console.log(html);
         $("#underpins_ul").append(html);
+    */
     }
+
 }
  /**
   * 쿠키값 추출
@@ -96,8 +101,8 @@ function deleteCookie( cookieName ) {
 
 // 서버에 응원글 요청
 function getUnderpinsList() {
-console.log("getUndderpinsList start...");
-    var resultArr = [];
+    console.log("getUnderpinsList start...");
+
     $.ajax({
         type: 'GET',
         url: '/api/v1/underpins',
@@ -107,22 +112,18 @@ console.log("getUndderpinsList start...");
     }).done(function(data) {
         console.log("ajax success");
         console.log(data);
-        console.log(typeof(data));
 
-
+        var resultArr = [];
         var html = "";
         for(i=0; i<data.length; i++){
-            console.log("i ="+i);
             html += "<li>"+data[i]["content"]+"</li>";
             resultArr.push(data[i]["content"]);
         }
-        console.log("resultArr [0] :"+ resultArr[0]);
+        console.log(html);
+        // 쿠키설정
         setCookie("underpinsList", 1, resultArr);
-
-
-
-                console.log(html);
-                $("#underpins_ul").append(html);
+        // 화면, 응원글 추가
+        $("#underpins_ul").append(html);
     }).fail(function(error) {
         alert(JSON.stringify(error));
     });

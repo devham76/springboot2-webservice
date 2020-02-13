@@ -1,4 +1,4 @@
-package webservice.springboot2.test.domain.posts;
+package webservice.springboot2.test.domain.underpins;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -17,21 +17,23 @@ public class Underpins {
     private Long id;
 
     @Column(columnDefinition = "TEXT", nullable = false)
+    private String writer;
+
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
-    @Column(columnDefinition = "integer default 0")
-    private int isDelete;
+    @Column(columnDefinition = "integer default 1")
+    private int isAppend;
 
     // 해당 클래스의 빌더 패턴 클래스를 생성
     @Builder
-    public Underpins(String content) {
+    public Underpins(String writer, String content, int isAppend) {
+        this.writer = writer;
         this.content = content;
-        this.isDelete = 0;
+        this.isAppend = isAppend;
     }
-    public void update(String content){
+    public void update(String content, int isAppend){
         this.content = content;
-    }
-    public void delete(){
-        this.isDelete = 1;
+        this.isAppend = isAppend;
     }
 }

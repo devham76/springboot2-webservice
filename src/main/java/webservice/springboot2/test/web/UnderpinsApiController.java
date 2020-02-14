@@ -15,6 +15,7 @@ import java.util.List;
 public class UnderpinsApiController {
     private final UnderpinsService underpinsService;
     // 응원글 모든 목록 가져오기
+    /*
     @GetMapping("/api/v1/underpins")
     public List<UnderpinsListResponseDto> getUnderpinsList(){
         System.out.println("[getUnderpinsList api start]...");
@@ -25,7 +26,19 @@ public class UnderpinsApiController {
         }
         return list;
     }
+    */
 
+    // 적용할 응원글 목록 가져오기
+    @GetMapping("/api/v1/underpins")
+    public List<UnderpinsListResponseDto> findByWillAppend(){
+        System.out.println("[findByWillAppend api start]...");
+        List<UnderpinsListResponseDto> list =  underpinsService.findByWillAppend();
+
+        for(UnderpinsListResponseDto underpin:list){
+            System.out.println(underpin);
+        }
+        return list;
+    }
     // 응원글 등록
     @PostMapping("/api/v1/underpins")
     public Long underpinsSaveApi(@RequestBody UnderpinsSaveRequestDto requestDto) {

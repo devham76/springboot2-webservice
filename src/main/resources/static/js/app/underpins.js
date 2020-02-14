@@ -3,12 +3,15 @@ var underpins_index = {
     init : function() {
         var _this = this;
         $('#btn-save').on('click', function(){
+            deleteCookie("underpinsList");
             _this.save();
         });
         $('#btn-update').on('click', function () {
+            deleteCookie("underpinsList");
             _this.update();
         });
         $('#btn-delete').on('click', function () {
+            deleteCookie("underpinsList");
             _this.delete();
         });
     },
@@ -26,10 +29,10 @@ var underpins_index = {
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function() {
-            alert('등록되었습니다.');
             // 쿠키 다시 세팅
-            deleteCookie("underpinsList");
-            underpinsCookieInit();
+
+            getUnderpinsList();
+            alert('등록되었습니다.');
 
             window.location.href = '/underpins';
         }).fail(function(error) {
@@ -51,10 +54,9 @@ var underpins_index = {
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function() {
-            alert('수정되었습니다.');
             // 쿠키 다시 세팅
-            deleteCookie("underpinsList");
-            underpinsCookieInit();
+            getUnderpinsList();
+            alert('수정되었습니다.');
 
             window.location.href = '/underpins';
         }).fail(function (error) {
@@ -70,10 +72,10 @@ var underpins_index = {
             dataType: 'json',
             contentType:'application/json; charset=utf-8'
         }).done(function() {
-            alert('삭제되었습니다.');
+
             // 쿠키 다시 세팅
-            deleteCookie("underpinsList");
-            underpinsCookieInit();
+            getUnderpinsList();
+            alert('삭제되었습니다.');
 
             window.location.href = '/underpins';
         }).fail(function (error) {
@@ -84,7 +86,7 @@ var underpins_index = {
 underpins_index.init();
 
 $(function(){
-
+    // 적용 부분 체크아이콘으로 변경
     $("#underpinsList_table tr").each(function(){
     	var isAppend = $(this).find("td").eq(1);
 	    if(isAppend.text()=="1")

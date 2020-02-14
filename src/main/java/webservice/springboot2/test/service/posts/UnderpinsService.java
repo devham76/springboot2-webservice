@@ -58,4 +58,12 @@ public class UnderpinsService {
                 .map(UnderpinsListResponseDto::new)
                 .collect(Collectors.toList());
     }
+
+    // 적용할 응원글 모음
+    @Transactional(readOnly = true)
+    public List<UnderpinsListResponseDto> findByWillAppend(){
+        return underpinsRepository.findByIsAppendOrderByIdDesc(1).stream()
+                .map(UnderpinsListResponseDto::new)
+                .collect(Collectors.toList());
+    }
 }

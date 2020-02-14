@@ -4,7 +4,7 @@
 
 * 응원글을 불러와서 header 응원글에 넣어준다
 */
-deleteCookie("underpinsList");  // test완료후삭제해야함
+// deleteCookie("underpinsList");  // test완료후삭제해야함
 underpinsCookieInit();
 // 쿠키생성
 function setCookie(cookieName, expireDay, value) {
@@ -33,20 +33,20 @@ function underpinsCookieInit() {
         getUnderpinsList(); // 데이터 검색후 세팅
     }
     else {
+        console.log("[cookie exists]... ");
     // 쿠키 생성후 헤더 변경
-    /*
+
         console.log("[cookie]... ");
         console.log(typeof(underpinsList));
         console.log(underpinsList);
         var html = "";
         var arr = JSON.parse(underpinsList);    // string to object
         for(i=0; i<arr.length; i++) {
-            console.log(arr[i]);
             html += "<li>"+arr[i]+"</li>";
         }
         console.log(html);
         $("#underpins_ul").append(html);
-    */
+
     }
 
 }
@@ -110,7 +110,6 @@ function getUnderpinsList() {
         data: { userId: "test" },
         contentType:'application/json; charset=utf-8'
     }).done(function(data) {
-        console.log("ajax success");
         console.log(data);
 
         var resultArr = [];
@@ -120,10 +119,10 @@ function getUnderpinsList() {
             resultArr.push(data[i]["content"]);
         }
         console.log(html);
+        // 화면, 응원글 추가
+        //$("#underpins_ul").append(html);
         // 쿠키설정
         setCookie("underpinsList", 1, resultArr);
-        // 화면, 응원글 추가
-        $("#underpins_ul").append(html);
     }).fail(function(error) {
         alert(JSON.stringify(error));
     });

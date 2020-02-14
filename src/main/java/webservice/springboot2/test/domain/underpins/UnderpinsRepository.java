@@ -8,4 +8,7 @@ import java.util.List;
 public interface UnderpinsRepository extends  JpaRepository<Underpins, Long>{
     @Query("SELECT u FROM Underpins u ORDER BY u.id DESC")
     List<Underpins> findAllDesc();
+
+    List<Underpins> findByIsAppendOrderByIdDesc(int isAppend);
+
 }

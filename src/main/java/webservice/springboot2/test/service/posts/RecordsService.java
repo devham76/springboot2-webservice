@@ -3,10 +3,13 @@ package webservice.springboot2.test.service.posts;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import webservice.springboot2.test.domain.posts.Posts;
 import webservice.springboot2.test.domain.records.Records;
 import webservice.springboot2.test.domain.records.RecordsRepository;
 import webservice.springboot2.test.web.dto.RecordsDto.RecordsListResponseDto;
+import webservice.springboot2.test.web.dto.RecordsDto.RecordsRequestDto;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -30,7 +33,7 @@ public class RecordsService {
         int dayNum = calendar.get(Calendar.DAY_OF_WEEK);
 
         // 일요일이면 저번주 일요일로, 아니면 이번주 일요일로 이동
-        int gotoMonday = (dayNum==1) ? -8 :(1-dayNum);
+        int gotoMonday = (dayNum==1) ? -7 :(1-dayNum);
         calendar.add(Calendar.DATE, gotoMonday);
         start = (Date) calendar.getTime();
 
@@ -95,8 +98,10 @@ public class RecordsService {
             }
         }
         else {
+            System.out.println("size : "+recordsListResponseDtos.size() );
             while (recordsListResponseDtos.size() < 7) {
-
+                System.out.print("[" + index + "]------- ");
+                System.out.println(recordsListResponseDtos.get(index).getRecordDate());
                 String recordsDate = simpleDateFormat.format(recordsListResponseDtos.get(index).getRecordDate());
                 String startDate = simpleDateFormat.format(start);
                 //System.out.println("[" + index + "]-------compare : " + recordsDate.compareTo(startDate));
@@ -122,5 +127,40 @@ public class RecordsService {
             }
         }
 
+    }
+    @Transactional
+    public Long save(RecordsRequestDto requestDto) {
+        return recordsRepository.save(requestDto.toEntity()).getId();
+    }
+    @Transactional
+    public Long update(Long id, RecordsRequestDto requestDto) {
+        Records records = recordsRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id="+id));
+        records.update(requestDto.getContent(), requestDto.getHour(), requestDto.getMinute());
+        return id;
+
+    }
+
+    @Transactional(readOnly = true)
+    public List<RecordsListResponseDto> getYearMonthRecords(Date start) throws ParseException {
+        // {"date":"2020-02-17","classname" : "grade-5"},
+        SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Calendar calendar = Calendar.getInstance() ;
+        calendar.setTime(start);
+
+        int endYear = calendar.get(Calendar.YEAR);
+        int endMonth = calendar.get(Calendar.MONTH)+1;
+        int endDate  = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+        String endString = endYear+"-"+endMonth+"-"+endDate+" 00:00:00";
+        Date end = transFormat.parse(endString);
+        System.out.println(end);
+
+        System.out.println("first day="+start+" last day="+end);
+        // 시작,종료 날짜는 포함되지 않는다
+        List<RecordsListResponseDto> recordsListResponseDtos = recordsRepository.findByRecordDateBetween(start, end).stream()
+                .map(RecordsListResponseDto::new)
+                .collect(Collectors.toList());
+
+        return recordsListResponseDtos;
     }
 }

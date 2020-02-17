@@ -19,26 +19,27 @@
     .grade-5 {
     background-color: #196127;;
     }
+
 </style>
 <div class="container-fluid">
-<div class="row">
-    {{>layout/sidebar}}
-    <main role="main" class="col-md-11 ml-sm-auto px-4" style="padding-top:50px">
-        <h1>주간 기록</h1>
+    <div class="row">
+        {{>layout/sidebar}}
+        <main role="main" class="col-md-11 ml-sm-auto px-4" style="padding-top:50px">
+            <h1>주간 기록</h1>
 
-        <div class="row">
-            <div class="col-md-3" style="padding: 0;">
-                <div id="my-calendar"></div>
-            </div>
-            <!--달력 끝-->
-            <div class="col" style="padding-right: 0;">
-                <table id="weekly_table" class="table table-bordered" style="height:100%">
+            <div class="row">
+                <div class="col-md-3" style="padding: 0;">
+                    <div id="my-calendar"></div>
+                </div>
+                <!--달력 끝-->
+                <div class="col" style="padding-right: 0;">
+                    <table id="weekly_table" class="table table-bordered" style="height:100%">
 
-                </table>
+                    </table>
+                </div>
             </div>
-        </div>
-    </main>
-</div>
+        </main>
+    </div>
 </div>
 
 <div class="modal" tabindex="-1" role="dialog" id="edit_modal">
@@ -51,42 +52,40 @@
                 </button>
             </div>
             <div class="modal-body" id="edit_modal_body">
-                <div class="mb-3">
-
-                    <div class="col-md-5">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroup-sizing-default">시간</span>
+                <form >
+                    <input type="hidden" id="modal_id" value="">
+                    <div class="form-group">
+                        <label for="">공부시간</label>
+                        <div class="row">
+                            <div class="col-md-5 mb-3">
+                                <label for="hour">시간</label>
+                                <input type="number" class="form-control" id="modal_hour">
                             </div>
-                            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
-                        </div>
-                    </div>
-                </div><div class="mb-3">
+                            <div class="col-md-5 mb-3">
+                                <label for="minute">분</label>
+                                <input type="number" class="form-control" id="modal_minute">
+                            </div>
 
-                <div class="col-md-5">
-                    <div class="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="inputGroup-sizing-default">시간</span>
                         </div>
-                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default">
                     </div>
-                </div>
-            </div>
-                <div class="mb-3">
-                    <label for="email">Email <span class="text-muted">(Optional)</span></label>
-                    <input type="email" class="form-control" id="email" placeholder="you@example.com">
-                    <div class="invalid-feedback">
-                        Please enter a valid email address for shipping updates.
+                    <div class="form-group">
+                        <label for="content">공부내용</label>
+                        <textarea class="form-control" cols="20" rows="10" id="modal_content" placeholder="내용을 입력하세요"></textarea>
                     </div>
-                </div>
+                </form>
             </div>
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-                <button type="button" class="btn btn-primary" id="daySave">저장하기</button>
+                <button type="button" class="btn btn-primary" id="modal_save" onclick="modal_save()">저장하기</button>
             </div>
         </div>
     </div>
+</div>
+
+
+
+
 </div>
 {{>layout/footer}}
 <!-- 달력 -->
@@ -239,4 +238,5 @@
         });
     });
 */
+
 </script>

@@ -50,4 +50,9 @@ public class Records {
         this.minute = minute;
     }
 
+    public void update(String content, int hour, int minute) {
+        this.content = content;
+        this.hour = hour;
+        this.minute = minute;
+    }
 }

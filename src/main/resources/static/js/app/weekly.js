@@ -1,12 +1,42 @@
-
+/*
 mobiscroll.settings = {
     theme: 'ios',
     themeVariant: 'light'
 };
-
+*/
 
 $(function () {
 
+            var today = new Date();
+            var dayWeek = today.getDay();	// 요일
+            var day = today.getDate();
+            var month = today.getMonth()
+            var year = today.getFullYear();
+    $("#my-calendar").zabuto_calendar({
+        year: year,
+        month: month+1,
+        today: true,
+        nav_icon: {
+              prev: '<i class="fa fa-chevron-circle-left"></i>',
+              next: '<i class="fa fa-chevron-circle-right"></i>'
+            },
+        legend: [
+            {type: "text", label: "Bad"},
+            {type: "list", list: ["grade-1", "grade-2", "grade-3", "grade-4", "grade-5"]},
+            {type: "text", label: "Good"}
+        ]
+    });
+    /*
+    var eventData = [
+      {"date":"2015-01-01","badge":false,"title":"Example 1"},
+      {"date":"2015-01-02","badge":true,"title":"Example 2"}
+    ];
+    $(document).ready(function () {
+      $("#my-calendar").zabuto_calendar({
+        data: eventData
+      });
+    });
+/*
     var fromMonday = [],
         fromSaturday = [],
         twoWeeks = [],
@@ -46,4 +76,5 @@ $(function () {
         firstDay: 1,
         select: 'multiple'
     });
+    */
 });

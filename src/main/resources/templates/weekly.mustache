@@ -1,27 +1,25 @@
 {{>layout/header}}
+
 <style>
-    .day_content{
-        width:100%;
-        height:100%;
-        background:lightgrey;
+    .day {
+        cursor: pointer;
     }
-    .day_time {
-        background:yellow;
+    .grade-1 {
+        background-color: #ebedf0;;
     }
-    .day_record {
-        width: 14%;
-        padding: 0.1em;
+    .grade-2 {
+    background-color: #c6e48b;;
+    }
+    .grade-3 {
+    background-color: #7bc96f;;
+    }
+    .grade-4 {
+    background-color: #239a3b;;
+    }
+    .grade-5 {
+    background-color: #196127;;
     }
 </style>
-<script>
-        // Ignore this in your implementation
-        window.isMbscDemo = true;
-</script>
-<!-- Mobiscroll JS and CSS Includes -->
-<link rel="stylesheet" href="/css/mobiscroll.jquery.min.css">
-
-<body>
-
 <div class="container-fluid">
 <div class="row">
     {{>layout/sidebar}}
@@ -29,21 +27,8 @@
         <h1>주간 기록</h1>
 
         <div class="row">
-            <div class="col-md-auto" style="padding: 0;">
-                <div mbsc-page class="demo-week-selection" style="width: fit-content;">
-                    <div mbsc-form>
-                        <div class="mbsc-grid">
-                            <div class="mbsc-row">
-                                <div class="mbsc-col-sm-12 mbsc-col-md-4">
-                                    <div class="mbsc-form-group">
-                                        <!--div class="mbsc-form-group-title"></div-->
-                                        <div id="demo-mon-sun"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-md-3" style="padding: 0;">
+                <div id="my-calendar"></div>
             </div>
             <!--달력 끝-->
             <div class="col" style="padding-right: 0;">
@@ -104,9 +89,11 @@
     </div>
 </div>
 {{>layout/footer}}
-
+<!-- 달력 -->
+<script src="/js/app/zabuto_calendar.min.js"></script>
+<script src="/js/app/weekly.js"></script>
 <script>
-
+/*
     mobiscroll.settings = {
         lang: 'en',                      // Specify language like: lang: 'pl' or omit setting to use default
         theme: 'ios',                    // Specify theme like: theme: 'ios' or omit setting to use default
@@ -251,6 +238,5 @@
 
         });
     });
-
+*/
 </script>
-</body>

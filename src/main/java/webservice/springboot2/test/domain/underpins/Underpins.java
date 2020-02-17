@@ -32,6 +32,7 @@ public class Underpins {
         this.content = content;
         this.isAppend = isAppend;
     }
+
     public void update(String content, int isAppend){
         this.content = content;
         this.isAppend = isAppend;

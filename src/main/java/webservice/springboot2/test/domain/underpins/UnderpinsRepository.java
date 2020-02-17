@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface UnderpinsRepository extends  JpaRepository<Underpins, Long>{
+public interface UnderpinsRepository extends JpaRepository<Underpins, Long>{
     @Query("SELECT u FROM Underpins u ORDER BY u.id DESC")
     List<Underpins> findAllDesc();
 

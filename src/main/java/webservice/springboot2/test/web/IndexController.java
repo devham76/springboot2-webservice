@@ -71,4 +71,8 @@ public class IndexController {
         return "jobCalendar";
     }
 
+    // 채용정보 화면
+    @GetMapping("/recruitInfo")
+    public String recruitInfo() { return "recruitInfo"; }
+
 }

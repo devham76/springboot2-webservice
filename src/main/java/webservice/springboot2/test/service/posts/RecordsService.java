@@ -3,11 +3,12 @@ package webservice.springboot2.test.service.posts;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import webservice.springboot2.test.domain.posts.Posts;
 import webservice.springboot2.test.domain.records.Records;
 import webservice.springboot2.test.domain.records.RecordsRepository;
 import webservice.springboot2.test.web.dto.RecordsDto.RecordsListResponseDto;
-import webservice.springboot2.test.web.dto.RecordsDto.RecordsRequestDto;
+import webservice.springboot2.test.web.dto.RecordsDto.RecordsMarkDto;
+import webservice.springboot2.test.web.dto.RecordsDto.RecordsSaveRequestDto;
+import webservice.springboot2.test.web.dto.RecordsDto.RecordsUpdateRequestDto;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -100,17 +101,24 @@ public class RecordsService {
         else {
             System.out.println("size : "+recordsListResponseDtos.size() );
             while (recordsListResponseDtos.size() < 7) {
+                int dtoSize = recordsListResponseDtos.size();
                 System.out.print("[" + index + "]------- ");
-                System.out.println(recordsListResponseDtos.get(index).getRecordDate());
-                String recordsDate = simpleDateFormat.format(recordsListResponseDtos.get(index).getRecordDate());
-                String startDate = simpleDateFormat.format(start);
-                //System.out.println("[" + index + "]-------compare : " + recordsDate.compareTo(startDate));
-                //System.out.println(recordsListResponseDtos.get(index).getRecordDate() + ", " + recordsDate);
-                //System.out.println(start + ", " + startDate);
 
-                if (recordsDate.compareTo(startDate) == 0) {
-                    index++;
-                } else {
+                boolean needAdd = false;
+                String startDate = simpleDateFormat.format(start);
+                if(index < dtoSize) {
+                    String recordsDate = simpleDateFormat.format(recordsListResponseDtos.get(index).getRecordDate());
+                    if (recordsDate.compareTo(startDate) == 0) {
+                        index++;
+                    }
+                    else    // list의 순서가 요일순서에 맞지 않으면 해당요일을 list에 넣는다
+                        needAdd = true;
+
+                }
+                else    // 원래 list에 있는것들 검사 끝나면 나머지 나머지 요일을 넣는다
+                    needAdd = true;
+
+                if (needAdd) {
                     RecordsListResponseDto newRecordsResponseDto = new RecordsListResponseDto(
                             Records.builder()
                                     .recordDate(start)
@@ -129,11 +137,11 @@ public class RecordsService {
 
     }
     @Transactional
-    public Long save(RecordsRequestDto requestDto) {
+    public Long save(RecordsSaveRequestDto requestDto) {
         return recordsRepository.save(requestDto.toEntity()).getId();
     }
     @Transactional
-    public Long update(Long id, RecordsRequestDto requestDto) {
+    public Long update(Long id, RecordsUpdateRequestDto requestDto) {
         Records records = recordsRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 없습니다. id="+id));
         records.update(requestDto.getContent(), requestDto.getHour(), requestDto.getMinute());
@@ -163,4 +171,12 @@ public class RecordsService {
 
         return recordsListResponseDtos;
     }
+
+    @Transactional(readOnly = true)
+    public List<RecordsMarkDto> findAllDesc() {
+        return recordsRepository.findAllDesc().stream()
+                .map(RecordsMarkDto::new)
+                .collect(Collectors.toList());
+    }
+
 }

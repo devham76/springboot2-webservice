@@ -1,12 +1,12 @@
 package webservice.springboot2.test.web;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import webservice.springboot2.test.service.posts.RecordsService;
-import webservice.springboot2.test.web.dto.PostsUpdateRequestDto;
 import webservice.springboot2.test.web.dto.RecordsDto.RecordsListResponseDto;
-import webservice.springboot2.test.web.dto.RecordsDto.RecordsRequestDto;
+import webservice.springboot2.test.web.dto.RecordsDto.RecordsMarkDto;
+import webservice.springboot2.test.web.dto.RecordsDto.RecordsSaveRequestDto;
+import webservice.springboot2.test.web.dto.RecordsDto.RecordsUpdateRequestDto;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,27 +31,27 @@ public class RecordsApiController {
         List<RecordsListResponseDto> recordsListResponseDtos = recordsService.findByRecordDateBetween(today);
         return recordsListResponseDtos;
     }
-    // 글 수정 또는 저장
-    @PostMapping("/api/v1/records/{id}")
-    public Long saveOrUpdateRecords(@PathVariable Long id, @RequestBody RecordsRequestDto requestDto){
-        System.out.println("saveOrUpdateRecords----id="+id);
-        if(id == -1)
+
+    /*
+    계속 안됬던 이유
+    records 등록,수정시에
+    recordsSaveRequestDto 객체 생성자에 파라메터를 records 객체로지정했기 때문에
+    컨트롤러의 requestbody에서 제대로 매핑되지 못했다
+    */
+    // 글 저장
+    @PostMapping("/api/v1/recordSave")
+    public Long saveRecord(@RequestBody RecordsSaveRequestDto requestDto){
             return recordsService.save(requestDto);
-        else
-            return recordsService.update(id, requestDto);
-
     }
-    // 해당 날짜를 포함한 주의 기록을 가져온다
-    @PostMapping("/api/v1/records/{yearMonth}")
-    public @ResponseBody List<RecordsListResponseDto> getYearMonthRecords
-    (@PathVariable String yearMonth ) throws ParseException {
-        String year = yearMonth.substring(0, 4);
-        String month = yearMonth.substring(4);
-        SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date today = transFormat.parse(year+"-"+month+"-00 00:00:00");
-        System.out.println("getYearMonthRecords ---- "+today);
-        List<RecordsListResponseDto> recordsListResponseDtos = recordsService.getYearMonthRecords(today);
-
-        return recordsListResponseDtos;
+    // 글 수정
+    @PostMapping("/api/v1/recordUpdate/{id}")
+    public Long updateRecord(@PathVariable Long id, @RequestBody RecordsUpdateRequestDto requestDto){
+        return recordsService.update(id, requestDto);
+    }
+    // 해당 날짜에 공부한 시간을 색으로 표현한다
+    @GetMapping("/api/v1/recordsForMark")
+    public List<RecordsMarkDto> recordsForMark() {
+        List<RecordsMarkDto> recordsMarkDtos = recordsService.findAllDesc();
+        return recordsMarkDtos;
     }
 }

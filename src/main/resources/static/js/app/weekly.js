@@ -28,11 +28,7 @@ $(function () {
         action_nav: function () {
             return myNavFunction(this.id);
         }
-        , data : [
-            {"date":"2020-02-17","classname" : "grade-5"},
-            {"date":"2020-02-28","classname" : "grade-3"}
-        ]
-        //,ajax: { url: "/api/vi/record/"+year+month }
+        ,ajax: { url: "/api/v1/recordsForMark" }
         // {date: yyyy-mm-dd, badge: boolean, title: string, body: string, footer: string, classname: string}
     });
     changeSelectedDate(date);
@@ -49,13 +45,6 @@ $(function () {
             var nav = $("#" + id).data("navigation");
             var to = $("#" + id).data("to");
             console.log( to.month + '/' + to.year);
-            $("#my-calendar").zabuto_calendar( {
-                data : [
-                            {"date":"2020-03-17","classname" : "grade-4"},
-                            {"date":"2020-03-28","classname" : "grade-3"}
-                        ]
-                //ajax: { url: "{YOUR_URL}" }
-            });
         }
 
 
@@ -154,23 +143,23 @@ $(function () {
     // 저장하기
     function modal_save() {
         var data = {
-            hour: $('#writer').val(),
-            minute: $('#content').val(),
-            content : $("input[name='isAppend']:checked"). val(),
+            hour: $('#modal_hour').val(),
+            minute: $('#modal_minute').val(),
+            content : $('#modal_content').val(),
             recordDate : $("#edit_modal_title").html()
         };
-        console.log(JSON.stringify(data));
+
         var id = $("#modal_id").val();
-        id = id == null ? -1 : id;
+        var url = (id == "null") ? '/api/v1/recordSave' : '/api/v1/recordUpdate/'+id;
         $.ajax({
             type: 'POST',
-            url: '/api/v1/records/'+id,
+            url: url,
             dataType: 'json',
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function() {
             window.location.href = '/weekly';
-            alert("등록되었습니다");
+            //alert("등록되었습니다");
         }).fail(function(error) {
             alert(JSON.stringify(error));
         });

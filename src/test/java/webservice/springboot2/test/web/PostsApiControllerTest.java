@@ -49,8 +49,6 @@ public class PostsApiControllerTest {
         postsRepository.deleteAll();
     }
 
-    /*
-    * */
     // IoC컨테이너에 있는 빈을 주입받아서 사용한다
     @Autowired
     private WebApplicationContext context;

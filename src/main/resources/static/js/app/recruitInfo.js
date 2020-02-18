@@ -1,4 +1,4 @@
-set_recruit_info();
+//set_recruit_info();
 function set_recruit_info(){
 // 크로스도메인.......ㅂㄷㅂㄷ....;;;;
     console.log("api call");

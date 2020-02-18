@@ -9,11 +9,13 @@ import webservice.springboot2.test.config.auth.LoginUser;
 import webservice.springboot2.test.config.auth.SessionUser;
 import webservice.springboot2.test.service.posts.PostsService;
 import webservice.springboot2.test.service.posts.RecordsService;
+import webservice.springboot2.test.service.posts.RecruitsService;
 import webservice.springboot2.test.service.posts.UnderpinsService;
 import webservice.springboot2.test.web.dto.PostsResponseDto;
 import webservice.springboot2.test.web.dto.RecordsDto.RecordsListResponseDto;
 
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +25,7 @@ public class IndexController {
 
     private final PostsService postsService;
     private final RecordsService recordsService;
+    private final RecruitsService recruitsService;
     private final HttpSession httpSession;
 
     @GetMapping("/")
@@ -73,6 +76,9 @@ public class IndexController {
 
     // 채용정보 화면
     @GetMapping("/recruitInfo")
-    public String recruitInfo() { return "recruitInfo"; }
+    public String recruitInfo(Model model) throws IOException {
+        recruitsService.getRecruitInfo();
+        return "recruitInfo";
+    }
 
 }

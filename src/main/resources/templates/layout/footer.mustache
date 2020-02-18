@@ -3,9 +3,10 @@
 <script src="/js/app/bootstrap.min.js"></script>
 
 <script src="/js/app/jquery.ajax-cross-origin.min.js"></script>
+<!--
 <script src="/js/app/jquery.xdomainajax.js"></script>
 <script src="/js/app/xml2json.js"></script>
-
+-->
 
 <script src="/js/app/jquery.lettering.js"></script>
 <script src="/js/app/jquery.textillate.js"></script>
@@ -16,6 +17,12 @@
 
 <script>
     $(function() {
+        // 사이드바
+        $('.nav li').click(function(){
+            $('.nav li').removeClass('active');
+            $(this).addClass('active');
+        });
+        //응원글 흐르기
         $('.tlt').textillate({
             loop: true,
               // out animation settings.

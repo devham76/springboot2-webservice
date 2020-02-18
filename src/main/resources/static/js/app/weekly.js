@@ -80,8 +80,8 @@ $(function () {
             var r_year = recordDate.getFullYear();
             var r_date = makeDate(r_year, r_month, r_day, 0);
 
-            head_html += "<td>"+dateOfWeekArr[i]
-                        + "<span class='edit_icon' onclick='showModal(\""+i+"\")' style='float: right;cursor: pointer;' >"
+            head_html += "<td align=center>"+dateOfWeekArr[i]
+                        + "<span class='edit_icon' onclick='showModal(\""+i+"\")' style='padding-left:5px;cursor: pointer;' >"
                         + "<i class='far fa-edit'></i></span>"
                         + "</td>";
 
@@ -91,8 +91,9 @@ $(function () {
                                 +"<input type='hidden' name='hour'       value='"+hour+"'>"
                                 +"<input type='hidden' name='minute'     value='"+minute+"'>"
                                 +"<input type='hidden' name='content'    value='"+content+"'>"
-                                +"<span class='day_time'>" + hour + "시간 " + minute + "분</span>"
-                                +"<div class='day_content'>" + r_date +" / "+content + "</div>"
+                                +"<div class='day_date'>" + r_date + "</div>"
+                                +"<div class='day_time'>" + hour + "시간 " + minute + "분</div>"
+                                +"<div class='day_content'>" +content + "</div>"
                           +"</td>";
 
         }

@@ -42,8 +42,7 @@ public class RecordsService {
         calendar.add(Calendar.DATE, 7);
         end = (Date) calendar.getTime();
 
-        System.out.println("---------------start="+start);
-        System.out.println("---------------end="+end);
+        //System.out.println("---------------start="+start+",end="+end);
         // 시작,종료 날짜는 포함되지 않는다
         List<RecordsListResponseDto> recordsListResponseDtos = recordsRepository.findByRecordDateBetween(start, end).stream()
                 .map(RecordsListResponseDto::new)

@@ -30,11 +30,10 @@ var underpins_index = {
             data: JSON.stringify(data)
         }).done(function() {
             // 쿠키 다시 세팅
-
             getUnderpinsList();
             alert('등록되었습니다.');
 
-            window.location.href = '/underpins';
+            //window.location.href = '/underpins';
         }).fail(function(error) {
             alert(JSON.stringify(error));
         });
@@ -58,7 +57,7 @@ var underpins_index = {
             getUnderpinsList();
             alert('수정되었습니다.');
 
-            window.location.href = '/underpins';
+            //window.location.href = '/underpins';
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });
@@ -77,7 +76,7 @@ var underpins_index = {
             getUnderpinsList();
             alert('삭제되었습니다.');
 
-            window.location.href = '/underpins';
+            //window.location.href = '/underpins';
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });

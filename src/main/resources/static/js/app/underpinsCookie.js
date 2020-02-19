@@ -10,13 +10,9 @@ underpinsCookieInit();
 function setCookie(cookieName, expireDay, value) {
     console.log("[set cookie]... ");
 
-    console.log("type of value : "+ typeof(value));
     // 값이 없으면 종료
     if(!value)
         return;
-
-    if(typeof(value) == "object")
-        value = JSON.stringify(value);    // array to string(json)
 
     var day = new Date();
     day.setTime(day.getTime() + (expireDay * 24*60*60*1000));   // 하루
@@ -35,14 +31,15 @@ function underpinsCookieInit() {
     else {
         console.log("[cookie exists]... ");
     // 쿠키 생성후 헤더 변경
-
-        console.log("[cookie]... ");
-        console.log(typeof(underpinsList));
-        console.log(underpinsList);
+        var step1 = underpinsList.split(",");
+        var underpins = {};
+        for( var i in step1 ){
+            var step2 = step1[i].split(":");
+            underpins[step2[0]] = step2[1];
+        }
         var html = "";
-        var arr = JSON.parse(underpinsList);    // string to object
-        for(i=0; i<arr.length; i++) {
-            html += "<li>"+arr[i]+"</li>";
+        for(var i in underpins) {
+            html += "<li>"+underpins[i]+"</li>";
         }
         console.log(html);
         $("#underpins_ul").append(html);
@@ -54,7 +51,21 @@ function underpinsCookieInit() {
   * 쿠키값 추출
   * @param cookieName 쿠키명
   */
- function getCookie( cookieName ) {
+
+function getCookie (cookieName){
+    var name = cookieName + "=";
+    var cookieArr = document.cookie.split(';');
+
+    var cookieValue;
+     for(var i = 0; i < cookieArr.length; i++) {
+        var cookie = cookieArr[i].trim();
+        if (cookie.indexOf(name) == 0) {
+            cookieValue = cookie.substring(name.length, cookie.length);
+        }
+      }
+     return cookieValue;
+  }
+ function getCookie_( cookieName ) {
     var search = cookieName + "=";
     var cookie = document.cookie;
 
@@ -67,7 +78,7 @@ function underpinsCookieInit() {
         if( startIndex != -1 ) {
             // 값을 얻어내기 위해 시작 인덱스 조절
             startIndex += cookieName.length;
-
+            console.log("2startIndex =" +startIndex);
             // 값을 얻어내기 위해 종료 인덱스 추출
             endIndex = cookie.indexOf( ";", startIndex );
 
@@ -95,10 +106,11 @@ function deleteCookie( cookieName ) {
     console.log("deleteCookie...");
     var expireDate = new Date();
     //어제 날짜를 쿠키 소멸 날짜로 설정한다.
+
     expireDate.setDate( expireDate.getDate() - 1 );
+    console.log(cookieName + "= " + "; expires=" + expireDate.toGMTString() + "; path=/");
     document.cookie = cookieName + "= " + "; expires=" + expireDate.toGMTString() + "; path=/";
 }
-
 // 서버에 응원글 요청
 function getUnderpinsList() {
     console.log("getUnderpinsList start...");
@@ -107,23 +119,27 @@ function getUnderpinsList() {
         type: 'GET',
         url: '/api/v1/underpins',
         dataType: 'json',
-        data: { userId: "test" },
         contentType:'application/json; charset=utf-8'
     }).done(function(data) {
         console.log(data);
 
-        var resultArr = [];
+        var cookieVal = "";
         var html = "";
         for(i=0; i<data.length; i++){
-            html += "<li>"+data[i]["content"]+"</li>";
-            resultArr.push(data[i]["content"]);
+            html += "<li class='user'>"+data[i]["content"]+"</li>";
+
+            if(cookieVal != "" ) cookieVal += ",";
+            cookieVal += i+":"+data[i]["content"];
         }
-        console.log(html);
-        // 화면, 응원글 추가
-        //$("#underpins_ul").append(html);
+        console.log(html +"   "+ cookieVal);
+         // 화면, 응원글 추가
+        $("#underpins_ul .user").remove();
+        $("#underpins_ul").append(html);
         // 쿠키설정
-        setCookie("underpinsList", 1, resultArr);
+        setCookie("underpinsList", 1, cookieVal );
     }).fail(function(error) {
         alert(JSON.stringify(error));
     });
 }
+
+

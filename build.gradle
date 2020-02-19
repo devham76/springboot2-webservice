@@ -37,5 +37,6 @@ dependencies {
     compile('org.mariadb.jdbc:mariadb-java-client')
 
     compile('org.springframework.boot:spring-boot-devtools')
+    compile ('org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4:1.16')
 
 }

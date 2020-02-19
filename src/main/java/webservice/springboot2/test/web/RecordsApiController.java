@@ -1,6 +1,7 @@
 package webservice.springboot2.test.web;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import webservice.springboot2.test.service.posts.RecordsService;
 import webservice.springboot2.test.web.dto.RecordsDto.RecordsListResponseDto;
@@ -10,10 +11,12 @@ import webservice.springboot2.test.web.dto.RecordsDto.RecordsUpdateRequestDto;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @RequiredArgsConstructor
 @RestController
 public class RecordsApiController {

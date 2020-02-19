@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <logger name="jdbc.sqlonly" level="off" />
+    <logger name="jdbc.sqltiming" level="info" />
+    <logger name="jdbc.audit" level="off" />
+    <logger name="jdbc.resultset" level="off" />
+    <logger name="jdbc.resultsettable" level="off" />
+    <logger name="jdbc.connection" level="off" />
+
+    <springProfile name="local">
+        <include resource="log/console.xml" />
+        <root level="info">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="local-live">
+        <include resource="log/console.xml" />
+        <root level="info">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="real">
+        <include resource="log/file.xml" />
+        <root level="info">
+            <appender-ref ref="FILE"/>
+        </root>
+    </springProfile>
+
+</configuration>

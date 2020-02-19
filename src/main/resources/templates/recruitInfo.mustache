@@ -6,10 +6,19 @@
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" style="padding-top:50px">
             <h1>채용정보</h1>
             <div class="col-md-12">
-                <table class="table table-bordered" id="info_table">
-
+                <table class="table table-horizontal table-bordered" id="info_table">
+                        </thead>
+                        <tbody id="tbody">
+                        {{#recruits}}
+                            <tr>
+                                <td>{{corpname}}</td>
+                                <td><a href="{{url}}">{{title}}</a></td>
+                                <td>{{upjong}}</td>
+                                <td>{{closedate}} / {{area}}</td>
+                            </tr>
+                        {{/recruits}}
+                        </tbody>
                 </table>
             </div>
         </main>
         {{>layout/footer}}
-        <script src="/js/app/recruitInfo.js"></script>

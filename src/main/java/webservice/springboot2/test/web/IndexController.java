@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import webservice.springboot2.test.config.auth.LoginUser;
 import webservice.springboot2.test.config.auth.SessionUser;
+import webservice.springboot2.test.domain.Recruits;
 import webservice.springboot2.test.service.posts.PostsService;
 import webservice.springboot2.test.service.posts.RecordsService;
 import webservice.springboot2.test.service.posts.RecruitsService;
@@ -77,7 +78,11 @@ public class IndexController {
     // 채용정보 화면
     @GetMapping("/recruitInfo")
     public String recruitInfo(Model model) throws IOException {
-        recruitsService.getRecruitInfo();
+        //============================
+        // Recruits , RecruitsDto  따로 쓰는 이유 ???
+        //============================
+        List<Recruits> recruitsList = recruitsService.getRecruitInfo();
+        model.addAttribute("recruits",recruitsList);
         return "recruitInfo";
     }
 

@@ -1,20 +1,34 @@
 {{>layout/header}}
+<style>
+    .side_info{
+        color: grey;
+        font-size: 11px;
+    }
 
+</style>
 <div class="container-fluid">
     <div class="row">
         {{>layout/sidebar}}
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" style="padding-top:50px">
-            <h1>채용정보</h1>
+        <main role="main" class="col-md-11 ml-sm-auto px-4" style="padding-top:50px">
+            <h1>채용정보</h1><br>
             <div class="col-md-12">
                 <table class="table table-horizontal table-bordered" id="info_table">
                         </thead>
                         <tbody id="tbody">
                         {{#recruits}}
                             <tr>
-                                <td>{{corpname}}</td>
-                                <td><a href="{{url}}">{{title}}</a></td>
-                                <td>{{upjong}}</td>
-                                <td>{{closedate}} / {{area}}</td>
+                                <td>{{idx}}</td>
+                                <td width="35%">{{corpname}}<br>
+                                    <span class="side_info">{{upjong}}</span>
+                                </td>
+                                <td width="45%"><a href="{{url}}">{{title}}</a>
+                                    <br><span class="side_info">{{jcjong}}
+                                        <br>{{area}}</span>
+                                </td>
+                                <td width="10%">{{worktype}}
+                                    <br><span class="side_info">{{pay}}</span>
+                                </td>
+                                <td width="20%">{{closedate}}</td>
                             </tr>
                         {{/recruits}}
                         </tbody>

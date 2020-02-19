@@ -11,47 +11,43 @@ import webservice.springboot2.test.web.dto.RecruitsDto;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.*;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
 
 @Service
 public class RecruitsService {
-
+    public static String[] tagNames = {"url", "회사명", "title", "upjong", "jcjong", "keyword",
+            "worktype", "pay", "opendate", "closedate",
+            "endtype", "applytype", "area"};
+    public static int idx;
     public List<Recruits> getRecruitInfo() throws IOException {
+
         List<Recruits> recruitsList = new ArrayList<>();
-        String addr = "http://api.career.co.kr/open?id=VjfzNMrb5o8yb/LgS8rsPQ==&jc=H002&ac1=1&ec=1";
-        URL url = new URL(addr);
+        String[] addrList = {"http://api.career.co.kr/open?id=VjfzNMrb5o8yb/LgS8rsPQ==&jc=H002&ac1=1&ec=0"
+                        ,"http://api.career.co.kr/open?id=VjfzNMrb5o8yb/LgS8rsPQ==&jc=H002&ac1=3&ec=0"};
 
-        InputStream in = url.openStream();
-        BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
+        idx = 0;
+        for (String addr : addrList) {
+            String xml = getRecruitInfoXml(addr);   // api 요청응답결과의 xml
+            List<Recruits> subRecruitsList = getRecruitInfoList(xml);   // xml 분석 결과의 recruits 리스트
+            recruitsList.addAll(subRecruitsList);
 
-        String str;
-        String xml="";
-        int idx=0;
-        while ((str = br.readLine()) != null) {
-            if(idx!=0) {
-                //System.out.println(str);
-                xml+=str;
-            }
-            idx++;
         }
-        //System.out.println("-------");
+        return recruitsList;
+    }
 
-        List<String> data = new ArrayList<>();
+    private List<Recruits> getRecruitInfoList(String xml) {
 
-        String[] tagNames = {"url", "회사명", "title", "upjong", "jcjong", "keyword",
-                "worktype", "pay", "opendate", "closedate",
-                "endtype", "applytype", "area"};
+        List<Recruits> subRecruitsList = new ArrayList<>();
         try {
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder documentbuilder = factory.newDocumentBuilder(); //// 占쏙옙占썰리 占쌨쇽옙占쏙옙 占쏙옙占쏙옙  占쏙옙占썲에占쏙옙 占쏙옙占쏙옙占�
+            DocumentBuilder documentbuilder = factory.newDocumentBuilder();
             InputStream is = new ByteArrayInputStream(xml.getBytes());
             Document doc = documentbuilder.parse(is);
             Element element = doc.getDocumentElement();
-            //"url, 회사명, title, upjong, jcjong, worktype,
             NodeList jobslList = element.getElementsByTagName("jobs");
             for (int i = 0; i < jobslList.getLength(); i++) {
-                System.out.println("--["+i+"]--");
                 String[] nodeValueList = new String[tagNames.length];
 
                 for( int j=0; j<tagNames.length; j++) {
@@ -59,11 +55,9 @@ public class RecruitsService {
                     Node temp = node.getFirstChild();
                     nodeValueList[j] = temp.getNodeValue();
                 }
-                RecruitsDto recruitsDto = new RecruitsDto(nodeValueList[0],nodeValueList[1], nodeValueList[2],
-                        nodeValueList[3],nodeValueList[4],nodeValueList[5],nodeValueList[6],nodeValueList[7],
-                        nodeValueList[8],nodeValueList[9],nodeValueList[10],nodeValueList[11]);
-                recruitsList.add(recruitsDto.toEntity());
-                //System.out.println(recruitsDto.toString());
+                RecruitsDto recruitsDto = new RecruitsDto(nodeValueList, ++idx);
+                subRecruitsList.add(recruitsDto.toEntity());
+                System.out.println(recruitsDto.toString()+" /// "+nodeValueList[11]+": "+recruitsDto.getArea());
 
             }
 
@@ -72,6 +66,23 @@ public class RecruitsService {
         }
 
 
-        return recruitsList;
+        return subRecruitsList;
+    }
+
+    private String getRecruitInfoXml(String addr) throws IOException {
+        String xml="";
+        URL url = new URL(addr);
+
+        InputStream in = url.openStream();
+        BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
+        String str;
+        int idx=0;
+        while ((str = br.readLine()) != null) {
+            if(idx!=0) {
+                xml+=str;
+            }
+            idx++;
+        }
+        return xml;
     }
 }

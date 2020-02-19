@@ -9,6 +9,7 @@ import javax.annotation.sql.DataSourceDefinition;
 @NoArgsConstructor
 @Getter
 public class Recruits {
+    private int idx;
     private String url;
     private String corpname;
     private String title;
@@ -27,7 +28,7 @@ public class Recruits {
     @Builder
     public Recruits(String url, String corpname, String title, String upjong, String jcjong,
                        String keyword, String worktype, String pay, String opendate, String closedate,
-                       String endtype, String applytype, String area){
+                       String endtype, String applytype, String area, int idx){
         this.url = url;
         this.corpname = corpname;
         this.title = title;
@@ -41,5 +42,6 @@ public class Recruits {
         this.endtype = endtype;
         this.applytype = applytype;
         this.area = area;
+        this.idx = idx;
     }
 }

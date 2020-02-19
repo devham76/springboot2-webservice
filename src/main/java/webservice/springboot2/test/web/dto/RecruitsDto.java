@@ -1,9 +1,12 @@
 package webservice.springboot2.test.web.dto;
 
 import lombok.Builder;
+import lombok.Getter;
 import webservice.springboot2.test.domain.Recruits;
 
+@Getter
 public class RecruitsDto {
+    private int idx;
     private String url;
     private String corpname;
     private String title;
@@ -21,7 +24,8 @@ public class RecruitsDto {
     @Builder
     public RecruitsDto(String url, String corpname, String title, String upjong, String jcjong,
                        String keyword, String worktype, String pay, String opendate, String closedate,
-                       String applytype, String area){
+                       String endtype, String applytype, String area, int idx){
+
         this.url = url;
         this.corpname = corpname;
         this.title = title;
@@ -32,11 +36,13 @@ public class RecruitsDto {
         this.pay = pay;
         this.opendate = opendate;
         this.closedate = closedate;
+        this.endtype = endtype;
         this.applytype = applytype;
         this.area = area;
+        this.idx = idx;
     }
     @Builder
-    public RecruitsDto(String[] values){
+    public RecruitsDto(String[] values, int idx){
         this.url = values[0];
         this.corpname = values[1];
         this.title = values[2];
@@ -50,6 +56,7 @@ public class RecruitsDto {
         this.endtype = values[10];
         this.applytype = values[11];
         this.area = values[12];
+        this.idx = idx;
     }
 
     public String toString(){
@@ -68,8 +75,10 @@ public class RecruitsDto {
                 .pay(pay)
                 .opendate(opendate)
                 .closedate(closedate)
+                .endtype(endtype)
                 .applytype(applytype)
                 .area(area)
+                .idx(idx)
                 .build();
     }
 }

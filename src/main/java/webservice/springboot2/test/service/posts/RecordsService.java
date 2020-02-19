@@ -104,9 +104,10 @@ public class RecordsService {
                 System.out.print("[" + index + "]------- ");
 
                 boolean needAdd = false;
-                String startDate = simpleDateFormat.format(start);
+                String startDate = simpleDateFormat.format(start).substring(0,10);
                 if(index < dtoSize) {
-                    String recordsDate = simpleDateFormat.format(recordsListResponseDtos.get(index).getRecordDate());
+                    String recordsDate = simpleDateFormat.format(recordsListResponseDtos.get(index).getRecordDate()).substring(0,10);
+                    System.out.println("startDate="+startDate+", recordsDate="+recordsDate);
                     if (recordsDate.compareTo(startDate) == 0) {
                         index++;
                     }

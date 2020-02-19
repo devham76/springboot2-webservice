@@ -84,7 +84,7 @@ public class PostsApiControllerTest {
 
         //=== when
         // 생성된 MockMvc를 통해 API를 테스트한다
-        // ㅂㄴ문(BODY)영역은 문자열로 표현하기 위해 ObjectMapper를 통해 문자열 json으로 변환한다
+        // 본문(BODY)영역은 문자열로 표현하기 위해 ObjectMapper를 통해 문자열 json으로 변환한다
         mvc.perform(post(url)
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(new ObjectMapper().writeValueAsString(requestDto)))

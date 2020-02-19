@@ -1,5 +1,6 @@
 package webservice.springboot2.test.domain.plansGoles;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -24,7 +25,8 @@ public class Goles {
     @JoinColumn(name="planSeq")
     private List<Plans> planList;
 
-    public Goles(String title){
+    @Builder
+    public Goles(String title){ // 처음부터 계획이 생성되지 않으므로 생성시에는 제목만 추가해준다
         this.title = title;
     }
     public void addPlane(Plans plan){

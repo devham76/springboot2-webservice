@@ -2,6 +2,7 @@ package webservice.springboot2.test.web;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import webservice.springboot2.test.service.posts.RecordsService;
 import webservice.springboot2.test.web.dto.RecordsDto.RecordsListResponseDto;
@@ -16,7 +17,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-@Slf4j
 @RequiredArgsConstructor
 @RestController
 public class RecordsApiController {
@@ -25,14 +25,13 @@ public class RecordsApiController {
 
     // 해당 날짜를 포함한 week(주)의 기록을 가져온다
     @PostMapping("/api/v1/records")
-    public @ResponseBody List<RecordsListResponseDto> getWeeklyRecords
+    public List<RecordsListResponseDto> getWeeklyRecords
             (@RequestBody Map<String, String> json) throws ParseException {
         String selectedDate = json.get("selectedDate");
         SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date today = transFormat.parse(selectedDate);
 
-        List<RecordsListResponseDto> recordsListResponseDtos = recordsService.findByRecordDateBetween(today);
-        return recordsListResponseDtos;
+        return recordsService.findByRecordDateBetween(today);   // @RestController 이기때문에 리턴값은 http응답헤더에실림
     }
 
     /*

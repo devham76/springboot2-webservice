@@ -13,7 +13,6 @@ import javax.persistence.*;
 @Entity
 public class Plans {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int planSeq;

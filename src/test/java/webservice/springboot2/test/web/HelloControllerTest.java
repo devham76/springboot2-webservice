@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)    // 스프링 부터 테스트와 JUnit사이의 연결자 역할
+@RunWith(SpringRunner.class)    // 스프링부트 테스트와 JUnit사이의 연결자 역할
 // @WebMvcTest // Web(Spring MVC)에 집중할 수 있는 어노테이션
 @WebMvcTest(controllers = HelloController.class,
         excludeFilters = {

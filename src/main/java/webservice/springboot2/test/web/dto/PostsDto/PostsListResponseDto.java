@@ -1,4 +1,4 @@
-package webservice.springboot2.test.web.dto;
+package webservice.springboot2.test.web.dto.PostsDto;
 
 import lombok.Getter;   // lombok이 getter 객체를 생성해준다
 import webservice.springboot2.test.domain.posts.Posts;

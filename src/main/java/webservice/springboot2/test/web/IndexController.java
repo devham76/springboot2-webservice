@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import webservice.springboot2.test.config.auth.LoginUser;
 import webservice.springboot2.test.config.auth.SessionUser;
 import webservice.springboot2.test.domain.Recruits;
+import webservice.springboot2.test.service.posts.GolesService;
 import webservice.springboot2.test.service.posts.PostsService;
 import webservice.springboot2.test.service.posts.RecordsService;
 import webservice.springboot2.test.service.posts.RecruitsService;
-import webservice.springboot2.test.service.posts.UnderpinsService;
-import webservice.springboot2.test.web.dto.PostsResponseDto;
+import webservice.springboot2.test.web.dto.PostsDto.PostsResponseDto;
 import webservice.springboot2.test.web.dto.RecordsDto.RecordsListResponseDto;
 
 import javax.servlet.http.HttpSession;
@@ -27,6 +27,7 @@ public class IndexController {
     private final PostsService postsService;
     private final RecordsService recordsService;
     private final RecruitsService recruitsService;
+    private final GolesService golesSerice;
     private final HttpSession httpSession;
 
     @GetMapping("/")
@@ -86,4 +87,10 @@ public class IndexController {
         return "recruitInfo";
     }
 
+    // 계획정보 화면
+    @GetMapping("/planGole")
+    public String planGole(Model model){
+        model.addAttribute("goles", golesSerice.findAllSeq());
+        return "planGole";
+    }
 }

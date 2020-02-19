@@ -6,10 +6,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import webservice.springboot2.test.domain.posts.Posts;
 import webservice.springboot2.test.domain.posts.PostsRepository;
-import webservice.springboot2.test.web.dto.PostsResponseDto;
-import webservice.springboot2.test.web.dto.PostsSaveRequestDto;
-import webservice.springboot2.test.web.dto.PostsUpdateRequestDto;
-import webservice.springboot2.test.web.dto.PostsListResponseDto;
+import webservice.springboot2.test.web.dto.PostsDto.PostsResponseDto;
+import webservice.springboot2.test.web.dto.PostsDto.PostsSaveRequestDto;
+import webservice.springboot2.test.web.dto.PostsDto.PostsUpdateRequestDto;
+import webservice.springboot2.test.web.dto.PostsDto.PostsListResponseDto;
 
 import java.util.List;
 import java.util.stream.Collectors;

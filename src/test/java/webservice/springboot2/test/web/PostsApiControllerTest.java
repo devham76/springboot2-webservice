@@ -4,12 +4,11 @@ import org.junit.Before;
 import org.springframework.http.*;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MockMvcBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import webservice.springboot2.test.domain.posts.Posts;
 import webservice.springboot2.test.domain.posts.PostsRepository;
-import webservice.springboot2.test.web.dto.PostsSaveRequestDto;
+import webservice.springboot2.test.web.dto.PostsDto.PostsSaveRequestDto;
 
 import org.junit.After;
 import org.junit.Test;
@@ -19,7 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit4.SpringRunner;
-import webservice.springboot2.test.web.dto.PostsUpdateRequestDto;
+import webservice.springboot2.test.web.dto.PostsDto.PostsUpdateRequestDto;
 
 import java.time.LocalDateTime;
 import java.util.List;

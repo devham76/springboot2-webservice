@@ -1,9 +1,9 @@
 package webservice.springboot2.test.web;
 import org.springframework.web.bind.annotation.*;
 import webservice.springboot2.test.service.posts.PostsService;
-import webservice.springboot2.test.web.dto.PostsResponseDto;
-import webservice.springboot2.test.web.dto.PostsSaveRequestDto;
-import webservice.springboot2.test.web.dto.PostsUpdateRequestDto;
+import webservice.springboot2.test.web.dto.PostsDto.PostsResponseDto;
+import webservice.springboot2.test.web.dto.PostsDto.PostsSaveRequestDto;
+import webservice.springboot2.test.web.dto.PostsDto.PostsUpdateRequestDto;
 
 import lombok.RequiredArgsConstructor;
 

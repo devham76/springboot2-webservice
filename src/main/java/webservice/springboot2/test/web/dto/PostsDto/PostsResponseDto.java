@@ -1,4 +1,4 @@
-package webservice.springboot2.test.web.dto;
+package webservice.springboot2.test.web.dto.PostsDto;
 
 import lombok.Getter;
 import webservice.springboot2.test.domain.posts.Posts;

@@ -73,9 +73,11 @@ $(function () {
             var hour = array[i]["hour"];
             var minute = array[i]["minute"];
             var recordDate = array[i]["recordDate"].substring(0,10);
+            console.log("r_id="+r_id+" , before , "+recordDate);
             recordDate = new Date(recordDate);
             if(r_id == null) {
                 recordDate.setDate(recordDate.getDate() + 1);
+                console.log("after , "+recordDate);
             }
             var r_day = recordDate.getDate();
             var r_month = recordDate.getMonth()

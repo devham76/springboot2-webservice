@@ -90,7 +90,7 @@ public class IndexController {
     // 계획정보 화면
     @GetMapping("/planGole")
     public String planGole(Model model){
-        model.addAttribute("goles", golesSerice.findAllSeq());
+        model.addAttribute("planGole", golesSerice.findAllSeq());
         return "planGole";
     }
 }

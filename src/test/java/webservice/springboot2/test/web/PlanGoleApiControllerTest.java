@@ -1,6 +1,5 @@
 package webservice.springboot2.test.web;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.After;
 import org.junit.Before;
@@ -22,12 +21,13 @@ import webservice.springboot2.test.web.dto.plansGolesDto.GolesSaveRequestDto;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = RANDOM_PORT)
 public class PlanGoleApiControllerTest {
     @LocalServerPort
     private int port;
@@ -58,10 +58,9 @@ public class PlanGoleApiControllerTest {
     @WithMockUser(roles = "USER")
     public void Gole_저장되는지확인() throws Exception {
         //== given
-        String title = "title";
-        GolesSaveRequestDto golesSaveRequestDto = GolesSaveRequestDto.builder().title(title).build();
-
-        String url = "http://localhost:" + port + "/api/v1/gole";
+        String title = "test title";
+        GolesSaveRequestDto golesSaveRequestDto = new GolesSaveRequestDto(title);
+        String url = "http://localhost:" + port + "/api/v1/goles";
 
         //== when
         // 생성된 MockMvc를 통해 API를 테스트한다
@@ -75,9 +74,3 @@ public class PlanGoleApiControllerTest {
         assertThat(golesList.get(0).getTitle()).isEqualTo(title);
     }
 }
-/*
-*    @PostMapping("/api/v1/gole")
-    public int saveGole(@RequestBody GolesSaveRequestDto golesSaveRequestDto){
-        return golesService.save(golesSaveRequestDto);
-    }
-* */

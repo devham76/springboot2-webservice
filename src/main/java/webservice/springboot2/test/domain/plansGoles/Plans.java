@@ -3,8 +3,6 @@ package webservice.springboot2.test.domain.plansGoles;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.dom4j.swing.XMLTableColumnDefinition;
-import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
@@ -23,6 +21,7 @@ public class Plans {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
+    @Builder
     public Plans(String content){
         this.content = content;
     }

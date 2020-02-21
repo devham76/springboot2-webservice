@@ -12,7 +12,7 @@ import webservice.springboot2.test.web.dto.plansGolesDto.GolesSaveRequestDto;
 public class PlanGoleApiContorller {
     private final GolesService golesService;
 
-    @PostMapping("/api/v1/gole")
+    @PostMapping("/api/v1/goles")
     public int saveGole(@RequestBody GolesSaveRequestDto golesSaveRequestDto){
         return golesService.save(golesSaveRequestDto);
     }

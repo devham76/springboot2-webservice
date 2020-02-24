@@ -12,21 +12,22 @@ import javax.persistence.*;
 public class Plans {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int planSeq;
-
-    @Column(nullable = false)
-    private int goleSeq;
 
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
+    @ManyToOne
+    @JoinColumn(name = "goleSeq")
+    private Goles goles;
+
     @Builder
-    public Plans(String content, int goleSeq){
+    public Plans(String content, Goles goles){
         this.content = content;
-        this.goleSeq = goleSeq;
+        this.goles = goles;
     }
     public String toString(){
-        return "["+planSeq+" in Gole("+goleSeq+")] : "+content;
+        return "["+planSeq+" ] : "+content;
     }
 }

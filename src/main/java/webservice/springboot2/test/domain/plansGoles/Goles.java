@@ -14,15 +14,15 @@ import java.util.List;
 public class Goles {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int goleSeq;
 
     @Column(length = 500, nullable = false)
     private String title;
 
-    @OneToMany(fetch=FetchType.EAGER    // 항상 plane목록을 가져오게 된다
+    @OneToMany(mappedBy = "goles"
+            , fetch=FetchType.EAGER    // 항상 plan목록을 가져오게 된다
             , cascade = CascadeType.ALL)
-    @JoinColumn(name="planSeq")
+    //@JoinColumn(name="goleSeq") // 그동안 planSeq로 되어있어서 오류났었다....;;;
     private List<Plans> planList;
 
     @Builder

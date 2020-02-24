@@ -92,8 +92,8 @@ public class PlanGoleApiControllerTest {
         int goleseq = list.get(0).getGoleSeq();
 
         // 계획저장
-        Plans plans1 = Plans.builder().content("content1").goleSeq(goleseq).build();
-        Plans plans2 = Plans.builder().content("content2").goleSeq(goleseq).build();
+        Plans plans1 = Plans.builder().content("content1").goles(goles).build();
+        Plans plans2 = Plans.builder().content("content2").goles(goles).build();
         goles.addPlane(plans1);
         goles.addPlane(plans2);
 
@@ -102,8 +102,8 @@ public class PlanGoleApiControllerTest {
 
         // 목표와 계획이 연결되어있는지 확인
         List<Plans> plansList = plansRepository.findAll();
-        assertThat(plansList.get(0).getGoleSeq()).isEqualTo(goleseq);
-        assertThat(plansList.get(1).getGoleSeq()).isEqualTo(goleseq);
+        assertThat(plansList.get(0).getGoles().getGoleSeq()).isEqualTo(goleseq);
+        assertThat(plansList.get(1).getGoles().getGoleSeq()).isEqualTo(goleseq);
 
     }
     @Test

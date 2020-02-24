@@ -1,6 +1,9 @@
 package webservice.springboot2.test.web;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import net.minidev.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +17,7 @@ import webservice.springboot2.test.service.posts.RecordsService;
 import webservice.springboot2.test.service.posts.RecruitsService;
 import webservice.springboot2.test.web.dto.PostsDto.PostsResponseDto;
 import webservice.springboot2.test.web.dto.RecordsDto.RecordsListResponseDto;
+import webservice.springboot2.test.web.dto.plansGolesDto.GolesListResponseDto;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -89,8 +93,8 @@ public class IndexController {
 
     // 계획정보 화면
     @GetMapping("/planGole")
-    public String planGole(Model model){
-        model.addAttribute("planGole", golesSerice.findAllSeq());
+    public String planGole(Model model) throws JsonProcessingException {
+
         return "planGole";
     }
 }

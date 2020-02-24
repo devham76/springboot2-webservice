@@ -16,6 +16,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import webservice.springboot2.test.domain.plansGoles.Goles;
 import webservice.springboot2.test.domain.plansGoles.GolesRepository;
+import webservice.springboot2.test.domain.plansGoles.Plans;
+import webservice.springboot2.test.domain.plansGoles.PlansRepository;
+import webservice.springboot2.test.service.posts.GolesService;
+import webservice.springboot2.test.web.dto.plansGolesDto.GolesListResponseDto;
 import webservice.springboot2.test.web.dto.plansGolesDto.GolesSaveRequestDto;
 
 import java.util.List;
@@ -33,7 +37,11 @@ public class PlanGoleApiControllerTest {
     private int port;
 
     @Autowired
+    private GolesService golesService;
+    @Autowired
     private GolesRepository golesRepository;
+    @Autowired
+    private PlansRepository plansRepository;
 
     // IoC컨테이너에 있는 빈을 주입받아서 사용한다
     @Autowired
@@ -72,5 +80,38 @@ public class PlanGoleApiControllerTest {
                 .andExpect(status().isOk());
         List<Goles> golesList = golesRepository.findAll();
         assertThat(golesList.get(0).getTitle()).isEqualTo(title);
+    }
+
+    @Test
+    @WithMockUser(roles = "USER")
+    public void gole에plan이_저장되는지확인() {
+        // 목표저장
+        Goles goles = Goles.builder().title("title").build();
+        golesRepository.save(goles);
+        List<Goles> list = golesRepository.findAll();
+        int goleseq = list.get(0).getGoleSeq();
+
+        // 계획저장
+        Plans plans1 = Plans.builder().content("content1").goleSeq(goleseq).build();
+        Plans plans2 = Plans.builder().content("content2").goleSeq(goleseq).build();
+        goles.addPlane(plans1);
+        goles.addPlane(plans2);
+
+        plansRepository.save(plans1);
+        plansRepository.save(plans2);
+
+        // 목표와 계획이 연결되어있는지 확인
+        List<Plans> plansList = plansRepository.findAll();
+        assertThat(plansList.get(0).getGoleSeq()).isEqualTo(goleseq);
+        assertThat(plansList.get(1).getGoleSeq()).isEqualTo(goleseq);
+
+    }
+    @Test
+    @WithMockUser(roles = "USER")
+    public void findAllseq() {
+        String title = "title test";
+        golesRepository.save(Goles.builder().title(title).build());
+        List<GolesListResponseDto> list = golesService.findAllSeq();
+        assertThat(list.get(0).getTitle()).isEqualTo(title);
     }
 }

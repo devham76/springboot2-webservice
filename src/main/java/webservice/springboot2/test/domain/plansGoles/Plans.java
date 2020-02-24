@@ -15,15 +15,16 @@ public class Plans {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int planSeq;
 
-    @Column
+    @Column(nullable = false)
     private int goleSeq;
 
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
     @Builder
-    public Plans(String content){
+    public Plans(String content, int goleSeq){
         this.content = content;
+        this.goleSeq = goleSeq;
     }
     public String toString(){
         return "["+planSeq+" in Gole("+goleSeq+")] : "+content;

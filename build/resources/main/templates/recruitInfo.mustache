@@ -1,0 +1,68 @@
+{{>layout/header}}
+<style>
+    .side_info{
+        color: grey;
+        font-size: 11px;
+    }
+    .btn_div {
+        margin-bottom: 10px;
+    }
+</style>
+<div class="container-fluid">
+    <div class="row">
+        {{>layout/sidebar}}
+        <main role="main" class="col-md-11 ml-sm-auto px-4" style="padding-top:50px">
+            <h1>채용정보</h1><br>
+            <div class="col-md-12">
+                <div class="btn_div">
+                    <button type="button" class="btn btn-secondary" onclick="recruitInfo_modal()">채용정보 링크 리스트</button>
+                </div>
+
+                <table class="table table-horizontal table-bordered" id="info_table">
+                        </thead>
+                        <tbody id="tbody">
+                        {{#recruits}}
+                            <tr>
+                                <td>{{idx}}</td>
+                                <td width="35%">{{corpname}}<br>
+                                    <span class="side_info">{{upjong}}</span>
+                                </td>
+                                <td width="45%"><a href="{{url}}">{{title}}</a>
+                                    <br><span class="side_info">{{jcjong}}
+                                        <br>{{area}}</span>
+                                </td>
+                                <td width="10%">{{worktype}}
+                                    <br><span class="side_info">{{pay}}</span>
+                                </td>
+                                <td width="20%">{{closedate}}</td>
+                            </tr>
+                        {{/recruits}}
+                        </tbody>
+                </table>
+            </div>
+        </main>
+
+<!-- 채용 정보 링크 모달 정보 -->
+        <div class="modal" tabindex="-1" role="dialog" id="recruitInfo_modal">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" >채용정보 링크리스트</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" >
+                        <table class="table" id="recruitInfo_modal_table">
+                        </table>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{>layout/footer}}
+        <script src="/js/app/recruitInfo.js"></script>

@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>스프링 부트 웹서비스</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+    <!-- 기본 전체적용 css-->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/animate.min.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <!-- fontawesome-->
+    <script src="https://kit.fontawesome.com/213c16776f.js" crossorigin="anonymous"></script>
+
+    <!-- 달력 -->
+    <link rel="stylesheet" href="/css/zabuto_calendar.min.css">
+
+</head>
+<body>
+
+<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-sm-3 col-md-1 mr-0" href="/">햄의기록</a>
+
+    <div style="margin-left: 10px;color: white;width: 70%;">
+        <h8 class="tlt" style="float: left;">
+            <ul class="texts" id="underpins_ul">
+                <li>힘내자</li>
+                <li>화이팅아자아자</li>
+            </ul>
+        </h8>
+    </div>
+
+    {{#user}} <!-- if(userName) -->
+        <div>
+        <span id="user" style="color: white;">
+            <i class="far fa-user" aria-hidden="true"></i>&nbsp;&nbsp; {{user.name}}</span>
+            <a href="/logout" class="btn btn-dark" role="button" style="margin: 0px 10px 0px 5px;">Logout</a>
+        </div>
+    {{/user}}
+    {{^user}} <!-- if(!userName) -->
+        <a href="oauth2/authorization/google" class="btn btn-success" role="button">Google
+            Login</a>
+        <a href="/oauth2/authorization/naver" class="btn btn-secondary" role="button">Naver
+            Login</a>
+    {{/user}}
+</nav>

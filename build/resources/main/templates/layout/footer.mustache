@@ -1,0 +1,42 @@
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="/js/app/bootstrap.min.js"></script>
+
+
+<script src="/js/app/jquery.lettering.js"></script>
+<script src="/js/app/jquery.textillate.js"></script>
+
+<!-- 응원글 쿠키 확인 js -->
+<script src="/js/app/underpinsCookie.js"></script>
+
+
+<script>
+    $(function() {
+        // 사이드바
+        $('.nav li').click(function(){
+            $('.nav li').removeClass('active');
+            $(this).addClass('active');
+        });
+        //응원글 흐르기
+        $('.tlt').textillate({
+            loop: true,
+              // out animation settings.
+            in: {
+                effect: 'fadeIn',
+                delayScale: 1.5,
+                delay: 70,
+                sync: false,
+                shuffle: false,
+                reverse: false
+            },
+            out: {
+                effect: 'fadeOut',
+                delayScale: 1.5,
+                delay: 70,
+                sync: false,
+                shuffle: false,
+                reverse: false
+            }
+        });
+    });
+</script>

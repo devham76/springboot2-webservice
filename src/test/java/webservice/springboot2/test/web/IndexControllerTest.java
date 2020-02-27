@@ -57,7 +57,7 @@ public class IndexControllerTest {
         //then
         assertThat(body).contains("스프링부트로 시작하는 웹 서비스");
     }
-
+/*
     @WithMockUser(roles="UESER")
     @Test
     public void planGole_로딩() throws Exception {
@@ -68,4 +68,6 @@ public class IndexControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("planGole"));
     }
+
+ */
 }

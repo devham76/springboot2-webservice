@@ -24,6 +24,9 @@ public class Plans {
     @JoinColumn(name = "goleSeq")
     private Goles goles;
 
+    public void update(String content){
+        this.content = content;
+    }
     @Builder
     public Plans(String content, Goles goles){
         this.content = content;

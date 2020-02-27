@@ -2,10 +2,7 @@ package webservice.springboot2.test.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import webservice.springboot2.test.domain.plansGoles.Goles;
 import webservice.springboot2.test.service.posts.GolesService;
 import webservice.springboot2.test.service.posts.PlansService;
@@ -36,7 +33,13 @@ public class PlanGoleApiContorller {
     public int savePlan(@RequestBody Map<String, String> json){
         String content = json.get("content");
         int goleSeq = Integer.parseInt(json.get("goleSeq"));
-
         return plansService.save(content, goleSeq);
     }
+    @PutMapping("/api/v1/planUpdate/{planSeq}")
+    public int updatePlan(@PathVariable int planSeq, @RequestBody Map<String, String> json){
+        String conent = json.get("content");
+        int goleSeq = Integer.parseInt(json.get("goleSeq"));
+        return plansService.update(planSeq, goleSeq, conent);
+    }
 }
+

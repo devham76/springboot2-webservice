@@ -19,10 +19,12 @@ import webservice.springboot2.test.domain.plansGoles.GolesRepository;
 import webservice.springboot2.test.domain.plansGoles.Plans;
 import webservice.springboot2.test.domain.plansGoles.PlansRepository;
 import webservice.springboot2.test.service.posts.GolesService;
+import webservice.springboot2.test.service.posts.PlansService;
 import webservice.springboot2.test.web.dto.plansGolesDto.GolesListResponseDto;
 import webservice.springboot2.test.web.dto.plansGolesDto.GolesSaveRequestDto;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
@@ -38,6 +40,9 @@ public class PlanGoleApiControllerTest {
 
     @Autowired
     private GolesService golesService;
+    @Autowired
+    private PlansService plansService;
+
     @Autowired
     private GolesRepository golesRepository;
     @Autowired
@@ -94,8 +99,8 @@ public class PlanGoleApiControllerTest {
         // 계획저장
         Plans plans1 = Plans.builder().content("content1").goles(goles).build();
         Plans plans2 = Plans.builder().content("content2").goles(goles).build();
-        goles.addPlane(plans1);
-        goles.addPlane(plans2);
+        goles.addPlan(plans1);
+        goles.addPlan(plans2);
 
         plansRepository.save(plans1);
         plansRepository.save(plans2);
@@ -113,5 +118,44 @@ public class PlanGoleApiControllerTest {
         golesRepository.save(Goles.builder().title(title).build());
         List<GolesListResponseDto> list = golesService.findAllSeq();
         assertThat(list.get(0).getTitle()).isEqualTo(title);
+    }
+    @Test
+    @WithMockUser(roles = "USER")
+    public void plan저장시_gole에연결되는지_확인(){
+        String title = "gole title";
+        GolesSaveRequestDto golesSaveRequestDto = GolesSaveRequestDto.builder().title(title).build();
+        int goleSeq = golesService.save(golesSaveRequestDto);
+        //golesRepository.save(golesSaveRequestDto.toEntity());
+        System.out.println("goleseq = "+goleSeq);
+
+        String content = "plan content";
+        int planSeq = plansService.save(content, goleSeq);
+        Plans plan = plansRepository.findByPlanSeq(planSeq);
+        assertThat(plan.getGoles().getGoleSeq()).isEqualTo(goleSeq);
+
+         title = "gole title";
+         golesSaveRequestDto = GolesSaveRequestDto.builder().title(title).build();
+         goleSeq = golesService.save(golesSaveRequestDto);
+        //golesRepository.save(golesSaveRequestDto.toEntity());
+        System.out.println("goleseq2 = "+goleSeq);
+
+         content = "plan content";
+         planSeq = plansService.save(content, goleSeq);
+         plan = plansRepository.findByPlanSeq(planSeq);
+        assertThat(plan.getGoles().getGoleSeq()).isEqualTo(goleSeq);
+
+        /*
+        String url = "http://localhost:" + port + "/api/v1/goles";
+        mvc.perform(post(url))
+
+        mvc.perform(post(url)
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                // objectmapper가 직렬화 할때 golesSaveRequestDto의 @Getter이필요하다
+                .content(new ObjectMapper().writeValueAsString(golesSaveRequestDto)))
+                .andExpect(status().isOk());
+        List<Goles> golesList = golesRepository.findAll();
+        assertThat(golesList.get(0).getTitle()).isEqualTo(title);
+
+         */
     }
 }

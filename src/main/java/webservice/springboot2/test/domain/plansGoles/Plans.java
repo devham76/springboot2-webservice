@@ -1,5 +1,6 @@
 package webservice.springboot2.test.domain.plansGoles;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,7 @@ public class Plans {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "goleSeq")
     private Goles goles;

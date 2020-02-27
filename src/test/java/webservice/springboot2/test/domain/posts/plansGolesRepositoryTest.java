@@ -35,7 +35,7 @@ public class plansGolesRepositoryTest {
         Goles getGole = golesList.get(0);
 
         Plans plan1 = new Plans("계획 내용", gole1);
-        gole1.addPlane(plan1);
+        gole1.addPlan(plan1);
         assertThat(getGole.getPlanList().get(0).getContent()).isEqualTo("계획 내용");
     }
     @Test

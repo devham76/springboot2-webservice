@@ -1,5 +1,6 @@
 package webservice.springboot2.test.domain.plansGoles;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,11 +15,13 @@ import java.util.List;
 public class Goles {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int goleSeq;
 
     @Column(length = 500, nullable = false)
     private String title;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "goles"
             , fetch=FetchType.EAGER    // 항상 plan목록을 가져오게 된다
             , cascade = CascadeType.ALL)
@@ -29,7 +32,8 @@ public class Goles {
     public Goles(String title){ // 처음부터 계획이 생성되지 않으므로 생성시에는 제목만 추가해준다
         this.title = title;
     }
-    public void addPlane(Plans plan){
+
+    public void addPlan(Plans plan){
         if(planList == null)
             planList = new ArrayList<>();
 

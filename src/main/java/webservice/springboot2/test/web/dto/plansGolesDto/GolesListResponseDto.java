@@ -19,4 +19,5 @@ public class GolesListResponseDto {
         this.title = goles.getTitle();
         this.planList = goles.getPlanList();
     }
+
 }

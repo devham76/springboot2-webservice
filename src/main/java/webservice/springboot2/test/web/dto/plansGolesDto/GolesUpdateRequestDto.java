@@ -6,6 +6,7 @@ import webservice.springboot2.test.domain.plansGoles.Plans;
 import java.util.List;
 
 public class GolesUpdateRequestDto {
+
     private String title;
     private List<Plans> planList;
 

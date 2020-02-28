@@ -25,7 +25,7 @@ public class plansGolesRepositoryTest {
     PlansRepository plansRepository;
 
     @Test
-    public void jpaTest_onToMany가작동하는지_확인한다(){
+    public void jpaTest_onToMany가작동하는지_확인한다() {
         //-- given
         Goles gole1 = new Goles("title");
         // -- 저장

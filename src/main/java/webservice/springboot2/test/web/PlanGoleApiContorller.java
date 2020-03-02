@@ -26,17 +26,21 @@ public class PlanGoleApiContorller {
     }
     //public List<RecordsListResponseDto> getWeeklyRecords
     //            (@RequestBody Map<String, String> json) throws ParseException {
-    @PostMapping("/api/v1/planSave")
+    @PostMapping("/api/v1/plan/save")
     public int savePlan(@RequestBody Map<String, String> json){
         String content = json.get("content");
         int goleSeq = Integer.parseInt(json.get("goleSeq"));
         return plansService.save(content, goleSeq);
     }
-    @PutMapping("/api/v1/planUpdate/{planSeq}")
+    @PutMapping("/api/v1/plan/update/{planSeq}")
     public int updatePlan(@PathVariable int planSeq, @RequestBody Map<String, String> json){
         String conent = json.get("content");
         int goleSeq = Integer.parseInt(json.get("goleSeq"));
         return plansService.update(planSeq, goleSeq, conent);
+    }
+    @DeleteMapping("/api/v1/gole/delete/{goleSeq}")
+    public void delteGole(@PathVariable int goleSeq){
+        golesService.delete(goleSeq);
     }
 }
 

@@ -21,6 +21,7 @@ import webservice.springboot2.test.domain.plansGoles.PlansRepository;
 import webservice.springboot2.test.service.posts.GolesService;
 import webservice.springboot2.test.service.posts.PlansService;
 import webservice.springboot2.test.web.dto.plansGolesDto.GolesListResponseDto;
+import webservice.springboot2.test.web.dto.plansGolesDto.GolesResponseDto;
 import webservice.springboot2.test.web.dto.plansGolesDto.GolesSaveRequestDto;
 
 import java.util.List;
@@ -143,19 +144,22 @@ public class PlanGoleApiControllerTest {
          planSeq = plansService.save(content, goleSeq);
          plan = plansRepository.findByPlanSeq(planSeq);
         assertThat(plan.getGoles().getGoleSeq()).isEqualTo(goleSeq);
+    }
+    @Test
+    @WithMockUser(roles = "USER")
+    public void gole삭제시_plan도_삭제되는지확인(){
+        //-- given
+        int goleSeq = golesService.save(GolesSaveRequestDto.builder().title("title").build());
+        int planSeq1 = plansService.save("plan1", goleSeq);
+        int planSeq2 = plansService.save("plan2", goleSeq);
 
-        /*
-        String url = "http://localhost:" + port + "/api/v1/goles";
-        mvc.perform(post(url))
+        //-- when
+        Goles goles = golesRepository.findByGoleSeq(goleSeq);
+        golesRepository.delete(goles);
+        Plans plans1 = plansRepository.findByPlanSeq(planSeq1);
+        Plans plans2 = plansRepository.findByPlanSeq(planSeq2);
 
-        mvc.perform(post(url)
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                // objectmapper가 직렬화 할때 golesSaveRequestDto의 @Getter이필요하다
-                .content(new ObjectMapper().writeValueAsString(golesSaveRequestDto)))
-                .andExpect(status().isOk());
-        List<Goles> golesList = golesRepository.findAll();
-        assertThat(golesList.get(0).getTitle()).isEqualTo(title);
-
-         */
+        assertThat(plans1).isNull();
+        assertThat(plans2).isNull();
     }
 }

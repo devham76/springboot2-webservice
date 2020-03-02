@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import webservice.springboot2.test.domain.plansGoles.Goles;
 import webservice.springboot2.test.domain.plansGoles.GolesRepository;
 import webservice.springboot2.test.web.dto.plansGolesDto.GolesListResponseDto;
 import webservice.springboot2.test.web.dto.plansGolesDto.GolesSaveRequestDto;
@@ -30,5 +31,11 @@ public class GolesService {
         int goleseq = golesRepository.save(golesSaveRequestDto.toEntity()).getGoleSeq();
         System.out.println("[ service save ]goleseq = "+goleseq);
         return goleseq;
+    }
+
+    public void delete(int goleSeq) {
+        Goles goles = golesRepository.findById(goleSeq)
+            .orElseThrow(() -> new IllegalArgumentException("해당 목표가 없습니다. id="+goleSeq));
+        golesRepository.delete(goles);
     }
 }

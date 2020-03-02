@@ -33,7 +33,7 @@ var underpins_index = {
             getUnderpinsList();
             alert('등록되었습니다.');
 
-            //window.location.href = '/underpins';
+            window.location.href = '/underpins';
         }).fail(function(error) {
             alert(JSON.stringify(error));
         });
@@ -57,7 +57,7 @@ var underpins_index = {
             getUnderpinsList();
             alert('수정되었습니다.');
 
-            //window.location.href = '/underpins';
+            window.location.href = '/underpins';
         }).fail(function (error) {
             alert(JSON.stringify(error));
         });

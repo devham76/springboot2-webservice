@@ -2,7 +2,8 @@
 <style>
     .planGole_table tr { height: 70px; }
     .planGole_table td { width: 30%; }
-    .text_area {resize: none;border: 0;}
+    .text_area {resize: none;border: 0; width:100%}
+    .delete_gole {float:right; display:none; cursor: pointer;}
 </style>
 <div class="container-fluid">
     <div class="row">
@@ -53,6 +54,5 @@
         </div>
     </div>
 </div>
-
-        {{>layout/footer}}
-        <script src="/js/app/planGole.js"></script>
+{{>layout/footer}}
+<script src="/js/app/planGole.js"></script>

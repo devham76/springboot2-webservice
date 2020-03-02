@@ -17,7 +17,7 @@ function setCookie(cookieName, expireDay, value) {
     var day = new Date();
     day.setTime(day.getTime() + (expireDay * 24*60*60*1000));   // 하루
     var expires = "expires="+day.toUTCString();
-    document.cookie = cookieName + "=" + value + "; " + expires;
+    document.cookie = cookieName + "=" + value + "; " + expires + ";path=/";
 }
 //
 function underpinsCookieInit() {
@@ -131,7 +131,7 @@ function getUnderpinsList() {
             if(cookieVal != "" ) cookieVal += ",";
             cookieVal += i+":"+data[i]["content"];
         }
-        console.log(html +"   "+ cookieVal);
+        console.log(html +" ,cookieval=   "+ cookieVal);
          // 화면, 응원글 추가
         $("#underpins_ul .user").remove();
         $("#underpins_ul").append(html);

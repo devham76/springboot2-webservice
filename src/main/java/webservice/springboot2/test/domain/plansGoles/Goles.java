@@ -47,4 +47,7 @@ public class Goles {
         return result;
     }
 
+    public void update(String title) {
+        this.title = title;
+    }
 }

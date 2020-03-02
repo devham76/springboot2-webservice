@@ -1,6 +1,6 @@
 $(function(){
     init();
-
+    // 계획 입력,수정
     $(document).on("focusout",".plan_area",function(){
         var new_plan = $(this).val();
         var original = $(this).attr("original");
@@ -18,6 +18,23 @@ $(function(){
             plan_save(new_plan, plan_id, gole_id);
         }
     });
+    /*
+    $(document).on( "mouseover", ".gole_area",
+      function() {
+        $( this ).find(".delete_gole").css( "display", "unset" );
+      }, function() {
+        $( this ).find(".delete_gole").css( "display", "none" );
+      }
+      );
+*/
+    $(document).on("mouseover",".gole_area",function(){
+        $( this ).find(".delete_gole").css( "display", "unset" );
+    });
+    $(document).on("mouseout",".gole_area",function(){
+        $( this ).find(".delete_gole").css( "display", "none" );
+    });
+
+
 
 });
 
@@ -50,10 +67,10 @@ function plan_save(content, plan_id, gole_id ){
     console.log(data);
     if ( plan_id == 0 ){    // 삽입
         var type = "POST";
-        var url = "planSave";
+        var url = "plan/save";
     } else {    // 수정
         var type = "PUT";
-        var url = "planUpdate/"+plan_id;
+        var url = "plan/update/"+plan_id;
     }
     $.ajax({
         type: type,
@@ -84,6 +101,19 @@ function init(){
         alert(JSON.stringify(error));
     });
 }
+function delete_gole(gole_id){
+    $.ajax({
+        type : "DELETE",
+        url : "/api/v1/gole/delete/"+gole_id,
+        dataType : "json",
+        contentType : "application/json; charset=utf-8"
+    }).done(function(){
+        window.location.href = '/planGole';
+    }).fail(function(error){
+        console.log("[delete_gole]="+error);
+        alert(JSON.stringify(error));
+    });
+}
 
 function make_table(data){
     var html = "";
@@ -96,6 +126,7 @@ function make_table(data){
     	    planList[idx] = {"planSeq" : 0, "content" : ""};
         }
     }
+
     html += '<div class="col">'
             +'<table class="table table-bordered planGole_table" id="gole_'+data['goleSeq']+'">'
                 +'<tr>'
@@ -106,6 +137,7 @@ function make_table(data){
                 +'<tr>'
                     +'<td><textarea id="plan_'+planList[3]['planSeq']+'" class="text_area plan_area" original="'+planList[3]['content']+'">'+planList[3]["content"]+'</textarea></td>'
                     +'<td class="table-success gole_area" >'
+                        +'<div class="delete_gole" onclick="delete_gole('+data['goleSeq']+')"><i class="fas fa-minus-circle" aria-hidden="true"></i></div>'
                         +'<textarea class="table-success text_area"  original="'+data['title']+'">'+data['title']+'</textarea>'
                     +'</td>'
                     +'<td><textarea id="plan_'+planList[4]['planSeq']+'" class="text_area plan_area" original="'+planList[4]['content']+'">'+planList[4]["content"]+'</textarea></td>'

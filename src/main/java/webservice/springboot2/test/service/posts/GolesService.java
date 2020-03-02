@@ -38,4 +38,10 @@ public class GolesService {
             .orElseThrow(() -> new IllegalArgumentException("해당 목표가 없습니다. id="+goleSeq));
         golesRepository.delete(goles);
     }
+    public int update(int goleSeq, String title) {
+        Goles goles = golesRepository.findById(goleSeq)
+                .orElseThrow(() -> new IllegalArgumentException("해당 목표가 없습니다. id="+goleSeq));
+        goles.update(title);
+        return goleSeq;
+    }
 }

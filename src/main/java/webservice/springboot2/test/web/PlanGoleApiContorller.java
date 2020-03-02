@@ -39,8 +39,14 @@ public class PlanGoleApiContorller {
         return plansService.update(planSeq, goleSeq, conent);
     }
     @DeleteMapping("/api/v1/gole/delete/{goleSeq}")
-    public void delteGole(@PathVariable int goleSeq){
+    public int delteGole(@PathVariable int goleSeq){
         golesService.delete(goleSeq);
+        return goleSeq;
+    }
+    @DeleteMapping("/api/v1/gole/update/{goleSeq}")
+    public int updateGole(@PathVariable int goleSeq, @RequestBody Map<String, String> json){
+        String title = json.get("title");
+        return golesService.update(goleSeq, title);
     }
 }
 

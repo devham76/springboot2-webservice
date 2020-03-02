@@ -18,22 +18,25 @@ $(function(){
             plan_save(new_plan, plan_id, gole_id);
         }
     });
-    /*
-    $(document).on( "mouseover", ".gole_area",
-      function() {
+    $(document).on("mouseover",".gole_td",function(){
         $( this ).find(".delete_gole").css( "display", "unset" );
-      }, function() {
+    });
+    $(document).on("mouseout",".gole_td",function(){
         $( this ).find(".delete_gole").css( "display", "none" );
-      }
-      );
-*/
-      $( ".gole_area" )
-        .mouseover(function() {
-          $( this ).find(".delete_gole").css( "display", "unset" );
-        })
-        .mouseout(function() {
-          $( this ).find(".delete_gole").css( "display", "none" );
+    });
+    $(document).on("focusout",".gole_area",function(){
+            var new_gole = $(this).val();
+            var original = $(this).attr("original");
+            // 목표아이디
+            var gole_id = $(this).parent().parent().parent().parent().attr("id");
+            var split_arr = gole_id.split("_");
+            var gole_id = split_arr[1];
+
+            if(original != new_plan){
+                gole_update(new_gole, gole_id);
+            }
         });
+
 
 
 });
@@ -75,6 +78,23 @@ function plan_save(content, plan_id, gole_id ){
     $.ajax({
         type: type,
         url: "/api/v1/"+url,
+        dataType: 'json',
+        contentType:'application/json; charset=utf-8',
+        data: JSON.stringify(data)
+    }).done(function() {
+        window.location.href = '/planGole';
+        //alert("등록되었습니다");
+    }).fail(function(error) {
+        alert(JSON.stringify(error));
+    });
+}
+function gole_update(title, gole_id ){
+    var data = {
+        title : title
+    };
+    $.ajax({
+        type: "PUT",
+        url: "/api/v1/gole/update/"+gole_id;
         dataType: 'json',
         contentType:'application/json; charset=utf-8',
         data: JSON.stringify(data)
@@ -136,9 +156,9 @@ function make_table(data){
                 +'</tr>'
                 +'<tr>'
                     +'<td><textarea id="plan_'+planList[3]['planSeq']+'" class="text_area plan_area" original="'+planList[3]['content']+'">'+planList[3]["content"]+'</textarea></td>'
-                    +'<td class="table-success gole_area" >'
+                    +'<td class="table-success gole_td" >'
                         +'<div class="delete_gole" onclick="delete_gole('+data['goleSeq']+')"><i class="fas fa-minus-circle" aria-hidden="true"></i></div>'
-                        +'<textarea class="table-success text_area"  original="'+data['title']+'">'+data['title']+'</textarea>'
+                        +'<textarea class="table-success text_area gole_area"  original="'+data['title']+'">'+data['title']+'</textarea>'
                     +'</td>'
                     +'<td><textarea id="plan_'+planList[4]['planSeq']+'" class="text_area plan_area" original="'+planList[4]['content']+'">'+planList[4]["content"]+'</textarea></td>'
                 +'</tr>'

@@ -1,20 +1,17 @@
 package webservice.springboot2.test.web;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import webservice.springboot2.test.domain.plansGoles.Goles;
 import webservice.springboot2.test.service.posts.GolesService;
 import webservice.springboot2.test.service.posts.PlansService;
 import webservice.springboot2.test.web.dto.plansGolesDto.GolesListResponseDto;
 import webservice.springboot2.test.web.dto.plansGolesDto.GolesSaveRequestDto;
-import webservice.springboot2.test.web.dto.plansGolesDto.PlansSaveRequestDto;
 
 import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
-@RestController
+@RestController // @Controller이 아닌이유: view 필요없이 단지api만 사용하므로. data return이목적
 public class PlanGoleApiContorller {
     private final GolesService golesService;
     private final PlansService plansService;

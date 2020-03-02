@@ -25,7 +25,7 @@ import java.util.Date;
 import java.util.List;
 
 @RequiredArgsConstructor
-@Controller
+@Controller // view return이 주목적, api와 view를 함께사용할때사용
 public class IndexController {
 
     private final PostsService postsService;
@@ -88,6 +88,7 @@ public class IndexController {
         //============================
         List<Recruits> recruitsList = recruitsService.getRecruitInfo();
         model.addAttribute("recruits",recruitsList);
+
         return "recruitInfo";
     }
 

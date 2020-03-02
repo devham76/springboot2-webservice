@@ -24,11 +24,14 @@ public class Recruits {
     private String applytype;
     private String area;
 
-
+    private String recommend;
+    private String rate;
+    private String ect;
     @Builder
     public Recruits(String url, String corpname, String title, String upjong, String jcjong,
                        String keyword, String worktype, String pay, String opendate, String closedate,
-                       String endtype, String applytype, String area, int idx){
+                       String endtype, String applytype, String area,
+                       String recommend, String rate, String ect, int idx){
         this.url = url;
         this.corpname = corpname;
         this.title = title;
@@ -43,5 +46,9 @@ public class Recruits {
         this.applytype = applytype;
         this.area = area;
         this.idx = idx;
+        this.recommend = recommend;
+        this.rate = rate;
+        this.ect = ect;
+
     }
 }

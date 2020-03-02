@@ -48,18 +48,12 @@ public class RecordsService {
                 .map(RecordsListResponseDto::new)
                 .collect(Collectors.toList());
 
-
-        setRecordsListResponseDtos(recordsListResponseDtos, start, end);
-
         // 날짜 순으로 정렬
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat( "yyyy-MM-dd" );
-        Collections.sort(recordsListResponseDtos, new Comparator<RecordsListResponseDto>() {
-            public int compare(RecordsListResponseDto arg0, RecordsListResponseDto arg1) {
-                String date1 = simpleDateFormat.format(arg0.getRecordDate());
-                String date2 = simpleDateFormat.format(arg1.getRecordDate());
-                return date1.compareTo(date2);
-            }
-        });
+        Collections.sort(recordsListResponseDtos);
+        setRecordsListResponseDtos(recordsListResponseDtos, start, end);
+        // 날짜 순으로 정렬
+        Collections.sort(recordsListResponseDtos);
+
         System.out.println("RecordsListResponseDto  ==>");
         for(RecordsListResponseDto r:recordsListResponseDtos){
             System.out.println(r.getRecordDate());

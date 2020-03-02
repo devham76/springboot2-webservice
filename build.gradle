@@ -37,6 +37,7 @@ dependencies {
     compile('org.mariadb.jdbc:mariadb-java-client')
     implementation 'junit:junit:4.12'
 
+    compile('org.jsoup:jsoup:1.13.1')
 
 
 }

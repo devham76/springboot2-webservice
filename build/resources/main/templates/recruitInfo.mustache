@@ -24,17 +24,25 @@
                         {{#recruits}}
                             <tr>
                                 <td>{{idx}}</td>
-                                <td width="35%">{{corpname}}<br>
-                                    <span class="side_info">{{upjong}}</span>
+                                <td width=>{{corpname}}<br>
+                                    <span class="side_info">
+                                        {{#upjong}}     {{upjong}} <br>     {{/upjong}}
+                                        {{#recommend}}  {{recommend}} <br>  {{/recommend}}
+                                        {{#rate}}       {{rate}}            {{/rate}}
+                                    </span>
                                 </td>
-                                <td width="45%"><a href="{{url}}">{{title}}</a>
-                                    <br><span class="side_info">{{jcjong}}
-                                        <br>{{area}}</span>
+                                <td width="40%"><a href="{{url}}">{{title}}</a><br>
+                                    <span class="side_info">
+                                        {{#jcjong}} {{jcjong}}<br>  {{/jcjong}}
+                                        {{#ect}}    {{ect}}<br>     {{/ect}}
+                                        {{#area}}   {{area}}        {{/area}}
+                                    </span>
                                 </td>
-                                <td width="10%">{{worktype}}
-                                    <br><span class="side_info">{{pay}}</span>
+                                <td width=>
+                                    {{#worktype}} {{worktype}}<br> {{/worktype}}
+                                    <span class="side_info">{{#pay}} {{pay}} {{/pay}}</span>
                                 </td>
-                                <td width="20%">{{closedate}}</td>
+                                <td width=>{{closedate}}</td>
                             </tr>
                         {{/recruits}}
                         </tbody>

@@ -9,6 +9,7 @@ import webservice.springboot2.test.domain.plansGoles.Goles;
 import webservice.springboot2.test.domain.plansGoles.GolesRepository;
 import webservice.springboot2.test.domain.plansGoles.Plans;
 import webservice.springboot2.test.domain.plansGoles.PlansRepository;
+import webservice.springboot2.test.service.posts.PlansService;
 
 import java.util.List;
 
@@ -23,23 +24,11 @@ public class plansGolesRepositoryTest {
 
     @Autowired
     PlansRepository plansRepository;
+    @Autowired
+    PlansService plansService;
 
     @Test
-    public void jpaTest_onToMany가작동하는지_확인한다() {
-        //-- given
-        Goles gole1 = new Goles("title");
-        // -- 저장
-        golesRepository.save(gole1);
-
-        List<Goles> golesList = golesRepository.findAll();
-        Goles getGole = golesList.get(0);
-
-        Plans plan1 = new Plans("계획 내용", gole1);
-        gole1.addPlan(plan1);
-        assertThat(getGole.getPlanList().get(0).getContent()).isEqualTo("계획 내용");
-    }
-    @Test
-    public void Gole_plan없어도_괜찮은지(){
+    public void Gole에_plan이_하나도없어도_괜찮은지(){
         Goles goles = new Goles("title");
         golesRepository.save(goles);
         List<Goles> golesList = golesRepository.findAll();

@@ -162,4 +162,24 @@ public class PlanGoleApiControllerTest {
         assertThat(plans1).isNull();
         assertThat(plans2).isNull();
     }
+
+    @Test
+    @WithMockUser(roles = "USER")
+    public void jpaTest_oneToMany가작동하는지_확인한다() {
+        //-- given
+        // gole 객체생성, repository 저장
+        // plan 객체생성, repository 저장 x , gole에 addPlan()
+        // 이때 plan은 jpa에 의해 저장이 되었는지 확인한다
+        Goles gole1 = new Goles("title");
+        Plans plan1 = new Plans("계획 내용", gole1);
+        gole1.addPlan(plan1);
+        golesRepository.save(gole1);
+        // plan 객체만 수정
+        plansService.update(plan1.getPlanSeq(), gole1.getGoleSeq(), "계획 내용 변경");
+
+        List<Plans> plansList = plansRepository.findAll();
+        Plans plan = plansList.get(0);
+        assertThat(plan.getContent()).isEqualTo("계획 내용 변경");
+
+    }
 }

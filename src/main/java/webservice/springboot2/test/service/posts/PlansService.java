@@ -28,13 +28,12 @@ public class PlansService {
                 .goles(goles)
                 .build().toEntity();
 
-
         // gole에 addplan해도 작동된다
         goles.addPlan(newPlans);
         //repositoy.save작동한다
         return plansRepository.save(newPlans).getPlanSeq();
     }
-
+    @Transactional
     public int update(int planSeq, int goleSeq, String conent) {
         // Plans 해당 객체 업데이트시 db업데이트 된다
         Plans plans = plansRepository.findById(planSeq)

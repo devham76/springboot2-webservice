@@ -43,11 +43,13 @@ public class IndexController {
         // 로그인 성공시 CustomOAuth2UserService에서 SessionUser를 저장하도록 하였으므로
         // 로그인 성공 시 httpSeesion.getAttribute("user")에서 값을 가져올수있다
         // SessionUser user = (SessionUser) httpSession.getAttribute("user"); -> 파라미터 @LoginUser 로 처리함
-        if (user != null){
+        if (user != null) {
             model.addAttribute("userName", user.getName());
+            return "index";
         }
-
-        return "index";
+        else {
+            return "login";
+        }
     }
 
     @GetMapping("/posts/save")
@@ -83,19 +85,19 @@ public class IndexController {
     // 채용정보 화면
     @GetMapping("/recruitInfo")
     public String recruitInfo(Model model) throws IOException {
-        //============================
-        // Recruits , RecruitsDto  따로 쓰는 이유 ???
-        //============================
         List<Recruits> recruitsList = recruitsService.getRecruitInfo();
         model.addAttribute("recruits",recruitsList);
-
         return "recruitInfo";
     }
 
     // 계획정보 화면
     @GetMapping("/planGole")
     public String planGole(Model model) throws JsonProcessingException {
-
         return "planGole";
     }
+    @GetMapping("/posts")
+    public String Posts(){
+        return "posts";
+    }
+
 }

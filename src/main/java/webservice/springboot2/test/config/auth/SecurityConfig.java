@@ -28,7 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 // post메소드이면서 api/v1/**주소를 가진 API는 USER권한을 가진 사람만 가능하다
                 //.antMatchers("/api/v1/**").hasRole(Role.USER.name())  // 개발중에만 주석처리!!!!
-                .anyRequest().authenticated()     // 설정된 값들 이외의 URL , 여기서는 authenticated를 이용하여 인증된 사용자에게만 나머지 url허용
+                .anyRequest().authenticated()     // 설정된 값들 이외의 URL , 여기서는 authenticated를 이용하여 인증된 사용자(로그인한)에게만 나머지 url허용
         .and()
                 .logout()
                 .logoutSuccessUrl("/")  // 로그아웃 성공시 /로 이동

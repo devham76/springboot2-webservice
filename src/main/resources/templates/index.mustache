@@ -3,45 +3,38 @@
 <div class="container-fluid">
     <div class="row">
         {{>layout/sidebar}}
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" style="padding-top:50px">
-            <h1>스프링부트로 시작하는 웹 서비스 Ver.</h1>
+        <main role="main" class="col-md-11 ml-sm-auto px-4" style="padding-top:60px">
+            <h1>취업 준비 과정을 기록한 사이트입니다</h1>
             <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-6">
-                        <a href="/posts/save" role="button" class="btn btn-primary">글 등록</a>
-                        {{#userName}} <!-- if(userName) -->
-                            Logged in as : <span id="user">{{userName}}</span>
-                            <a href="/logout" class="btn btn-info active" role="button">Logout</a>
-                        {{/userName}}
-                        {{^userName}} <!-- if(!userName) -->
-                            <a href="oauth2/authorization/google" class="btn btn-success active" role="button">Google
-                                Login</a>
-                            <a href="/oauth2/authorization/naver" class="btn btn-secondary  active" role="button">Naver
-                                Login</a>
-                        {{/userName}}
-                    </div>
-                </div>
-                <br>
-                <!-- 목록 출력 영역 -->
-                <table class="table table-horizontal table-bordered">
-                    <thead class="thead-strong">
-                    <tr>
-                        <th>게시글 번호</th>
-                        <th>제목</th>
-                        <th>작성자</th>
-                        <th>최종수정일</th>
-                    </tr>
+                <table class="table" style="margin-top:30px">
+                    <thead>
+                        <th>목록</th>
+                        <th>페이지 설명</th>
                     </thead>
-                    <tbody id="tbody">
-                    {{#posts}}
-                        <tr>
-                            <td>{{id}}</td>
-                            <td><a href="/posts/update/{{id}}">{{title}}</a></td>
-                            <td>{{author}}</td>
-                            <td>{{modifiedDate}}</td>
-                        </tr>
-                    {{/posts}}
-                    </tbody>
+                    <tr>
+                        <td>주간</td>
+                        <td>하루의 공부내용과 시간을 기록하여 주,월단위로 확인할 수 있습니다</td>
+                    </tr>
+                    <tr>
+                        <td>계획</td>
+                        <td>목표와 그에 따른 8가지 계획을 생성하고 관리 합니다.</td>
+                    </tr>
+                    <tr>
+                        <td>일지</td>
+                        <td>하루의 일기를 기록합니다.</td>
+                    </tr>
+                    <tr>
+                        <td>채용정보</td>
+                        <td>커리어, 링커리어, 잡플래닛의 채용정보 목록과 채용정보 url을 통해 공고를 확인합니다</td>
+                    </tr>
+                    <tr>
+                        <td>채용달력</td>
+                        <td>잡코리아의 대졸 공채 채용달력을 확인합니다.</td>
+                    </tr>
+                    <tr>
+                        <td>응원글</td>
+                        <td>나에게 해주는 응원의 말을 관리합니다</td>
+                    </tr>
                 </table>
             </div>
         </main>

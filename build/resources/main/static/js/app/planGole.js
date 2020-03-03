@@ -94,7 +94,7 @@ function gole_update(title, gole_id ){
     };
     $.ajax({
         type: "PUT",
-        url: "/api/v1/gole/update/"+gole_id;
+        url: "/api/v1/gole/update/"+gole_id
         dataType: 'json',
         contentType:'application/json; charset=utf-8',
         data: JSON.stringify(data)

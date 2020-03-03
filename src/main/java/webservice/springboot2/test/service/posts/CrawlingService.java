@@ -30,9 +30,8 @@ public class CrawlingService {
     public List<Recruits> crawlerLinkareer(){
         List<Recruits> recruitList = new ArrayList<>();
         Elements elements = doc.select("div.MuiBox-root.jss208");
-        // System.out.println(element);
 
-        System.out.println("============================================================");
+        System.out.println("[crawlerLinkareer]============================================================");
         Iterator<Element> ie1 = elements.select("div.MuiBox-root.jss208").iterator();
 
 

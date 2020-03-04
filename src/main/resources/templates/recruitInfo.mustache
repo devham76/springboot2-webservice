@@ -12,7 +12,7 @@
     <div class="row">
         {{>layout/sidebar}}
         <main role="main" class="col-md-11 ml-sm-auto px-4" style="padding-top:60px">
-            <h1>채용정보</h1><br>
+            {{>layout/headTitle}}
             <div class="col-md-12">
                 <div class="btn_div">
                     <button type="button" class="btn btn-secondary" onclick="recruitInfo_modal()">채용정보 링크 리스트</button>
@@ -31,7 +31,7 @@
                                         {{#rate}}       {{rate}}            {{/rate}}
                                     </span>
                                 </td>
-                                <td width="40%"><a href="{{url}}">{{title}}</a><br>
+                                <td width="40%"><a href="{{url}}"  target="_blank">{{title}}</a><br>
                                     <span class="side_info">
                                         {{#jcjong}} {{jcjong}}<br>  {{/jcjong}}
                                         {{#ect}}    {{ect}}<br>     {{/ect}}
@@ -72,5 +72,7 @@
                 </div>
             </div>
         </div>
-        {{>layout/footer}}
-        <script src="/js/app/recruitInfo.js"></script>
+    </div>
+</div>
+{{>layout/footer}}
+<script src="/js/app/recruitInfo.js"></script>

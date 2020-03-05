@@ -1,4 +1,4 @@
-package webservice.springboot2.test.domain;
+package webservice.springboot2.test.domain.recruits;
 
 import lombok.Builder;
 import lombok.Getter;

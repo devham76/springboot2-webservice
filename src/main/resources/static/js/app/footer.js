@@ -27,7 +27,7 @@
                 reverse: false
             }
         });
-    });
+    });``
     // 제목 + 소제목 설정
     function set_title() {
         var pathname = window.location.pathname;

@@ -1,11 +1,11 @@
-package webservice.springboot2.test.service.posts;
+package webservice.springboot2.test.service;
 
 import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import webservice.springboot2.test.domain.Recruits;
+import webservice.springboot2.test.domain.recruits.Recruits;
 import webservice.springboot2.test.web.dto.RecruitsDto;
 
 import javax.xml.parsers.DocumentBuilder;

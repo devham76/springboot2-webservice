@@ -1,19 +1,16 @@
-package webservice.springboot2.test.service.posts;
+package webservice.springboot2.test.service;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import webservice.springboot2.test.domain.Recruits;
+import webservice.springboot2.test.domain.recruits.Recruits;
 import webservice.springboot2.test.web.dto.RecruitsDto;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import static webservice.springboot2.test.service.posts.RecruitsService.recruitsInfoNum;
-import static webservice.springboot2.test.service.posts.RecruitsService.recuritsIndex;
 
 
 public class CrawlingService {
@@ -40,9 +37,9 @@ public class CrawlingService {
             Element linkTag = element.select("a").first();
             String href = linkTag.attr("href");
             Iterator<Element> dataList = element.select("p.MuiTypography-root").iterator();
-            System.out.println("[" + recuritsIndex + "] https://linkareer.com" + href);
+            System.out.println("[" + RecruitsService.recuritsIndex + "] https://linkareer.com" + href);
             int idx = 0;
-            String[] values = new String[recruitsInfoNum];
+            String[] values = new String[RecruitsService.recruitsInfoNum];
             values[0] = "https://linkareer.com" + href;
             while (dataList.hasNext()) {
                 String data = dataList.next().text();
@@ -72,9 +69,9 @@ public class CrawlingService {
                 }
 
             }
-            recruitList.add(new RecruitsDto(values,recuritsIndex).toEntity());
+            recruitList.add(new RecruitsDto(values, RecruitsService.recuritsIndex).toEntity());
             System.out.println();
-            recuritsIndex++;
+            RecruitsService.recuritsIndex++;
         }
 
         System.out.println("============================================================");
@@ -87,7 +84,7 @@ public class CrawlingService {
         Iterator<Element> dataList = elements.select("div.result_unit_info").iterator();
 
         while (dataList.hasNext()) {
-            String[] values = new String[recruitsInfoNum];
+            String[] values = new String[RecruitsService.recruitsInfoNum];
             Element data = dataList.next();
             // url
             values[0] = "https://www.jobplanet.co.kr" + data.select("div.result_unit_info .posting_name").attr("href");
@@ -108,8 +105,8 @@ public class CrawlingService {
             String ect = data.select("div.result_unit_info .result_labels").text();
             ect.replace("더보기", "");
             values[15] = ect;
-            recruitList.add(new RecruitsDto(values,recuritsIndex).toEntity());
-            recuritsIndex++;
+            recruitList.add(new RecruitsDto(values, RecruitsService.recuritsIndex).toEntity());
+            RecruitsService.recuritsIndex++;
         }
 
         return recruitList;

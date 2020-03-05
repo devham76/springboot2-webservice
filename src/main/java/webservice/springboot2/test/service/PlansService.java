@@ -1,4 +1,4 @@
-package webservice.springboot2.test.service.posts;
+package webservice.springboot2.test.service;
 
 import lombok.RequiredArgsConstructor;
 import org.h2.table.Plan;

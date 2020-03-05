@@ -114,11 +114,13 @@ $(function () {
         };
 
          $.ajax({
-            type: 'POST',
+            type: 'GET',
             url: '/api/v1/records',
             dataType: 'json',
             contentType:'application/json; charset=utf-8',
-            data: JSON.stringify(data)
+            data: {
+                selectedDate: selectedDate
+            }
             }).done(function(data) {
                 console.log(data);
                 appendWeeklyData(data); // 테이블에 추가

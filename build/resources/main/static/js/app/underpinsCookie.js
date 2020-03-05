@@ -78,7 +78,7 @@ function getCookie (cookieName){
         if( startIndex != -1 ) {
             // 값을 얻어내기 위해 시작 인덱스 조절
             startIndex += cookieName.length;
-            console.log("2startIndex =" +startIndex);
+            //console.log("2startIndex =" +startIndex);
             // 값을 얻어내기 위해 종료 인덱스 추출
             endIndex = cookie.indexOf( ";", startIndex );
 

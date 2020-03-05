@@ -2,7 +2,7 @@ package webservice.springboot2.test.web;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import webservice.springboot2.test.service.posts.UnderpinsService;
+import webservice.springboot2.test.service.UnderpinsService;
 import webservice.springboot2.test.web.dto.UnderpinsDto.UnderpinsListResponseDto;
 import webservice.springboot2.test.web.dto.UnderpinsDto.UnderpinsResponseDto;
 import webservice.springboot2.test.web.dto.UnderpinsDto.UnderpinsSaveRequestDto;

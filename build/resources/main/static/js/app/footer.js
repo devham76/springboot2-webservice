@@ -27,8 +27,8 @@
                 reverse: false
             }
         });
-    });
-
+    });``
+    // 제목 + 소제목 설정
     function set_title() {
         var pathname = window.location.pathname;
         pathname = pathname.substring(1);
@@ -40,9 +40,10 @@
             , "jobCalendar" : ["채용달력", "이달의 대졸 공채 소식을 놓치지 마세요 !"]
             , "underpins" : ["응원 글", "매일 애쓰는 나를 위해 응원해주세요"]
         };
-
-        $("#main_title").text(data[pathname][0]);
-        $("#sub_title").text(data[pathname][1]);
+        if(data[pathname]){
+            $("#main_title").text(data[pathname][0]);
+            $("#sub_title").text(data[pathname][1]);
+        }
     }
 /*
     // mustache js 이용해볼것

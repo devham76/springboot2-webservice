@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import webservice.springboot2.test.service.posts.UnderpinsService;
+import webservice.springboot2.test.service.UnderpinsService;
 import webservice.springboot2.test.web.dto.UnderpinsDto.UnderpinsResponseDto;
 
 @RequiredArgsConstructor

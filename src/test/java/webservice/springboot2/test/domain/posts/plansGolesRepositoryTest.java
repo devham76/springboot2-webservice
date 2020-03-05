@@ -7,9 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import webservice.springboot2.test.domain.plansGoles.Goles;
 import webservice.springboot2.test.domain.plansGoles.GolesRepository;
-import webservice.springboot2.test.domain.plansGoles.Plans;
 import webservice.springboot2.test.domain.plansGoles.PlansRepository;
-import webservice.springboot2.test.service.posts.PlansService;
+import webservice.springboot2.test.service.PlansService;
 
 import java.util.List;
 

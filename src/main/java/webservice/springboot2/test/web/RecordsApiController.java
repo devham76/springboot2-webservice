@@ -1,10 +1,8 @@
 package webservice.springboot2.test.web;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import webservice.springboot2.test.service.posts.RecordsService;
+import webservice.springboot2.test.service.RecordsService;
 import webservice.springboot2.test.web.dto.RecordsDto.RecordsListResponseDto;
 import webservice.springboot2.test.web.dto.RecordsDto.RecordsMarkDto;
 import webservice.springboot2.test.web.dto.RecordsDto.RecordsSaveRequestDto;
@@ -12,7 +10,6 @@ import webservice.springboot2.test.web.dto.RecordsDto.RecordsUpdateRequestDto;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -24,10 +21,9 @@ public class RecordsApiController {
     private final RecordsService recordsService;
 
     // 해당 날짜를 포함한 week(주)의 기록을 가져온다
-    @PostMapping("/api/v1/records")
+    @GetMapping("/api/v1/records")
     public List<RecordsListResponseDto> getWeeklyRecords
-            (@RequestBody Map<String, String> json) throws ParseException {
-        String selectedDate = json.get("selectedDate");
+            (@RequestParam("selectedDate") String selectedDate) throws ParseException {
         SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date today = transFormat.parse(selectedDate);
 

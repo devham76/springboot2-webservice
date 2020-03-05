@@ -2,7 +2,7 @@ package webservice.springboot2.test.web.dto;
 
 import lombok.Builder;
 import lombok.Getter;
-import webservice.springboot2.test.domain.Recruits;
+import webservice.springboot2.test.domain.recruits.Recruits;
 
 @Getter
 public class RecruitsDto {

@@ -18,14 +18,12 @@ import webservice.springboot2.test.domain.plansGoles.Goles;
 import webservice.springboot2.test.domain.plansGoles.GolesRepository;
 import webservice.springboot2.test.domain.plansGoles.Plans;
 import webservice.springboot2.test.domain.plansGoles.PlansRepository;
-import webservice.springboot2.test.service.posts.GolesService;
-import webservice.springboot2.test.service.posts.PlansService;
+import webservice.springboot2.test.service.GolesService;
+import webservice.springboot2.test.service.PlansService;
 import webservice.springboot2.test.web.dto.plansGolesDto.GolesListResponseDto;
-import webservice.springboot2.test.web.dto.plansGolesDto.GolesResponseDto;
 import webservice.springboot2.test.web.dto.plansGolesDto.GolesSaveRequestDto;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;

@@ -4,8 +4,12 @@
 
 * 응원글을 불러와서 header 응원글에 넣어준다
 */
-// deleteCookie("underpinsList");  // test완료후삭제해야함
-underpinsCookieInit();
+var pathname = window.location.pathname;
+pathname = pathname.substring(1);
+if(pathname != "loginView")
+    underpinsCookieInit();
+else    // 로그인이 안되어있으면 삭제
+    deleteCookie("underpinsList");
 // 쿠키생성
 function setCookie(cookieName, expireDay, value) {
     console.log("[set cookie]... ");

@@ -20,37 +20,38 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .headers().frameOptions().disable()   // h2-console 화면을 사용하기 위해 해당 옵션들을 disable합니다.
-        .and()
+                    .and()
                 .authorizeRequests()    // URL별 관리를 설정하는 옵션의 시작점, 이부분이 선언되어야만 andMatchers옵션 사용 가능
-                .antMatchers( "/css/**",
+                    .antMatchers( "/css/**",
                         "/images/**", "/js/**", "/h2-console/**",
-                        "/profile").permitAll()
+                        "/profile", "/loginView").permitAll()
                 // 권한 관리대상자를 지정하는 옵션. URL,HTTP 메소드별로 관리가능, permitAll():전체열람권한(윗줄)
 
                 // get요청은 모두 허용
-                .antMatchers(HttpMethod.GET).authenticated()
+                    .antMatchers(HttpMethod.GET).authenticated()
                 //.antMatchers("/", "/login", "/index").permitAll()
-                .antMatchers(HttpMethod.POST).hasRole(Role.USER.name())
+                    .antMatchers(HttpMethod.POST).hasRole(Role.USER.name())
+                    .and()
+                .formLogin()
+                    .loginPage("/loginView").permitAll()
 
-                .and()
-                    .formLogin()
-                    .loginPage("/loginView")
 
                 // post메소드이면서 api/v1/**주소를 가진 API는 USER권한을 가진 사람만 가능하다
                 //.antMatchers("/api/v1/**").hasRole(Role.USER.name())  // 개발중에만 주석처리!!!!
                 //.anyRequest().authenticated()     // 설정된 값들 이외의 URL , 여기서는 authenticated를 이용하여 인증된 사용자(로그인한)에게만 나머지 url허용
-        .and()
+                    .and()
                 .logout()
-                .logoutSuccessUrl("/")  // 로그아웃 성공시 /로 이동
-        .and()
+                    .logoutSuccessUrl("/")  // 로그아웃 성공시 /로 이동
+                    .and()
                 .oauth2Login() // 로그인 기능의 설정
                     .userInfoEndpoint() //로그인 성공이후 사용자 정보를 가져올 때 설정담당
                         .userService(customOAuth2UserService);
     }
+    /*
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/");
     }
-
+    */
 
 }

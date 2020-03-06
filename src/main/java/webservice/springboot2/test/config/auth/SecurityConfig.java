@@ -8,7 +8,12 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import webservice.springboot2.test.domain.user.Role;
-
+/*
+ *************************************************************************
+ * [ class 설명 ]
+ * secrurity 설정을 지정합니다
+ * ************************************************************************
+ */
 @RequiredArgsConstructor // final 필드가 포함된 생성자
 @EnableWebSecurity  // spring security 설정들을 활성화시켜준다
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -25,20 +30,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers( "/css/**",
                         "/images/**", "/js/**", "/h2-console/**",
                         "/profile", "/loginView").permitAll()
-                // 권한 관리대상자를 지정하는 옵션. URL,HTTP 메소드별로 관리가능, permitAll():전체열람권한(윗줄)
+                    // 권한 관리대상자를 지정하는 옵션.  permitAll():전체열람권한
 
-                // get요청은 모두 허용
+                    // get요청은 로그인한 사용자만 허용
                     .antMatchers(HttpMethod.GET).authenticated()
-                //.antMatchers("/", "/login", "/index").permitAll()
+                    // post요청은 인증된 사용자만 허용
                     .antMatchers(HttpMethod.POST).hasRole(Role.USER.name())
                     .and()
+                // 로그인 페이지 커스터마이즈
                 .formLogin()
                     .loginPage("/loginView").permitAll()
-
-
-                // post메소드이면서 api/v1/**주소를 가진 API는 USER권한을 가진 사람만 가능하다
-                //.antMatchers("/api/v1/**").hasRole(Role.USER.name())  // 개발중에만 주석처리!!!!
-                //.anyRequest().authenticated()     // 설정된 값들 이외의 URL , 여기서는 authenticated를 이용하여 인증된 사용자(로그인한)에게만 나머지 url허용
                     .and()
                 .logout()
                     .logoutSuccessUrl("/")  // 로그아웃 성공시 /로 이동
@@ -47,11 +48,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .userInfoEndpoint() //로그인 성공이후 사용자 정보를 가져올 때 설정담당
                         .userService(customOAuth2UserService);
     }
-    /*
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/");
-    }
-    */
-
 }

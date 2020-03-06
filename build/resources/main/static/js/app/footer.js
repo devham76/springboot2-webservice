@@ -27,7 +27,7 @@
                 reverse: false
             }
         });
-    });``
+    });
     // 제목 + 소제목 설정
     function set_title() {
         var pathname = window.location.pathname;
@@ -45,23 +45,3 @@
             $("#sub_title").text(data[pathname][1]);
         }
     }
-/*
-    // mustache js 이용해볼것
-    // 페이지 마다 제목과 부제목이 다르다
-    function set_title() {
-
-        var pathname = window.location.pathname;
-        pathname = pathname.substring(1);
-	    var template = $('#title_mustache').html();
-	    Mustache.parse(template);
-
-	    var data = {
-	    	main_title: "일지",
-		    sub_title: "오늘 하루는 어땠나요? 오늘도 수고했어요"
-	    };
-
-	    var rendered = Mustache.render(template, data);
-	    $('#title_div').html(rendered);
-
-    }
-*/

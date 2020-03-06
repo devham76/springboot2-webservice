@@ -11,7 +11,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
+/*
+ *************************************************************************
+ * 크롤링 하여 페이지의 정보를 가져옵니다
+ * 링커리어, 잡플래닛의 채용정보를 Recruits list에 담아 return합니다
+ *************************************************************************
+ */
 
 public class CrawlingService {
     private String url;
@@ -28,23 +33,21 @@ public class CrawlingService {
         List<Recruits> recruitList = new ArrayList<>();
         Elements elements = doc.select("div.MuiBox-root.jss208");
 
-        System.out.println("[crawlerLinkareer]============================================================");
+        //System.out.println("[crawlerLinkareer]============================================================");
         Iterator<Element> ie1 = elements.select("div.MuiBox-root.jss208").iterator();
-
-
         while (ie1.hasNext()) {
             Element element = ie1.next();
             Element linkTag = element.select("a").first();
             String href = linkTag.attr("href");
             Iterator<Element> dataList = element.select("p.MuiTypography-root").iterator();
-            System.out.println("[" + RecruitsService.recuritsIndex + "] https://linkareer.com" + href);
+            //System.out.println("[" + RecruitsService.recuritsIndex + "] https://linkareer.com" + href);
             int idx = 0;
             String[] values = new String[RecruitsService.recruitsInfoNum];
             values[0] = "https://linkareer.com" + href;
             while (dataList.hasNext()) {
                 String data = dataList.next().text();
                 if (!data.equals("?") && !data.equals("•")) {
-                    System.out.print("[" + data + "]" + " / ");
+                    //System.out.print("[" + data + "]" + " / ");
                     switch (idx) {
                         case 0:	// corpname
                             values[1] = data;
@@ -70,11 +73,11 @@ public class CrawlingService {
 
             }
             recruitList.add(new RecruitsDto(values, RecruitsService.recuritsIndex).toEntity());
-            System.out.println();
             RecruitsService.recuritsIndex++;
+            //System.out.println();
         }
 
-        System.out.println("============================================================");
+        //System.out.println("============================================================");
         return recruitList;
     }
     public List<Recruits> crawlerJobplanet(){

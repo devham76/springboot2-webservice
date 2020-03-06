@@ -12,7 +12,11 @@ import webservice.springboot2.test.web.dto.UnderpinsDto.UnderpinsUpdateRequestDt
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+/*
+ *************************************************************************
+ * 응원글 CRUD를 하는 클래스입니다.
+ *************************************************************************
+ */
 @RequiredArgsConstructor    // final 붙은 변수로 생성자 생성해준다
 @Service    // controller는 DAO(Repository)에 직접 접근하지 않고 service를 이용하여 요청을 처리한다
 public class UnderpinsService {
@@ -49,6 +53,7 @@ public class UnderpinsService {
 
         return new UnderpinsResponseDto(entity);
     }
+
 
     // 트랜잭션 범위는 유지 / 조회속도개선 -> 등록,수정,삭제 없는 서비스메소드에서 사용 추천
     @Transactional(readOnly = true)

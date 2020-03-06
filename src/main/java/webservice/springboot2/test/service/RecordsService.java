@@ -14,7 +14,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
-
+/*
+ *************************************************************************
+ *  공부기록 CRUD를 하는 클래스입니다.
+ *************************************************************************
+ */
 @RequiredArgsConstructor
 @Service
 public class RecordsService {
@@ -42,7 +46,6 @@ public class RecordsService {
         calendar.add(Calendar.DATE, 7);
         end = (Date) calendar.getTime();
 
-        //System.out.println("---------------start="+start+",end="+end);
         // 시작,종료 날짜는 포함되지 않는다
         List<RecordsListResponseDto> recordsListResponseDtos = recordsRepository.findByRecordDateBetween(start, end).stream()
                 .map(RecordsListResponseDto::new)
@@ -62,8 +65,9 @@ public class RecordsService {
     }
 
 
-
+    //----------------------------------------------
     // 시작일 ~ 종료일까지의 모든 일정 인스턴스를 만들어서 반환한다
+    //----------------------------------------------
     private void setRecordsListResponseDtos(List<RecordsListResponseDto> recordsListResponseDtos,
                                             Date start, Date end) {
 

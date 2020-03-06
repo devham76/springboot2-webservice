@@ -12,7 +12,11 @@ import webservice.springboot2.test.domain.posts.Posts;
 import webservice.springboot2.test.web.dto.plansGolesDto.PlansSaveRequestDto;
 
 import java.util.List;
-
+/*
+ *************************************************************************
+ * 계획 설정 CRUD를 하는 클래스입니다.
+ *************************************************************************
+ */
 @RequiredArgsConstructor    // 생성자의 파라메터로 들어오는 인자에 의존성부여
 @Service
 public class PlansService {

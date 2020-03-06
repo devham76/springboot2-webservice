@@ -23,9 +23,8 @@ public class Goles {
 
     @JsonManagedReference
     @OneToMany(mappedBy = "goles"
-            , fetch=FetchType.EAGER    // 항상 plan목록을 가져오게 된다
+            , fetch=FetchType.EAGER      // 항상 plan목록을 가져오게 된다
             , cascade = CascadeType.ALL)
-    //@JoinColumn(name="goleSeq") // 그동안 planSeq로 되어있어서 오류났었다....;;;
     private List<Plans> planList;
 
     @Builder

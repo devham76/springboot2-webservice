@@ -17,10 +17,13 @@ import javax.servlet.http.HttpSession;
 import java.util.Collections;
 
 @RequiredArgsConstructor
-@Service // service : 도메인 순서 정의
+@Service
 /*
-*  로그인 이후 가져온 사용자의 정보로 가입,수정,세션저장 등의 기능을 지원합니다.
-* */
+*************************************************************************
+* [ class 설명 ]
+* 로그인 이후 가져온 사용자의 정보로 가입,수정,세션저장 등의 기능을 지원합니다.
+* ************************************************************************
+ */
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
     private final UserRepository userRepository;
     private final HttpSession httpSession;

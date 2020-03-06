@@ -8,7 +8,13 @@ import webservice.springboot2.test.domain.user.User;
 import java.io.Serializable;    // 직렬화
 
 @Getter
-// SessionUser에는 인증된 사용자 정보만 필요하므로 name,email,picture만 필드로 선언한다
+/*
+ *************************************************************************
+ * [ class 설명 ]
+ * 인증된 사용자 정보를 담는 클래스입니다
+ * SessionUser에는 인증된 사용자 정보만 필요하므로 name,email,picture만 필드로 선언한다
+ * ************************************************************************
+ */
 public class SessionUser implements Serializable {
     private String name;
     private String email;

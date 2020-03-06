@@ -22,9 +22,13 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
-
+/*
+ *************************************************************************
+ * view return이 주목적인 페이지에 대한 Controller입니다
+ *************************************************************************
+ */
 @RequiredArgsConstructor
-@Controller // view return이 주목적, api와 view를 함께사용할때사용
+@Controller // view return이 주목적이다.
 public class IndexController {
 
     private final PostsService postsService;
@@ -46,9 +50,6 @@ public class IndexController {
     public String loginView(){
         return "loginView";
     }
-
-
-
 
     @GetMapping("/posts/save")
     public String postsSave(Model model, @LoginUser SessionUser user){
@@ -95,7 +96,8 @@ public class IndexController {
         return "planGole";
     }
     @GetMapping("/posts")
-    public String Posts(){
+    public String Posts(Model model){
+        model.addAttribute("posts", postsService.findAllDesc());
         return "posts";
     }
 

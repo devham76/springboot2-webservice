@@ -13,7 +13,11 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.*;
 import java.net.URL;
 import java.util.*;
-
+/*
+ *************************************************************************
+ * 채용정보를 가져오는 클래스 입니다
+ *************************************************************************
+ */
 @Service
 public class RecruitsService {
     public static final int recruitsInfoNum = 16;   // 채용정보의 속성은 16개
@@ -40,6 +44,9 @@ public class RecruitsService {
         return recruitsList;
     }
 
+    //--------------------------------------------
+    // api 요청응답결과의 xml을 반환합니다
+    //--------------------------------------------
     private List<Recruits> getRecruitInfoList(String xml) {
         String[] tagNames = {"url", "회사명", "title", "upjong", "jcjong", "keyword",
                 "worktype", "pay", "opendate", "closedate",
@@ -72,6 +79,9 @@ public class RecruitsService {
         return subRecruitsList;
     }
 
+    //--------------------------------------------
+    // xml 분석 결과의 recruits 리스트를 반환합니다
+    //--------------------------------------------
     private String getRecruitInfoXml(String addr) throws IOException {
         String xml="";
         URL url = new URL(addr);

@@ -8,6 +8,4 @@ import org.springframework.data.repository.query.Param;
 public interface GolesRepository extends JpaRepository<Goles, Integer> {
     @Query(value = "select a from Goles a where a.goleSeq = goleSeq")
     Goles findByGoleSeq(@Param("goleSeq") int goleSeq);
-    //Option<Goles> findByGoleSeq(int goleSeq);
-
 }

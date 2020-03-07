@@ -6,13 +6,17 @@
 */
 var pathname = window.location.pathname;
 pathname = pathname.substring(1);
+
+// 로그인되어있는 모든 화면에서 쿠키있는지 확인
 if(pathname != "loginView")
     underpinsCookieInit();
-else    // 로그인이 안되어있으면 삭제
-    deleteCookie("underpinsList");
+else
+    deleteCookie("underpinsList"); // 로그인이 안되어있으면 응원글 쿠키 삭제
+
+//-------------------------------
 // 쿠키생성
+//-------------------------------
 function setCookie(cookieName, expireDay, value) {
-    console.log("[set cookie]... ");
 
     // 값이 없으면 종료
     if(!value)
@@ -23,7 +27,10 @@ function setCookie(cookieName, expireDay, value) {
     var expires = "expires="+day.toUTCString();
     document.cookie = cookieName + "=" + value + "; " + expires + ";path=/";
 }
-//
+
+//-------------------------------
+/// 쿠키 존재 여부 확인 + 쿠키 내용으로 응원글 설정
+//-------------------------------
 function underpinsCookieInit() {
     var underpinsList = getCookie("underpinsList");
 
@@ -32,15 +39,17 @@ function underpinsCookieInit() {
         console.log("[cookie does not exists]... ");
         getUnderpinsList(); // 데이터 검색후 세팅
     }
+    // 쿠키 있음
     else {
         console.log("[cookie exists]... ");
-    // 쿠키 생성후 헤더 변경
+        // 쿠키 내용 가져온다
         var step1 = underpinsList.split(",");
         var underpins = {};
         for( var i in step1 ){
             var step2 = step1[i].split(":");
             underpins[step2[0]] = step2[1];
         }
+        // 쿠키 내용으로 응원글내용을 만들어준다
         var html = "";
         for(var i in underpins) {
             html += "<li>"+underpins[i]+"</li>";
@@ -49,13 +58,11 @@ function underpinsCookieInit() {
         $("#underpins_ul").append(html);
 
     }
-
 }
- /**
-  * 쿠키값 추출
-  * @param cookieName 쿠키명
-  */
-
+//-------------------------------
+// 쿠키값 추출
+// @param cookieName 쿠키명
+//-------------------------------
 function getCookie (cookieName){
     var name = cookieName + "=";
     var cookieArr = document.cookie.split(';');
@@ -69,6 +76,7 @@ function getCookie (cookieName){
       }
      return cookieValue;
   }
+
  function getCookie_( cookieName ) {
     var search = cookieName + "=";
     var cookie = document.cookie;
@@ -102,10 +110,10 @@ function getCookie (cookieName){
         return false;
     }
  }
-  /**
-   * 쿠키 삭제
-   * @param cookieName 삭제할 쿠키명
-   */
+//-------------------------------
+// 쿠키 삭제
+// @param cookieName 삭제할 쿠키명
+//-------------------------------
 function deleteCookie( cookieName ) {
     console.log("deleteCookie...");
     var expireDate = new Date();
@@ -115,28 +123,31 @@ function deleteCookie( cookieName ) {
     console.log(cookieName + "= " + "; expires=" + expireDate.toGMTString() + "; path=/");
     document.cookie = cookieName + "= " + "; expires=" + expireDate.toGMTString() + "; path=/";
 }
+//-------------------------------
 // 서버에 응원글 요청
+//-------------------------------
 function getUnderpinsList() {
     console.log("getUnderpinsList start...");
 
+    // 서버에 응원글 내용 요청
     $.ajax({
         type: 'GET',
         url: '/api/v1/underpins',
         dataType: 'json',
         contentType:'application/json; charset=utf-8'
     }).done(function(data) {
-        console.log(data);
 
         var cookieVal = "";
         var html = "";
+        // 응원글 내용으로 쿠키값을 만든다
         for(i=0; i<data.length; i++){
             html += "<li class='user'>"+data[i]["content"]+"</li>";
 
             if(cookieVal != "" ) cookieVal += ",";
             cookieVal += i+":"+data[i]["content"];
         }
-        console.log(html +" ,cookieval=   "+ cookieVal);
-         // 화면, 응원글 추가
+        //console.log(html +" ,cookieval=   "+ cookieVal);
+         // 화면에 응원글 추가한다
         $("#underpins_ul .user").remove();
         $("#underpins_ul").append(html);
         // 쿠키설정

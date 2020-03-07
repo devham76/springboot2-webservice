@@ -4,6 +4,7 @@ function recruitInfo_modal() {
      $("#recruitInfo_modal").modal('show');
 }
 
+// 채용 정보 url
 function init() {
     var array = [
          ["주니어 개발자 채용 정보" , "https://github.com/jojoldu/junior-recruit-scheduler"]

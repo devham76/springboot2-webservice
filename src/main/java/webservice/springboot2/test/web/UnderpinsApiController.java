@@ -14,29 +14,11 @@ import java.util.List;
 @RestController
 public class UnderpinsApiController {
     private final UnderpinsService underpinsService;
-    // 응원글 모든 목록 가져오기
-    /*
-    @GetMapping("/api/v1/underpins")
-    public List<UnderpinsListResponseDto> getUnderpinsList(){
-        System.out.println("[getUnderpinsList api start]...");
-        List<UnderpinsListResponseDto> list =  underpinsService.findAllDesc();
-
-        for(UnderpinsListResponseDto underpin:list){
-            System.out.println(underpin);
-        }
-        return list;
-    }
-    */
 
     // 적용할 응원글 목록 가져오기
     @GetMapping("/api/v1/underpins")
     public List<UnderpinsListResponseDto> findByWillAppend(){
         List<UnderpinsListResponseDto> list =  underpinsService.findByWillAppend();
-        /*
-        for(UnderpinsListResponseDto underpin:list){
-            System.out.println(underpin);
-        }
-        */
         return list;
     }
     // 응원글 등록

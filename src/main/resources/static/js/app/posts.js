@@ -17,10 +17,6 @@ var index = {
             author: $('#author').val(),
             content: $('#content').val()
         };
-        console.log(title+","+author+","+content);
-        console.log("data : ");
-        console.log(data);
-        console.log(JSON.stringify(data));
         $.ajax({
             type: 'POST',
             url: '/api/v1/posts',

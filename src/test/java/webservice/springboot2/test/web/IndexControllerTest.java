@@ -57,17 +57,5 @@ public class IndexControllerTest {
         //then
         assertThat(body).contains("햄");
     }
-/*
-    @WithMockUser(roles="UESER")
-    @Test
-    public void planGole_로딩() throws Exception {
-        String title = "title test";
-        golesRepository.save(Goles.builder().title(title).build());
-        mvc.perform(
-                get("/planGole"))
-                .andExpect(status().isOk())
-                .andExpect(model().attributeExists("planGole"));
-    }
 
- */
 }

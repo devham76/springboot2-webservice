@@ -5,6 +5,7 @@ var day = today.getDate();
 var month = today.getMonth()
 var year = today.getFullYear();
 var date = makeDate(year,month, day, 1);
+
 $(function () {
 
     $("#my-calendar").zabuto_calendar({
@@ -23,33 +24,23 @@ $(function () {
         // 날짜클릭시
         ,action: function () {
             return myDateFunction(this.id);
-        },
-        // month 이동 클릭시
-        action_nav: function () {
-            return myNavFunction(this.id);
         }
         ,ajax: { url: "/api/v1/recordsForMark" }
         // {date: yyyy-mm-dd, badge: boolean, title: string, body: string, footer: string, classname: string}
     });
+
+    // 날짜 클릭시 그 날짜에 맞는 테이블 생성
     changeSelectedDate(date);
 
-    // 날짜 클릭시
+    // 달력의 날짜 클릭시 테이블 update
     function myDateFunction(id, fromModal) {
         var date = $("#" + id).data("date");
         changeSelectedDate(date+" 00:00:00");
         return true;
     }
 
-        function myNavFunction(id) {
-            $("#date-popover").hide();
-            var nav = $("#" + id).data("navigation");
-            var to = $("#" + id).data("to");
-            console.log( to.month + '/' + to.year);
-        }
-
-
 });
-    // 날짜 형식에 맞춰 만들기
+    // 날짜 형식에 맞춰 만들기 ; 2020-03-04 00:00:00
     function makeDate(year,month, day, useTime){
         month = month+1;
         month = month<10 ? "0"+month : month;
@@ -106,7 +97,7 @@ $(function () {
         $("#weekly_table").append(head_html + table_html);
 
     }
-    // 날짜 클릭시
+    // 날짜 클릭시 관련 내용을 서버에서 받아온다
     function changeSelectedDate(selectedDate){
         console.log("selectedDate :"+selectedDate);
         var data = {
@@ -122,14 +113,14 @@ $(function () {
                 selectedDate: selectedDate
             }
             }).done(function(data) {
-                console.log(data);
-                appendWeeklyData(data); // 테이블에 추가
+                appendWeeklyData(data); // 테이블에 생성
             }).fail(function (error) {
                 alert(JSON.stringify(error));
             });
 
     }
-        // 수정 모달
+
+    // 수정 모달 오픈
     function showModal(idx){
             var r_id = $("#content_"+idx).children('[name=r_id]').val();
             var recordDate = $("#content_"+idx).children('[name=recordDate]').val();
@@ -146,7 +137,7 @@ $(function () {
             $("#edit_modal").modal('show');
     }
 
-    // 저장하기
+    // 수정 모달 저장하기
     function modal_save() {
         var data = {
             hour: $('#modal_hour').val(),

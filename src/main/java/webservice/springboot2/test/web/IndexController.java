@@ -24,7 +24,7 @@ import java.util.Date;
 import java.util.List;
 /*
  *************************************************************************
- * view return이 주목적인 페이지에 대한 Controller입니다
+ * view return 하는 Controller입니다
  *************************************************************************
  */
 @RequiredArgsConstructor
@@ -36,28 +36,31 @@ public class IndexController {
     private final RecruitsService recruitsService;
 
     @GetMapping("/")
-        public String index(Model model, @LoginUser SessionUser user){
-
-            if (user != null) {
-                model.addAttribute("userName", user.getName());
-                return "index";
-            }
-            return "loginView";
+    public String index(Model model, @LoginUser SessionUser user){
+        // 로그인 했다면
+        if (user != null) {
+            model.addAttribute("userName", user.getName());
+            return "index";
+        }
+        // 로그인 안했으면 로그인창으로 이동
+        return "loginView";
 
     }
 
+    // 로그인 화면
     @GetMapping("/loginView")
     public String loginView(){
         return "loginView";
     }
 
+    // 일지 추가 화면
     @GetMapping("/posts/save")
     public String postsSave(Model model, @LoginUser SessionUser user){
         model.addAttribute("userName", user.getName());
         return "posts-save";
     }
 
-    // 수정 화면
+    // 일지 수정 화면
     @GetMapping("/posts/update/{id}")
     public  String postsUpdate(@PathVariable Long id, Model model){
         PostsResponseDto dto = postsService.findById(id);
@@ -65,7 +68,7 @@ public class IndexController {
         return "posts-update";
     }
 
-    // 주간관리 화면
+    // records 관리 화면
     @GetMapping("/weekly")
     public String weekly(Model model){
         Date today = new Date(System.currentTimeMillis());
@@ -77,6 +80,7 @@ public class IndexController {
         return "weekly";
     }
 
+    // 채용달력 화면
     @GetMapping("/jobCalendar")
     public String jabCalendar(){
         return "jobCalendar";
@@ -95,6 +99,7 @@ public class IndexController {
     public String planGole(Model model) throws JsonProcessingException {
         return "planGole";
     }
+    // 일지 관리 화면
     @GetMapping("/posts")
     public String Posts(Model model){
         model.addAttribute("posts", postsService.findAllDesc());

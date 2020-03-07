@@ -1,7 +1,7 @@
 
     $(function() {
         set_title();
-        // 사이드바
+        // 사이드바 설정
         $('.nav li').click(function(){
             $('.nav li').removeClass('active');
             $(this).addClass('active');
@@ -28,7 +28,8 @@
             }
         });
     });
-    // 제목 + 소제목 설정
+
+    // 모든 화면의 제목 + 소제목 설정
     function set_title() {
         var pathname = window.location.pathname;
         pathname = pathname.substring(1);

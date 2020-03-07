@@ -11,15 +11,16 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 // 의존성 자동으로 주입된다, 생성자로 의존성을 주입하다보면 에러발생할경우가 많기때문에 생성자로 주입하는게 안전
 @RestController
-// 해당 애노테이션 사용시, return 값이 http 응답헤더로 전달된다
+// 해당 애노테이션 사용시, return 값이 http 응답헤더로 전달된다.
 public class PostsApiController {
     private final PostsService postsService;
 
+    // 일지 저장
     @PostMapping("/api/v1/posts")
     public Long save(@RequestBody PostsSaveRequestDto requestDto) {
         return postsService.save(requestDto);
     }
-
+    // 특정 일지정보 불러오기
     @GetMapping("/api/v1/posts/{id}")
     public PostsResponseDto findById(@PathVariable Long id){
         return postsService.findById(id);

@@ -18,7 +18,6 @@ public class PostsRepositoryTest {
     @Autowired
     PostsRepository postsRepository;
 
-
     /*
     * 1. Junit에서 단위 테스트가 끝날 때마다 수행되는 메소드를 지정
     * 2. 여러 테스트가 동시에 수행되면 테스트용 db인 H2에 데이터가

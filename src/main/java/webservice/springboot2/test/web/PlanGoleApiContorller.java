@@ -17,34 +17,43 @@ public class PlanGoleApiContorller {
     private final GolesService golesService;
     private final PlansService plansService;
 
+    // 목표 저장
     @PostMapping("/api/v1/goles")
     public int saveGole(@RequestBody GolesSaveRequestDto golesSaveRequestDto){
         return golesService.save(golesSaveRequestDto);
     }
+
+    // 목표 + 계획 가져오기
     @GetMapping("/api/v1/planGole")
     public List<GolesListResponseDto> findAllGoles() {
         return golesService.findAllSeq();
     }
-    //public List<RecordsListResponseDto> getWeeklyRecords
-    //            (@RequestBody Map<String, String> json) throws ParseException {
+
+    // 계획 저장
     @PostMapping("/api/v1/plan/save")
     public int savePlan(@RequestBody Map<String, String> json){
         String content = json.get("content");
         int goleSeq = Integer.parseInt(json.get("goleSeq"));
         return plansService.save(content, goleSeq);
     }
+
+    // 계획 수정
     @PutMapping("/api/v1/plan/update/{planSeq}")
     public int updatePlan(@PathVariable int planSeq, @RequestBody Map<String, String> json){
         String conent = json.get("content");
         int goleSeq = Integer.parseInt(json.get("goleSeq"));
         return plansService.update(planSeq, goleSeq, conent);
     }
+
+    // 목표 삭제 (연관된 계획도 함께 삭제된다)
     @DeleteMapping("/api/v1/gole/delete/{goleSeq}")
     public int delteGole(@PathVariable int goleSeq){
         golesService.delete(goleSeq);
         return goleSeq;
     }
-    @DeleteMapping("/api/v1/gole/update/{goleSeq}")
+
+    // 목표 수정
+    @PutMapping("/api/v1/gole/update/{goleSeq}")
     public int updateGole(@PathVariable int goleSeq, @RequestBody Map<String, String> json){
         String title = json.get("title");
         return golesService.update(goleSeq, title);

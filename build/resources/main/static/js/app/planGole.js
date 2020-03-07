@@ -18,12 +18,16 @@ $(function(){
             plan_save(new_plan, plan_id, gole_id);
         }
     });
+
+    // 목표 삭제 아이콘 보임 , 안보임
     $(document).on("mouseover",".gole_td",function(){
         $( this ).find(".delete_gole").css( "display", "unset" );
     });
     $(document).on("mouseout",".gole_td",function(){
         $( this ).find(".delete_gole").css( "display", "none" );
     });
+
+    // 목표 저장 + 수정
     $(document).on("focusout",".gole_area",function(){
             var new_gole = $(this).val();
             var original = $(this).attr("original");

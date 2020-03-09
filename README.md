@@ -9,13 +9,18 @@
 - USER로 인증된 사용자만 게시물을 등록할 수 있습니다. 
 
 ## 사용된 기술
-- JAVA (Spring Framework)
+### 서버 사이드
+- Spring boot 2.1.7. (Gradle)
+- Spring JPA
+- Spring OAuth2
+- MariaDB
+- AWS
+### 프론트 사이드
 - JavaScript(Jquery)
 - mustache template
 - css
 - bootstrap
-- MariaDB
-- AWS
+
 
 ## 화면설명
 

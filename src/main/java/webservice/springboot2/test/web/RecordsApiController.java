@@ -12,7 +12,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
@@ -25,7 +24,7 @@ public class RecordsApiController {
     public List<RecordsListResponseDto> getWeeklyRecords
             (@RequestParam("selectedDate") String selectedDate) throws ParseException {
         SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date today = transFormat.parse(selectedDate);
+        Date today = transFormat.parse(selectedDate);   // String to Date
 
         return recordsService.findByRecordDateBetween(today);   // @RestController 이기때문에 리턴값은 http응답헤더에실림
     }

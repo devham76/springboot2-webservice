@@ -65,7 +65,7 @@ $(function () {
             var minute = array[i]["minute"];
             var recordDate = array[i]["recordDate"].substring(0,10);
             recordDate = new Date(recordDate);
-            if(r_id == null) {
+            if(r_id != null) {
                 recordDate.setDate(recordDate.getDate() + 1);
             }
             var r_day = recordDate.getDate();

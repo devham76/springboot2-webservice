@@ -34,8 +34,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                     // get요청은 로그인한 사용자만 허용
                     .antMatchers(HttpMethod.GET).authenticated()
-                    // post요청은 인증된 사용자만 허용
+                    // post, put, delete 요청은 인증된 사용자만 허용
                     .antMatchers(HttpMethod.POST).hasRole(Role.USER.name())
+                    .antMatchers(HttpMethod.DELETE).hasRole(Role.USER.name())
+                    .antMatchers(HttpMethod.PUT).hasRole(Role.USER.name())
                     .and()
                 // 로그인 페이지 커스터마이즈
                 .formLogin()

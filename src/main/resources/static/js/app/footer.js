@@ -1,11 +1,7 @@
 
     $(function() {
-        set_title();
-        // 사이드바 설정
-        $('.nav li').click(function(){
-            $('.nav li').removeClass('active');
-            $(this).addClass('active');
-        });
+        set_init();
+
         //응원글 흐르기
         $('.tlt').textillate({
             loop: true,
@@ -29,10 +25,23 @@
         });
     });
 
-    // 모든 화면의 제목 + 소제목 설정
-    function set_title() {
+    // 화면 초기화
+    function set_init() {
         var pathname = window.location.pathname;
-        pathname = pathname.substring(1);
+        pathname = pathname.substring(1);   // 화면 정보
+
+        set_title(pathname);
+        set_nav_active(pathname);
+    }
+    // 사이드바 active
+    function set_nav_active( pathname ) {
+        $('.nav-link').removeClass('active');
+
+        $('#nav_'+pathname).addClass('active');
+
+    }
+    // 모든 화면의 제목 + 소제목 설정
+    function set_title( pathname ) {
         var data = {
               "posts" : ["일지", "오늘 하루는 어땠나요? 오늘의 하루를 기록해주세요"]
             , "weekly" : ["공부기록", "매일 공부한 내용을 기록해주세요"]

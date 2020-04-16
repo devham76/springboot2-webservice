@@ -64,6 +64,7 @@ $(function () {
             var hour = array[i]["hour"];
             var minute = array[i]["minute"];
             var recordDate = array[i]["recordDate"].substring(0,10);
+            /*
             recordDate = new Date(recordDate);
             //if(r_id != null) {
             //    recordDate.setDate(recordDate.getDate() + 1);
@@ -72,7 +73,7 @@ $(function () {
             var r_month = recordDate.getMonth()
             var r_year = recordDate.getFullYear();
             var r_date = makeDate(r_year, r_month, r_day, 0);
-
+            */
             head_html += "<td align=center>"+dateOfWeekArr[i]
                         + "<span class='edit_icon' onclick='showModal(\""+i+"\")' style='padding-left:5px;cursor: pointer;' >"
                         + "<i class='far fa-edit'></i></span>"
@@ -80,11 +81,11 @@ $(function () {
 
             table_html += "<td class='day_record' id='content_"+i+"' style='width: 14%;padding: 0.1em;' >"
                                 +"<input type='hidden' name='r_id' value='"+r_id+"'>"
-                                +"<input type='hidden' name='recordDate' value='"+r_date+"'>"
+                                +"<input type='hidden' name='recordDate' value='"+recordDate+"'>"
                                 +"<input type='hidden' name='hour'       value='"+hour+"'>"
                                 +"<input type='hidden' name='minute'     value='"+minute+"'>"
                                 +"<input type='hidden' name='content'    value='"+content+"'>"
-                                +"<div class='day_date'>" + r_date + "</div>"
+                                +"<div class='day_date'>" + recordDate + "</div>"
                                 +"<div class='day_time'>" + hour + "시간 " + minute + "분</div>"
                                 +"<div class='day_content'>" +content + "</div>"
                           +"</td>";

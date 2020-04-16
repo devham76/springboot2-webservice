@@ -30,15 +30,19 @@
         var pathname = window.location.pathname;
         pathname = pathname.substring(1);   // 화면 정보
 
+        // 페이지 제목 설정
         set_title(pathname);
-        set_nav_active(pathname);
+
+        // sidebar가 있을때만 실행
+        var exist_sidebar = $("div").find(".sidebar-sticky");
+        if(exist_sidebar.length > 0){
+            set_nav_active(pathname);
+        }
     }
     // 사이드바 active
     function set_nav_active( pathname ) {
-        $('.nav-link').removeClass('active');
-
+        $('.nav-link').removeClass('active')
         $('#nav_'+pathname).addClass('active');
-
     }
     // 모든 화면의 제목 + 소제목 설정
     function set_title( pathname ) {

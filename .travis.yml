@@ -17,6 +17,22 @@ script: "./gradlew clean build"
 before_install:
   - chmod +x ./gradlew
 
+before_deploy:
+  - zip -r springboot2-webservice *
+  - mkdir -p deploy
+  - mv springboo2-webservice.zip deploy/springboot2-webservice.zip
+
+deploy:
+  - provider: s3
+    access_key_id: AKIA4XQVE4AYSEE5VT5Q
+    secret_access_key: 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
+    bucket: travis-springboot-build
+    region: ap-northeast-2
+    skip_cleanup: true
+    acl: private
+    local_dir: deploy
+    wait-until-deployed: true
+
 notifications:
   email:
     recipients:

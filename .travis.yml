@@ -32,6 +32,17 @@ deploy:
     acl: private
     local_dir: deploy
     wait-until-deployed: true
+  - provider: codedeploy
+    access_key_id: AKIA4XQVE4AYSEE5VT5Q
+    secret_access_key: 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
+    bucket: travis-springboot-build
+    key : springboot2-webservice.zip
+    build_type : zip
+    application : springboot2-webservice
+    deployment_group: springboot2-webservice-group
+    region: ap-northeast-2
+    wait-until-deployed: true
+
 
 notifications:
   email:

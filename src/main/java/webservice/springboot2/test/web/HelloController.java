@@ -8,7 +8,7 @@ import webservice.springboot2.test.web.dto.HelloResponseDto;
 
 @RestController
 public class HelloController {
-    @GetMapping("/hello")   // localhost:8080/hello로 접속하면 hello가 출력된다
+    @GetMapping("/hello")  
     public String hello() {
         return "hello";
     }

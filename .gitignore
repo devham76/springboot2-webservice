@@ -4,3 +4,4 @@
 .build
 
 application-oauth.properties
+.travis.yml

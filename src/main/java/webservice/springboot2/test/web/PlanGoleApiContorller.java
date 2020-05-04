@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
-@RestController // @Controller이 아닌이유: view 필요없이 단지api만 사용하므로. data return이목적
+@RestController // @Controller이 아닌이유: view 필요없이 단지 api만 사용하므로 data return이목적
 public class PlanGoleApiContorller {
 
     private final GolesService golesService;

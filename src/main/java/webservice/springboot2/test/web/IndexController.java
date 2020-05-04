@@ -28,7 +28,7 @@ import java.util.List;
  *************************************************************************
  */
 @RequiredArgsConstructor
-@Controller // view return이 주목적이다.
+@Controller
 public class IndexController {
 
     private final PostsService postsService;

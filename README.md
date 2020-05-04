@@ -1,13 +1,16 @@
+[![HitCount](http://hits.dwyl.com/devham76/springboot2-webservice.svg)](http://hits.dwyl.com/devham76/springboot2-webservice)
+
 # [햄의 기록](http://ec2-15-165-155-30.ap-northeast-2.compute.amazonaws.com:8080/loginView)
 "햄의 기록"은 취업 준비 기간을 기록한 개인 사이트입니다.
 
 ## 특징
 
 - :sparkles:  이동욱님의 「스프링 부트와 aws로 혼자 구현하는 웹 서비스」책의 실습을 바탕으로 구현했습니다.
-- 실습이 완료된 사이트에 기능을 추가하여 구현하였습니다.
-- AWS의 EC2에 배포하였습니다.
+- 실습이 완료된 사이트에 기능을 추가하여 구현했습니다.
 - 구글과 네이버(개발서버에서만 가능)를 통해 로그인 가능하며 로그인 시에만 열람할 수 있습니다.
 - USER로 인증된 사용자만 게시물을 등록할 수 있습니다. 
+- AWS EC2에 배포했습니다,
+- Travis CI, AWS S3, AWS CodeDeploy를 이용하여 배포를 자동화 했습니다. 
 
 
 ## 프로젝트를 통해 느낀점

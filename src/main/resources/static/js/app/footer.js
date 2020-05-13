@@ -1,5 +1,13 @@
 
     $(function() {
+
+        // 도메인 devham76.com으로 통일하기 위해 추가한다.
+        let host = window.location.host;
+        if(host != "devham76.com" && host.indexOf("localhost") <0){
+            window.location.href = "https://devham76.com"
+        }
+
+         // 모든 화면의 제목 + 소제목 설정
         set_init();
 
         //응원글 흐르기

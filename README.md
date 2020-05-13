@@ -1,6 +1,6 @@
 [![HitCount](http://hits.dwyl.com/devham76/springboot2-webservice.svg)](http://hits.dwyl.com/devham76/springboot2-webservice)
 
-# [햄의 기록](https://devham.com)
+# [햄의 기록](https://devham76.com)
 "햄의 기록"은 취업 준비 기간을 기록한 개인 사이트입니다.
 
 ## 특징

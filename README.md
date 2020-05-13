@@ -1,6 +1,6 @@
 [![HitCount](http://hits.dwyl.com/devham76/springboot2-webservice.svg)](http://hits.dwyl.com/devham76/springboot2-webservice)
 
-# [햄의 기록](http://ec2-15-165-155-30.ap-northeast-2.compute.amazonaws.com:8080/loginView)
+# [햄의 기록](https://devham.com)
 "햄의 기록"은 취업 준비 기간을 기록한 개인 사이트입니다.
 
 ## 특징

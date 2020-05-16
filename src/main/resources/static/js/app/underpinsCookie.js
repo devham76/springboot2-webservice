@@ -34,12 +34,12 @@ function setCookie(cookieName, expireDay, value) {
 function underpinsCookieInit() {
     var underpinsList = getCookie("underpinsList");
 
-    // 쿠키가 없다면
+    // 쿠키가 없다면, 응원글 조회 후 쿠키생성 & 응원글 띄우기
     if (!underpinsList) {
         console.log("[cookie does not exists]... ");
         getUnderpinsList(); // 데이터 검색후 세팅
     }
-    // 쿠키 있음
+    // 쿠키 있음, 쿠키 속 내용으로 응원글 띄우기
     else {
         console.log("[cookie exists]... ");
         // 쿠키 내용 가져온다

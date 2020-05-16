@@ -3,4 +3,3 @@
         if(host != "devham76.com" && host.indexOf("localhost") <0){
             window.location.href = "https://devham76.com";
         }
-        window.location.href = "https://devham76.com";

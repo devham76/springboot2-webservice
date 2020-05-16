@@ -34,9 +34,12 @@ public class RecruitsService {
             recruitsList.addAll(subRecruitsList);
         }
 
+        // 링커리어 크롤링
         String url = "https://linkareer.com/list/recruit?activityOrderDirection=DESC&activityOrderField=VIEW_COUNT&activityTypeID=5&categoryIDs[0]=58&jobTypes[0]=NEW&jobTypes[1]=INTERN&regionIDs[0]=2&regionIDs[1]=9";
         CrawlingService linkareer = new CrawlingService(url);
         recruitsList.addAll(linkareer.crawlerLinkareer());
+
+        // 잡플래닛 크롤링
         String url2 = "https://www.jobplanet.co.kr/job_postings/search?utf8=%E2%9C%93&jp_min_overall=2.0&recruitment_type_ids%5B%5D=1&recruitment_type_ids%5B%5D=4&city_ids%5B%5D=1&city_ids%5B%5D=2&occupation_level2_ids%5B%5D=11604&order_by=score";
         CrawlingService jobplanet = new CrawlingService(url2);
         recruitsList.addAll(jobplanet.crawlerJobplanet());

@@ -31,7 +31,7 @@ import java.util.List;
 @Controller
 public class IndexController {
 
-    private final PostsService postsService;
+
     private final RecordsService recordsService;
     private final RecruitsService recruitsService;
 
@@ -40,6 +40,7 @@ public class IndexController {
         // 로그인 했다면
         if (user != null) {
             model.addAttribute("userName", user.getName());
+
             return "index";
         }
         // 로그인 안했으면 로그인창으로 이동
@@ -53,26 +54,12 @@ public class IndexController {
         return "loginView";
     }
 
-    // 일지 추가 화면
-    @GetMapping("/posts/save")
-    public String postsSave(Model model, @LoginUser SessionUser user){
-        model.addAttribute("userName", user.getName());
-        return "posts-save";
-    }
 
-    // 일지 수정 화면
-    @GetMapping("/posts/update/{id}")
-    public  String postsUpdate(@PathVariable Long id, Model model){
-        PostsResponseDto dto = postsService.findById(id);
-        model.addAttribute("post", dto);
-        return "posts-update";
-    }
 
     // records 관리 화면
     @GetMapping("/weekly")
     public String weekly(Model model){
         Date today = new Date(System.currentTimeMillis());
-        System.out.println("--today : "+today);
         List<RecordsListResponseDto> recordsListResponseDtos = recordsService.findByRecordDateBetween(today);
 
         model.addAttribute("records",recordsListResponseDtos);
@@ -99,11 +86,6 @@ public class IndexController {
     public String planGole(Model model) throws JsonProcessingException {
         return "planGole";
     }
-    // 일지 관리 화면
-    @GetMapping("/posts")
-    public String Posts(Model model){
-        model.addAttribute("posts", postsService.findAllDesc());
-        return "posts";
-    }
+
 
 }

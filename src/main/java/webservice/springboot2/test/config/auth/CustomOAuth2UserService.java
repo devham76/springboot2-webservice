@@ -21,7 +21,8 @@ import java.util.Collections;
 /*
 *************************************************************************
 * [ class 설명 ]
-* 로그인 이후 가져온 사용자의 정보로 가입,수정,세션저장 등의 기능을 지원합니다.
+* 로그인 이후 가져온 사용자의 정보로
+* 가입,수정,세션저장 등의 기능을 지원합니다.
 * ************************************************************************
  */
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
@@ -44,6 +45,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         User user = saveOrUpdate(attributes);
 
         // SessionUser : 세션에 사용자 정보저장을 위한 Dto클래스, User클래스 사용x, 새로 만들어 사용한다.
+        // SessionUser 객체가 아닌 User 클래스를 그대로 사용하면 직렬화가 필요하다는 오류가 생긴다.
         httpSession.setAttribute("user", new SessionUser(user));
 
         return new DefaultOAuth2User(

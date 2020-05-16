@@ -28,6 +28,7 @@ public class CrawlingService {
             e.printStackTrace();
         }
     }
+
     public List<Recruits> crawlerLinkareer(){
         List<Recruits> recruitList = new ArrayList<>();
         Elements elements = doc.select("div.MuiBox-root.jss208");

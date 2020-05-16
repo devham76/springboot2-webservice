@@ -57,16 +57,12 @@ public class RecordsService {
 
         // 날짜 순으로 정렬
         Collections.sort(recordsListResponseDtos);
+
         // 1주일중에 빈 요일이 있으면 임의로 넣는다
         setRecordsListResponseDtos(recordsListResponseDtos, start, end);
+
         // 날짜 순으로 정렬
         Collections.sort(recordsListResponseDtos);
-        /*
-        System.out.println("RecordsListResponseDto  ==>");
-        for(RecordsListResponseDto r:recordsListResponseDtos){
-            System.out.println(r.getRecordDate()+" , "+ r.getContent());
-        }
-        */
 
         return recordsListResponseDtos;
     }

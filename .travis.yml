@@ -32,7 +32,7 @@ deploy:
     secret_access_key: $AWS_SECRET_KEY
     bucket: travis-springboot-build
     region: ap-northeast-2
-    cleanup: true
+    skip_cleanup: true
     acl: private
     local_dir: deploy
     wait_until_deployed: true

@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()    // URL별 관리를 설정하는 옵션의 시작점, 이부분이 선언되어야만 andMatchers옵션 사용 가능
                     .antMatchers( "/css/**",
                         "/images/**", "/js/**", "/h2-console/**",
-                        "/profile", "/loginView").permitAll()
+                        "/profile", "/loginView", "/profile").permitAll()
                     // 권한 관리대상자를 지정하는 옵션.  permitAll():전체열람권한
 
                     // get요청은 로그인한 사용자만 허용

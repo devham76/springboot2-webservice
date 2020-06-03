@@ -22,8 +22,11 @@ public class User extends BaseTimeEntity {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column
     private String email;
+
+    @Column
+    private String ip;
 
     @Column
     private String picture;
@@ -34,9 +37,10 @@ public class User extends BaseTimeEntity {
 
     // 해당 클래스의 빌더 패턴 클래스를 생성
     @Builder
-    public User(String name, String email, String picture, Role role) {
+    public User(String name, String email, String ip, String picture, Role role) {
         this.name = name;
         this.email = email;
+        this.ip = ip;
         this.picture = picture;
         this.role = role;
     }

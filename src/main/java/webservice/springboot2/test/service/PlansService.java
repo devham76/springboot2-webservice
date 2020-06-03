@@ -26,13 +26,13 @@ public class PlansService {
     public int save(String content, int goleSeq) {
         Goles goles = golesRepository.getOne(goleSeq);
 
-        // Plans객체만 생성한다고 insert되는건 아니다
+        // Plans객체만 생성한다고 insert되는건 아니다 (왜냐면, mappedBy goles이기때문)
         Plans newPlans = PlansSaveRequestDto.builder()
                 .content(content)
                 .goles(goles)
                 .build().toEntity();
 
-        // gole에 addplan해도 작동된다
+        // gole에 addplan해야 db에 insert된다
         goles.addPlan(newPlans);
         //repositoy.save작동한다
         return plansRepository.save(newPlans).getPlanSeq();

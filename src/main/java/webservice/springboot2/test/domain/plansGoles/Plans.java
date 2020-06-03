@@ -19,7 +19,7 @@ public class Plans {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content;
 
-    @JsonBackReference
+    @JsonBackReference  // 순환참조 방지. Goles를 참조하면 Goles는 다시 Plans를 참조하지 않게막는다
     @ManyToOne
     @JoinColumn(name = "goleSeq")
     private Goles goles;

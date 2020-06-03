@@ -62,6 +62,7 @@ public class RecruitsService {
             Document doc = documentbuilder.parse(is);
             Element element = doc.getDocumentElement();
             NodeList jobslList = element.getElementsByTagName("jobs");
+
             for (int i = 0; i < jobslList.getLength(); i++) {
                 String[] nodeValueList = new String[recruitsInfoNum];
                 for( int j=0; j<tagNames.length; j++) {

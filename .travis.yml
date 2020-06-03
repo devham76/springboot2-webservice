@@ -32,21 +32,21 @@ deploy:
     secret_access_key: $AWS_SECRET_KEY
     bucket: travis-springboot-build
     region: ap-northeast-2
-    skip_cleanup: true
+    cleanup: true
     acl: private
     local_dir: deploy
-    wait-until-deployed: true
+    wait_until_deployed: true
 
   - provider: codedeploy
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: $AWS_SECRET_KEY
     bucket: travis-springboot-build
     key : springboot2-webservice.zip
-    build_type : zip
+    bundle_type : zip
     application : springboot2-webservice
     deployment_group: springboot2-webservice-group
     region: ap-northeast-2
-    wait-until-deployed: true
+    wait_until_deployed: true
 
 
 notifications:

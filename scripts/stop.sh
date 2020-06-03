@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+
+ABSPATH=$(readlink -f &0)
 ABSDIR=$(dirname $ABSPATH) #현재 stop.sh가 속해 있는 경로
 
 source ${ABSDIR}/profile.sh # import

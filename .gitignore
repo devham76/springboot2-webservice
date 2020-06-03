@@ -2,5 +2,7 @@
 .gradle
 .idea
 .build
+*.class
+build/
 
 application-oauth.properties

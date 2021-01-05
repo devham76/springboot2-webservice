@@ -1,7 +1,8 @@
 [![HitCount](http://hits.dwyl.com/devham76/springboot2-webservice.svg)](http://hits.dwyl.com/devham76/springboot2-webservice)
 
 # [햄의 기록](https://devham76.com)
-"햄의 기록"은 취업 준비 기간을 기록한 개인 사이트입니다.
+- 2021.01.05 AWS 서비스 종료
+- "햄의 기록"은 취업 준비 기간을 기록한 개인 사이트입니다.
 
 > 왜 ? 이렇게 코드를 작성했는지, 이 기술을 선택했는지는 [여기에서 확인](AboutProject.md) 가능합니다.
 
